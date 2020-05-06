@@ -1,5 +1,6 @@
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
+import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.keys.dart';
 import 'package:clientf/services/app.router.dart';
@@ -65,10 +66,25 @@ class _AppDrawerState extends State<AppDrawer> {
             },
           ),
           MenuItem(
+            title: t('Login'),
+            icon: Icons.arrow_forward,
+            onTap: () {
+              AppRouter.open(context, AppRoutes.login);
+            },
+          ),
+          MenuItem(
             title: t('Profile'),
             icon: Icons.person,
             onTap: () {
               AppRouter.open(context, AppRoutes.profile);
+            },
+          ),
+          MenuItem(
+            title: t('Logout'),
+            icon: Icons.reply,
+            onTap: () async {
+              await app.logout();
+              AppRouter.open(context, AppRoutes.home);
             },
           ),
           DrawerDivider(title: t('Etc')),

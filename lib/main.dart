@@ -25,6 +25,7 @@ class CommunityApp extends StatefulWidget {
 class _CommunityAppState extends State<CommunityApp> {
   _CommunityAppState() {
     AppService.init();
+    app.init();
   }
   @override
   Widget build(BuildContext context) {
@@ -34,8 +35,8 @@ class _CommunityAppState extends State<CommunityApp> {
       ],
       child: MaterialApp(
         theme: appTheme,
-        // initialRoute: AppRoutes.home,
-        initialRoute: AppRoutes.register,
+        initialRoute: AppRoutes.home,
+        // initialRoute: AppRoutes.register,
         onGenerateRoute: AppRouter.generate,
         navigatorKey: AppService.navigatorKey,
         localizationsDelegates: [

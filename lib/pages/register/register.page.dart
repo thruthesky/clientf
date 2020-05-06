@@ -1,3 +1,4 @@
+import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
@@ -10,6 +11,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nicknameController = TextEditingController();
@@ -27,7 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
     final data = {
       'email': email,
       'password': password,
-      'nickname': nickname,
+      'displayName': nickname,
       'phoneNumber': phoneNumber,
       'birthday': birthday,
     };
@@ -87,11 +89,12 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             RaisedButton(
               onPressed: () {
-                AppService.functions().call({
-                  'route': 'user.register',
-                  'data': getFormData()
-                }).then((res) {
-                  print(res.data);
+                final data = getFormData();
+                AppService.functions()
+                    .call({'route': 'user.register', 'data': data}).then((res) {
+                  app.login(data['email'], data['password']).then((user) {
+                    print(user.email);
+                  });
                 });
               },
               child: T('register submit'),

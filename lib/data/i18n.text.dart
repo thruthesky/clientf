@@ -1,3 +1,5 @@
+import 'package:clientf/services/app.defines.dart';
+
 /// 대소문자 구분없이 기록
 /// 나중에 모두 소문자로 변경해서 사용 함
 const Map<String, Map<String, String>> textTranslations = {
@@ -73,6 +75,38 @@ const Map<String, Map<String, String>> textTranslations = {
     'ko': '회원 등록',
     'en': 'Register',
   },
+  'login': {
+    'ko': '로그인',
+    'en': 'Login',
+  },
+  'login page title': {
+    'ko': '로그인',
+    'en': 'Login',
+  },
+  'login submit': {
+    'ko': '로그인',
+    'en': 'Login',
+  },
+  'logout': {
+    'ko': '로그아웃',
+    'en': 'Logout',
+  },
+  'ok': {
+    'ko': '확인',
+    'en': 'OK',
+  },
+  ERROR_INVALID_EMAIL: {
+    'ko': '이메일 주소 형식 오류\n올바른 이메일 주소를 입력 해 주세요.',
+    'en': 'The email address is badly formatted.\nPleae input correct email.',
+  },
+  ERROR_USER_NOT_FOUND: {
+    'ko': '이메일에 대한 회원 정보를 찾지 못했습니다. 회원 가입을 하지 않았거나 탈퇴하였습니다.',
+    'en': 'No user found by that email. Or the user may have been resigned.',
+  },
+  ERROR_WRONG_PASSWORD: {
+    'ko': '비밀번호가 올바르지 않습니다.',
+    'en': 'The password is invalid or the user does not have a password.'
+  }
 };
 
 ///

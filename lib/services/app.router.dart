@@ -1,9 +1,11 @@
 import 'package:clientf/globals.dart';
 import 'package:clientf/pages/help/help.page.dart';
 import 'package:clientf/pages/home/home.page.dart';
+import 'package:clientf/pages/login/login.page.dart';
 import 'package:clientf/pages/profile/profile.page.dart';
 import 'package:clientf/pages/register/register.page.dart';
 import 'package:clientf/pages/settings/settings.page.dart';
+import 'package:clientf/services/app.defines.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -38,6 +40,8 @@ class AppRouter {
       route = _buildRoute(settings, HomePage());
     else if (settings.name == AppRoutes.register)
       route = _buildRoute(settings, RegisterPage());
+    else if (settings.name == AppRoutes.login)
+      route = _buildRoute(settings, LoginPage());
     else if (settings.name == AppRoutes.profile)
       route = _buildRoute(settings, ProfilePage());
     else if (settings.name == AppRoutes.help)

@@ -3,6 +3,7 @@ import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.keys.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hive/hive.dart';
 
 class AppService {
@@ -55,5 +56,23 @@ class AppService {
       functionName: 'router',
     );
     return callable;
+  }
+
+  /// Show alert box
+  /// @example AppService.alert(null, e.message);
+  static alert(String title, String content) {
+    showPlatformDialog(
+      context: context,
+      builder: (_) => PlatformAlertDialog(
+        title: title != null ? Text(title) : null,
+        content: Text(content),
+        actions: <Widget>[
+          PlatformDialogAction(
+            child: PlatformText('Ok'),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,8 +1,11 @@
-import 'package:clientf/globals.dart';
+import 'package:clientf/models/app.model.dart';
+import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.router.dart';
 import 'package:clientf/widgets/app.drawer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -34,6 +37,18 @@ class _HomePageState extends State<HomePage> {
               },
               child: T('Register'),
             ),
+            RaisedButton(
+              onPressed: () {
+                AppRouter.open(context, AppRoutes.login);
+              },
+              child: T('Login'),
+            ),
+            Selector<AppModel, FirebaseUser>(
+                builder: (context, user, child) {
+                  if (user == null) return SizedBox.shrink();
+                  return T('user login: ${user.email}');
+                },
+                selector: (_, model) => model.user),
           ],
         ),
       ),
