@@ -1,4 +1,3 @@
-
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.i18n.dart';
@@ -30,6 +29,7 @@ class _AppDrawerState extends State<AppDrawer> {
     app.drawer = false;
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -64,19 +64,26 @@ class _AppDrawerState extends State<AppDrawer> {
               AppRouter.open(context, AppRoutes.register);
             },
           ),
+          MenuItem(
+            title: t('Profile'),
+            icon: Icons.person,
+            onTap: () {
+              AppRouter.open(context, AppRoutes.profile);
+            },
+          ),
           DrawerDivider(title: t('Etc')),
           MenuItem(
             title: t('help'),
             icon: Icons.help_outline,
             onTap: () {
-              ///
+              AppRouter.open(context, AppRoutes.help);
             },
           ),
           MenuItem(
             title: t('setting'),
             icon: Icons.settings,
             onTap: () {
-              ///
+              AppRouter.open(context, AppRoutes.settings);
             },
           ),
         ],

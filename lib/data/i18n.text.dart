@@ -21,6 +21,10 @@ const Map<String, Map<String, String>> textTranslations = {
     'ko': '회원가입',
     'en': 'Register',
   },
+  'profile': {
+    'ko': '회원정보',
+    'en': 'Profile',
+  },
   'chatting': {
     'ko': '채팅',
     'en': 'Chatting',

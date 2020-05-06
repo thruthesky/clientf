@@ -1,4 +1,5 @@
 import 'package:clientf/globals.dart';
+import 'package:clientf/pages/help/help.page.dart';
 import 'package:clientf/pages/home/home.page.dart';
 import 'package:clientf/pages/profile/profile.page.dart';
 import 'package:clientf/pages/register/register.page.dart';
@@ -39,6 +40,8 @@ class AppRouter {
       route = _buildRoute(settings, RegisterPage());
     else if (settings.name == AppRoutes.profile)
       route = _buildRoute(settings, ProfilePage());
+    else if (settings.name == AppRoutes.help)
+      route = _buildRoute(settings, HelpPage());
     else if (settings.name == AppRoutes.settings)
       route = _buildRoute(settings, SettingsPage());
     return route;
