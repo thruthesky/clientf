@@ -34,7 +34,8 @@ class _CommunityAppState extends State<CommunityApp> {
       ],
       child: MaterialApp(
         theme: appTheme,
-        initialRoute: AppRoutes.home,
+        // initialRoute: AppRoutes.home,
+        initialRoute: AppRoutes.register,
         onGenerateRoute: AppRouter.generate,
         navigatorKey: AppService.navigatorKey,
         localizationsDelegates: [

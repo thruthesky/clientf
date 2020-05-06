@@ -49,6 +49,30 @@ const Map<String, Map<String, String>> textTranslations = {
     'ko': '로딩 중입니다.',
     'en': 'Loading...',
   },
+  'input email': {
+    'ko': '이메일 주소를 입력 해 주세요.',
+    'en': 'Please input email address.',
+  },
+  'input password': {
+    'ko': '비밀번호를 입력 해 주세요.',
+    'en': 'Please input password.',
+  },
+  'input nickname': {
+    'ko': '닉네임을 입력해주세요.',
+    'en': 'Please input nickname.',
+  },
+  'input phone number': {
+    'ko': '전화번호를 입력 해 주세요.',
+    'en': 'Please input phone number.',
+  },
+  'input birthday': {
+    'ko': '생년월일을 선택 해 주세요.',
+    'en': 'Please input birday.',
+  },
+  'register submit': {
+    'ko': '회원 등록',
+    'en': 'Register',
+  },
 };
 
 ///

@@ -5,8 +5,7 @@
 
 * 호출 예제
 
-
-```
+```dart
 (() async {
   final HttpsCallable callable = CloudFunctions.instance.getHttpsCallable(
     functionName: 'router',
@@ -16,6 +15,17 @@
   print(res.data.toString());
 })();
 ```
+
+* 아래와 같이 호출 할 수 있습니다.
+  
+``` dart
+AppService.functions()
+    .call({'route': 'user.version'}).then((res) {
+  print(res.data);
+});
+```
+
+
 
 ### 기본 호출 및 에러 예제
 

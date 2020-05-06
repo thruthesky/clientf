@@ -1,20 +1,16 @@
-
-
 import 'package:clientf/data/i18n.text.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.keys.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-
 class AppService {
-
   static var navigatorKey = GlobalKey<NavigatorState>();
 
   /// Returns the context of [navigatorKey]
   static BuildContext get context =>
       AppService.navigatorKey.currentState.overlay.context;
-
 
   static init() async {
     i18nTextKeyToLower();
@@ -51,5 +47,13 @@ class AppService {
     int run = getSetting(AppKey.runCount, defaultValue: 0);
     run++;
     setSetting(AppKey.runCount, run);
+  }
+
+  /// Returns `CloudFunctions Callbale` object.
+  static HttpsCallable functions() {
+    final HttpsCallable callable = CloudFunctions.instance.getHttpsCallable(
+      functionName: 'router',
+    );
+    return callable;
   }
 }
