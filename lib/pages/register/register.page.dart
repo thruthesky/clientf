@@ -1,38 +1,29 @@
-import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.i18n.dart';
-import 'package:clientf/services/app.router.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
-
+class RegisterPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  _HomePageState() {
-    //
-  }
-
+class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: T('appName'),
+        title: T('Register'),
       ),
       endDrawer: AppDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            T('app subtitle'),
             RaisedButton(
               onPressed: () {
-                AppRouter.open(context, AppRoutes.register);
+                ///
               },
-              child: T('Register'),
+              child: T('register submit'),
             ),
           ],
         ),

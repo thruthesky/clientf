@@ -1,4 +1,3 @@
-
 import 'package:clientf/data/i18n.text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -25,25 +24,26 @@ class AppLocalizations {
   /// Translates the text code into text
   /// @warning If you update the book and call this method immediately, then there might be no text available yet,
   ///   since it needs time to load all `default` texts into memory.
-  /// 
-  String t(String code, {Map<String, String>info}) {
-    print('t:: $code, ${locale.languageCode}');
+  ///
+  String t(String code, {Map<String, String> info}) {
+    // print('t:: $code, ${locale.languageCode}');
     if (code == null) return null;
     var texts = textTranslations;
     // print(texts);
     code = code.toLowerCase();
-    if (texts == null || texts[code] == null || texts[code][locale.languageCode] == null ) {
+    if (texts == null ||
+        texts[code] == null ||
+        texts[code][locale.languageCode] == null) {
       return code;
     }
 
     String text = texts[code][locale.languageCode];
 
-    if ( info != null ) {
-      for( String name in info.keys ) {
+    if (info != null) {
+      for (String name in info.keys) {
         text = text.replaceAll('#$name', info[name]);
       }
     }
-
 
     return text;
   }

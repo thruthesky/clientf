@@ -58,10 +58,10 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
           DrawerDivider(title: t('Member')),
           MenuItem(
-            title: t('Reigster'),
-            icon: Icons.sort_by_alpha,
+            title: t('Register'),
+            icon: Icons.person_add,
             onTap: () {
-              ///
+              AppRouter.open(context, AppRoutes.register);
             },
           ),
           DrawerDivider(title: t('Etc')),
