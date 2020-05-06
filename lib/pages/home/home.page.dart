@@ -1,3 +1,6 @@
+import 'package:clientf/globals.dart';
+import 'package:clientf/services/app.i18n.dart';
+import 'package:clientf/services/app.router.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,18 +19,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('플러터 커뮤니티 앱'),
+        title: T('appName'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              '플러터 스터디 공개 프로젝트 - 커뮤니티 앱 개발',
-            ),
+            T('app subtitle'),
             RaisedButton(
-              onPressed: () {},
-              child: Text('회원가입'),
+              onPressed: () {
+                AppRouter.open(context, AppRoutes.register);
+              },
+              child: T('Register'),
             ),
           ],
         ),

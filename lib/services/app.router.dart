@@ -3,14 +3,38 @@ import 'package:clientf/pages/home/home.page.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
+    ///
+  /// Opens a page
+  /// [nextRoute] is the route to open
+  /// [closeDrawer] closes one more route if it's true causing the opened drawer to be closed.
+  static Future open(
+    context,
+    nextRoute, {
+    Map<String, dynamic> arguments,
+  }) {
+    /// If the drawer if opened, then close it.
+    if (app.drawer) {
+      return Navigator.popAndPushNamed(
+        context,
+        nextRoute,
+        arguments: arguments,
+      );
+    } else {
+      return Navigator.pushNamed(
+        context,
+        nextRoute,
+        arguments: arguments,
+      );
+    }
+  }
+
+
   static Route<dynamic> generate(RouteSettings settings) {
     Route route;
-
     if (settings.name == AppRoutes.home)
       route = _buildRoute(settings, HomePage());
     else if (settings.name == AppRoutes.register)
       route = _buildRoute(settings, HomePage());
-
     return route;
   }
 
