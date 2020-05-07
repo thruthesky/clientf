@@ -1,6 +1,7 @@
 # ClientF
 
 * 정식명칭: ClientF
+* 명칭설명: EngineF 의 Flutter Client 라는 뜻. Client 가 Angular 이면 ClientA 가 되고 View 이면 ClientV, React 이면 ClientR.
 * 라이센스: MIT
 * 설명: [파이어베이스 백엔드](https://github.com/thruthesky/enginf)와 플러터로 만드는 커뮤니티 앱
 * 기능: 회원 로그인, 로그아웃, 가입, 수정, 비밀번호 찾기, 회원 사진 등록, 게시판 전체 기능.
@@ -10,6 +11,11 @@
 * [파이어베이스 백엔드](https://github.com/thruthesky/enginf) README 참고
 * 본 프로젝트에 참여하고 싶은 분은 [ClientF 개발자 가이드](https://github.com/thruthesky/clientf/blob/master/docs/DeveloperGuideLine.md)를 보고 따라해 주시면 됩니다.
 * [프로토콜 문서](https://github.com/thruthesky/clientf/blob/master/docs/Protocols.md)는 클라이언트와 백엔드 간의 통신을 설명합니다.
+
+## 설치
+
+* `git clone https://github.com/thruthesky/clientf`
+* `git submodule update --init`
 
 ## 회원 가입
 
@@ -74,6 +80,8 @@ try {
 
 ## 온라인 세미나 진행
 
+* 파이어베이스 및 백엔드 설정
+  * 백엔드 설치 설명서 제공
 * ClientF 의 기본 폴더 및 파일 구조
 * 라우팅 및 페이지 구조
 * 다국어 설정

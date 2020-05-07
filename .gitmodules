@@ -1,0 +1,3 @@
+[submodule "lib/clientf_backend_service"]
+	path = lib/clientf_backend_service
+	url = https://github.com/thruthesky/clientf_backend_service
