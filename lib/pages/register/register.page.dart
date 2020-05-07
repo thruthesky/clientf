@@ -13,7 +13,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nicknameController = TextEditingController();
@@ -94,18 +93,14 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             RaisedButton(
               onPressed: () async {
-                print('Register button pressed');
+                // print('Register button pressed');
                 final data = getFormData();
-                final user = await app.register(data);
-                if ( user != null ) {
+                try {
+                  await app.register(data);
                   AppRouter.open(context, AppRoutes.home);
+                } catch (e) {
+                  AppService.alert(null, t(e));
                 }
-                // AppService.functions()
-                //     .call({'route': 'user.register', 'data': data}).then((res) {
-                //   app.login(data['email'], data['password']).then((user) {
-                //     print(user.email);
-                //   });
-                // });
               },
               child: T('register submit'),
             ),

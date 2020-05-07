@@ -11,7 +11,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-
   await Hive.initFlutter();
   await Hive.openBox(HiveBox.settings);
   runApp(CommunityApp());
@@ -35,8 +34,9 @@ class _CommunityAppState extends State<CommunityApp> {
       ],
       child: MaterialApp(
         theme: appTheme,
-        // initialRoute: AppRoutes.home,
-        initialRoute: AppRoutes.register,
+        initialRoute: AppRoutes.home,
+        // initialRoute: AppRoutes.profile,
+        // initialRoute: AppRoutes.register,
         onGenerateRoute: AppRouter.generate,
         navigatorKey: AppService.navigatorKey,
         localizationsDelegates: [

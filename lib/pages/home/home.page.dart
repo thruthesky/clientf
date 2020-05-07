@@ -43,12 +43,24 @@ class _HomePageState extends State<HomePage> {
               },
               child: T('Login'),
             ),
+            RaisedButton(
+              onPressed: () {
+                AppRouter.open(context, AppRoutes.profile);
+              },
+              child: T('Profile'),
+            ),
             Selector<AppModel, FirebaseUser>(
                 builder: (context, user, child) {
                   if (user == null) return SizedBox.shrink();
                   print('phoneNumber: ${user.phoneNumber}');
                   print('displayName: ${user.displayName}');
-                  return T('user login: ${user.email}');
+                  return Column(
+                    children: <Widget>[
+                      Text('user login: ${user.email}'),
+                      Text('phoneNumber: ${user.phoneNumber}'),
+                      Text('displayName: ${user.displayName}'),
+                    ],
+                  );
                 },
                 selector: (_, model) => model.user),
           ],

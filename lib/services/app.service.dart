@@ -66,7 +66,7 @@ class AppService {
       throw 'error on allableResult.data in callFunctions()';
     }
 
-    print('=====> callableResult.data: <${result.runtimeType}> $result');
+    // print('=====> callableResult.data: <${result.runtimeType}> $result');
     if (result is String) {
       throw result;
     } else {

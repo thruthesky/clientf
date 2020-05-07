@@ -1,5 +1,5 @@
+import 'package:clientf/helpers/user_data.helper.dart';
 import 'package:clientf/services/app.defines.dart';
-import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +19,15 @@ class AppModel extends ChangeNotifier {
   AppModel() {
     print('AppModel() consturctor');
   }
+
+  bool get loggedIn {
+    return user != null;
+  }
+
+  bool get notLoggedIn {
+    return loggedIn == false;
+  }
+
   init() async {
     print('AppModel::init()');
     user = await _auth.currentUser();
@@ -68,24 +77,51 @@ class AppModel extends ChangeNotifier {
     }
   }
 
-  ///
+  /// If there is an Error, it will throw the error code.
   Future<FirebaseUser> register(data) async {
-    var registeredUser;
-    try {
-      registeredUser = await AppService.callFunction(
-        {'route': 'user.register', 'data': data},
-      );
-    } catch (e) {
-      AppService.alert(null, t(e));
-      return null;
-    }
-    try {
-      final loggedUser = await login(registeredUser['email'], data['password']);
-      return loggedUser;
-    } catch (e) {
-      AppService.alert(null, t(e));
-      return null;
-    }
+    var registeredUser = await AppService.callFunction(
+      {'route': 'user.register', 'data': data},
+    );
+    final loggedUser = await login(registeredUser['email'], data['password']);
+    return loggedUser;
+
+    // var registeredUser;
+    // try {
+    //   registeredUser = await AppService.callFunction(
+    //     {'route': 'user.register', 'data': data},
+    //   );
+    // } catch (e) {
+    //   AppService.alert(null, t(e));
+    //   return null;
+    // }
+    // try {
+    //   final loggedUser = await login(registeredUser['email'], data['password']);
+    //   return loggedUser;
+    // } catch (e) {
+    //   AppService.alert(null, t(e));
+    //   return null;
+    // }
+  }
+
+  /// Updates user data
+  /// It can update not only `displayName` and `photoUrl` but also `phoneNumber` and all of other things.
+  Future<UserData> update(data) async {
+    data['uid'] = user.uid;
+    var update = await AppService.callFunction(
+      {'route': 'user.update', 'data': data},
+    );
+    await user.reload();
+    user = await _auth.currentUser();
+    return UserData.fromMap(update);
+  }
+
+  /// Gets user profile data from Firestore  & return user data as `UserData` helper class.
+  /// @warning It does `NOT notifyListeners()` and does `NOT update user`.
+  Future<UserData> profile() async {
+    if (notLoggedIn || user?.uid == null) throw LOGIN_FIRST;
+    // print(user.uid);
+    return UserData.fromMap(await AppService.callFunction(
+        {'route': 'user.data', 'data': user.uid}));
   }
 
   logout() async {

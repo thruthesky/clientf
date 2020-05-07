@@ -75,6 +75,10 @@ const Map<String, Map<String, String>> textTranslations = {
     'ko': '회원 등록',
     'en': 'Register',
   },
+  'profile submit': {
+    'ko': '회원 정보 수정',
+    'en': 'Update Profile',
+  },
   'login': {
     'ko': '로그인',
     'en': 'Login',
@@ -105,20 +109,31 @@ const Map<String, Map<String, String>> textTranslations = {
   },
   ERROR_WRONG_PASSWORD: {
     'ko': '비밀번호가 올바르지 않습니다.',
-    'en': 'The password is invalid or the user does not have a password.'
+    'en': 'The password is invalid or the user does not have a password.',
   },
   AUTH_INVALID_PHONE_NUMBER: {
     'ko': '전화번호가 올바르지 않습니다. 올바른 전화번호를 입력 해 주세요.',
-    'en': 'Invalid phone number. Please input correct phone number.'
+    'en': 'Invalid phone number. Please input correct phone number.',
   },
-
   INPUT_EMAIL: {
     'ko': '이메일 주소를 입력 해 주세요.',
-    'en': 'Please input email address.'
+    'en': 'Please input email address.',
   },
   INPUT_PASSWORD: {
     'ko': '비밀번호를 입력 해 주세요.',
-    'en': 'Please input password.'
+    'en': 'Please input password.',
+  },
+  AUTH_INVALID_EMAIL: {
+    'ko': '이메일 주소 형식이 올바르지 않습니다.',
+    'en': 'Email address is not incorrect.',
+  },
+  AUTH_INVALID_PASSWORD: {
+    'ko': '비밀번호가 올바르지 않습니다.',
+    'en': 'The password is invalid.',
+  },
+  LOGIN_FIRST: {
+    'ko': '로그인을 해 주세요.',
+    'en': 'Please, login first!',
   }
 };
 
