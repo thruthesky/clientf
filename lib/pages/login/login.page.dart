@@ -62,30 +62,9 @@ class _LoginPageState extends State<LoginPage> {
 
                 try {
                   final user = await app.login(data['email'], data['password']);
-                  if (user == null) {
-                    print('Error login');
-                  } else {
-                    print('success login');
-                  }
-                } on PlatformException catch (e) {
-                  final code = e.code.toLowerCase();
-                  if (code == ERROR_INVALID_EMAIL) {
-                    AppService.alert(null, t(ERROR_INVALID_EMAIL));
-                  } else if (code == ERROR_USER_NOT_FOUND) {
-                    AppService.alert(null, t(ERROR_USER_NOT_FOUND));
-                  } else if (code == ERROR_WRONG_PASSWORD) {
-                    AppService.alert(null, t(ERROR_WRONG_PASSWORD));
-                  }
                 } catch (e) {
-                  print(e);
+                  AppService.alert(null, t(e));
                 }
-
-                // AppService.functions()
-                //     .call({'route': 'user.register', 'data': data}).then((res) {
-                //   app.login(data['email'], data['password']).then((user) {
-                //     print(user.email);
-                //   });
-                // });
               },
               child: T('login submit'),
             ),

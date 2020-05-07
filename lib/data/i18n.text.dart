@@ -106,6 +106,19 @@ const Map<String, Map<String, String>> textTranslations = {
   ERROR_WRONG_PASSWORD: {
     'ko': '비밀번호가 올바르지 않습니다.',
     'en': 'The password is invalid or the user does not have a password.'
+  },
+  AUTH_INVALID_PHONE_NUMBER: {
+    'ko': '전화번호가 올바르지 않습니다. 올바른 전화번호를 입력 해 주세요.',
+    'en': 'Invalid phone number. Please input correct phone number.'
+  },
+
+  INPUT_EMAIL: {
+    'ko': '이메일 주소를 입력 해 주세요.',
+    'en': 'Please input email address.'
+  },
+  INPUT_PASSWORD: {
+    'ko': '비밀번호를 입력 해 주세요.',
+    'en': 'Please input password.'
   }
 };
 

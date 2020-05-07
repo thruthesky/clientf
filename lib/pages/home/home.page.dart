@@ -46,6 +46,8 @@ class _HomePageState extends State<HomePage> {
             Selector<AppModel, FirebaseUser>(
                 builder: (context, user, child) {
                   if (user == null) return SizedBox.shrink();
+                  print('phoneNumber: ${user.phoneNumber}');
+                  print('displayName: ${user.displayName}');
                   return T('user login: ${user.email}');
                 },
                 selector: (_, model) => model.user),
