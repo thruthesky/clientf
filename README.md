@@ -8,7 +8,7 @@
 ## 참고 문서
 
 * [파이어베이스 백엔드](https://github.com/thruthesky/enginf) README 참고
-* [ClientF 개발자 가이드]()
+* [ClientF 개발자 가이드](https://github.com/thruthesky/clientf/blob/master/docs/DeveloperGuideLine.md)
 
 ## 프로토콜
 
