@@ -1,10 +1,8 @@
 import 'dart:async';
 
+import 'package:clientf/enginf_clientf_service/enginf.user.model.dart';
 import 'package:clientf/globals.dart';
-import 'package:clientf/helpers/user_data.helper.dart';
-import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
-import 'package:clientf/services/app.router.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
@@ -17,7 +15,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  UserData userData;
+  EnginfUser userData;
 
   // final TextEditingController _emailController = TextEditingController();
   // final TextEditingController _passwordController = TextEditingController();
@@ -53,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   init() {
-    if (app.user == null) {
+    if (app.f.user == null) {
       Timer(Duration(milliseconds: 1500), loadProfile);
     } else {
       loadProfile();
@@ -62,7 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   loadProfile() async {
     try {
-      userData = await app.profile();
+      userData = await app.f.profile();
       setState(() {
         _nicknameController.text = userData.displayName;
         _phoneNumberController.text = userData.phoneNumber;
@@ -118,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 print('Prifole update button pressed');
                 final data = getFormData();
                 try {
-                  var updated = await app.update(data);
+                  var updated = await app.f.update(data);
                   print(updated);
                   // AppRouter.open(context, AppRoutes.home);
                 } catch (e) {

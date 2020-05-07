@@ -50,29 +50,6 @@ class AppService {
     setSetting(AppKey.runCount, run);
   }
 
-  /// Returns result from `Cloud Functions` call.
-  /// If there is error on protocol, then it throws the error message.
-  static Future<dynamic> callFunction(Map<String, dynamic> request) async {
-    final HttpsCallable callable = CloudFunctions.instance.getHttpsCallable(
-      functionName: 'router',
-    );
-    HttpsCallableResult callableResult = await callable.call(request);
-
-    var result;
-
-    try {
-      result = callableResult.data;
-    } catch (e) {
-      throw 'error on allableResult.data in callFunctions()';
-    }
-
-    // print('=====> callableResult.data: <${result.runtimeType}> $result');
-    if (result is String) {
-      throw result;
-    } else {
-      return result;
-    }
-  }
 
   /// Show alert box
   /// @example AppService.alert(null, e.message);

@@ -1,4 +1,4 @@
-import 'package:clientf/models/app.model.dart';
+import 'package:clientf/enginf_clientf_service/enginf.model.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.router.dart';
@@ -49,11 +49,11 @@ class _HomePageState extends State<HomePage> {
               },
               child: T('Profile'),
             ),
-            Selector<AppModel, FirebaseUser>(
+            Selector<EnginfModel, FirebaseUser>(
                 builder: (context, user, child) {
                   if (user == null) return SizedBox.shrink();
-                  print('phoneNumber: ${user.phoneNumber}');
-                  print('displayName: ${user.displayName}');
+                  // print('phoneNumber: ${user.phoneNumber}');
+                  // print('displayName: ${user.displayName}');
                   return Column(
                     children: <Widget>[
                       Text('user login: ${user.email}'),

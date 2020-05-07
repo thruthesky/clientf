@@ -14,12 +14,17 @@
 
 ## 설치
 
-* `git clone https://github.com/thruthesky/clientf`
+* `git clone `
 * `git submodule update --init`
 
-## 회원 가입
+## 회원 관리
 
 @todo: 개발가이드로 이동
+
+* 정보 업데이트가 필요 없는, 회원 로그인, 로그아웃은 EnginF 와 상관없이 그냥 `firebase_auth` 플러그인으로 하면 된다.
+* 회원 가입이나 수정과 같이 정보를 업데이트하는 경우, Enginf 를 통해서 하면 된다.
+
+
 
 ### 회원 가입 로직
 

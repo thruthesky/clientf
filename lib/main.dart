@@ -1,9 +1,11 @@
+
 import 'package:clientf/globals.dart';
 import 'package:clientf/models/app.localization.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.router.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
@@ -28,9 +30,16 @@ class _CommunityAppState extends State<CommunityApp> {
   }
   @override
   Widget build(BuildContext context) {
+
+    if (kDebugMode) {
+      // testEnginfUser();
+    }
+
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => app),
+        ChangeNotifierProvider(create: (context) => app.f),
       ],
       child: MaterialApp(
         theme: appTheme,

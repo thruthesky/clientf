@@ -83,7 +83,7 @@ class _AppDrawerState extends State<AppDrawer> {
             title: t('Logout'),
             icon: Icons.reply,
             onTap: () async {
-              await app.logout();
+              await app.f.logout();
               AppRouter.open(context, AppRoutes.home);
             },
           ),

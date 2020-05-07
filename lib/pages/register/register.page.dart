@@ -96,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 // print('Register button pressed');
                 final data = getFormData();
                 try {
-                  await app.register(data);
+                  await app.f.register(data);
                   AppRouter.open(context, AppRoutes.home);
                 } catch (e) {
                   AppService.alert(null, t(e));
