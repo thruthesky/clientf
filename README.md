@@ -10,7 +10,6 @@
 * [파이어베이스 백엔드](https://github.com/thruthesky/enginf) README 참고
 * 본 프로젝트에 참여하고 싶은 분은 [ClientF 개발자 가이드](https://github.com/thruthesky/clientf/blob/master/docs/DeveloperGuideLine.md)를 보고 따라해 주시면 됩니다.
 * [프로토콜 문서](https://github.com/thruthesky/clientf/blob/master/docs/Protocols.md)는 클라이언트와 백엔드 간의 통신을 설명합니다.
-* 
 
 ## 회원 가입
 
@@ -73,12 +72,12 @@ try {
 ```
 
 
-## 온라인 세마나
+## 온라인 세미나 진행
 
 * ClientF 의 기본 폴더 및 파일 구조
 * 라우팅 및 페이지 구조
 * 다국어 설정
-* Backend API 연결 및 프로토콜
+* 파이어베이스 벡엔드와 데이터 송수신 설명
 * 회원 가입, 로그인, 수정, 로그아웃
 * 회원 사진 등록
 
