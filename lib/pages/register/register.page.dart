@@ -47,64 +47,66 @@ class _RegisterPageState extends State<RegisterPage> {
         title: T('Register'),
       ),
       endDrawer: AppDrawer(),
-      body: Padding(
-        padding: EdgeInsets.all(AppSpace.space),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            TextField(
-              controller: _emailController,
-              onSubmitted: (text) {},
-              decoration: InputDecoration(
-                hintText: t('input email'),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(AppSpace.space),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              TextField(
+                controller: _emailController,
+                onSubmitted: (text) {},
+                decoration: InputDecoration(
+                  hintText: t('input email'),
+                ),
               ),
-            ),
-            AppSpace.halfBox,
-            TextField(
-              controller: _passwordController,
-              onSubmitted: (text) {},
-              decoration: InputDecoration(
-                hintText: t('input password'),
+              AppSpace.halfBox,
+              TextField(
+                controller: _passwordController,
+                onSubmitted: (text) {},
+                decoration: InputDecoration(
+                  hintText: t('input password'),
+                ),
               ),
-            ),
-            AppSpace.halfBox,
-            TextField(
-              controller: _nicknameController,
-              onSubmitted: (text) {},
-              decoration: InputDecoration(
-                hintText: t('input nickname'),
+              AppSpace.halfBox,
+              TextField(
+                controller: _nicknameController,
+                onSubmitted: (text) {},
+                decoration: InputDecoration(
+                  hintText: t('input nickname'),
+                ),
               ),
-            ),
-            AppSpace.halfBox,
-            TextField(
-              controller: _phoneNumberController,
-              onSubmitted: (text) {},
-              decoration: InputDecoration(
-                hintText: t('input phone number'),
+              AppSpace.halfBox,
+              TextField(
+                controller: _phoneNumberController,
+                onSubmitted: (text) {},
+                decoration: InputDecoration(
+                  hintText: t('input phone number'),
+                ),
               ),
-            ),
-            AppSpace.halfBox,
-            TextField(
-              controller: _birthdayController,
-              onSubmitted: (text) {},
-              decoration: InputDecoration(
-                hintText: t('input birthday'),
+              AppSpace.halfBox,
+              TextField(
+                controller: _birthdayController,
+                onSubmitted: (text) {},
+                decoration: InputDecoration(
+                  hintText: t('input birthday'),
+                ),
               ),
-            ),
-            RaisedButton(
-              onPressed: () async {
-                // print('Register button pressed');
-                final data = getFormData();
-                try {
-                  await app.f.register(data);
-                  AppRouter.open(context, AppRoutes.home);
-                } catch (e) {
-                  AppService.alert(null, t(e));
-                }
-              },
-              child: T('register submit'),
-            ),
-          ],
+              RaisedButton(
+                onPressed: () async {
+                  // print('Register button pressed');
+                  final data = getFormData();
+                  try {
+                    await app.f.register(data);
+                    AppRouter.open(context, AppRoutes.home);
+                  } catch (e) {
+                    AppService.alert(null, t(e));
+                  }
+                },
+                child: T('register submit'),
+              ),
+            ],
+          ),
         ),
       ),
     );

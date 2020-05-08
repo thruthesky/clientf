@@ -78,54 +78,56 @@ class _ProfilePageState extends State<ProfilePage> {
         title: T('Profile'),
       ),
       endDrawer: AppDrawer(),
-      body: Padding(
-        padding: EdgeInsets.all(AppSpace.space),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            userData == null
-                ? PlatformCircularProgressIndicator()
-                : Text(userData.email),
-            AppSpace.halfBox,
-            AppSpace.halfBox,
-            TextField(
-              controller: _nicknameController,
-              onSubmitted: (text) {},
-              decoration: InputDecoration(
-                hintText: t('input nickname'),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(AppSpace.space),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              userData == null
+                  ? PlatformCircularProgressIndicator()
+                  : Text(userData.email),
+              AppSpace.halfBox,
+              AppSpace.halfBox,
+              TextField(
+                controller: _nicknameController,
+                onSubmitted: (text) {},
+                decoration: InputDecoration(
+                  hintText: t('input nickname'),
+                ),
               ),
-            ),
-            AppSpace.halfBox,
-            TextField(
-              controller: _phoneNumberController,
-              onSubmitted: (text) {},
-              decoration: InputDecoration(
-                hintText: t('input phone number'),
+              AppSpace.halfBox,
+              TextField(
+                controller: _phoneNumberController,
+                onSubmitted: (text) {},
+                decoration: InputDecoration(
+                  hintText: t('input phone number'),
+                ),
               ),
-            ),
-            AppSpace.halfBox,
-            TextField(
-              controller: _birthdayController,
-              onSubmitted: (text) {},
-              decoration: InputDecoration(
-                hintText: t('input birthday'),
+              AppSpace.halfBox,
+              TextField(
+                controller: _birthdayController,
+                onSubmitted: (text) {},
+                decoration: InputDecoration(
+                  hintText: t('input birthday'),
+                ),
               ),
-            ),
-            RaisedButton(
-              onPressed: () async {
-                print('Prifole update button pressed');
-                final data = getFormData();
-                try {
-                  var updated = await app.f.update(data);
-                  print(updated);
-                  // AppRouter.open(context, AppRoutes.home);
-                } catch (e) {
-                  AppService.alert(null, t(e));
-                }
-              },
-              child: T('profile submit'),
-            ),
-          ],
+              RaisedButton(
+                onPressed: () async {
+                  print('Prifole update button pressed');
+                  final data = getFormData();
+                  try {
+                    var updated = await app.f.update(data);
+                    print(updated);
+                    // AppRouter.open(context, AppRoutes.home);
+                  } catch (e) {
+                    AppService.alert(null, t(e));
+                  }
+                },
+                child: T('profile submit'),
+              ),
+            ],
+          ),
         ),
       ),
     );
