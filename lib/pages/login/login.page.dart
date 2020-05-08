@@ -35,40 +35,42 @@ class _LoginPageState extends State<LoginPage> {
         title: T('login page title'),
       ),
       endDrawer: AppDrawer(),
-      body: Padding(
-        padding: EdgeInsets.all(AppSpace.space),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            TextField(
-              controller: _emailController,
-              onSubmitted: (text) {},
-              decoration: InputDecoration(
-                hintText: t('input email'),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(AppSpace.space),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              TextField(
+                controller: _emailController,
+                onSubmitted: (text) {},
+                decoration: InputDecoration(
+                  hintText: t('input email'),
+                ),
               ),
-            ),
-            AppSpace.halfBox,
-            TextField(
-              controller: _passwordController,
-              onSubmitted: (text) {},
-              decoration: InputDecoration(
-                hintText: t('input password'),
+              AppSpace.halfBox,
+              TextField(
+                controller: _passwordController,
+                onSubmitted: (text) {},
+                decoration: InputDecoration(
+                  hintText: t('input password'),
+                ),
               ),
-            ),
-            AppSpace.halfBox,
-            RaisedButton(
-              onPressed: () async {
-                final data = getFormData();
+              AppSpace.halfBox,
+              RaisedButton(
+                onPressed: () async {
+                  final data = getFormData();
 
-                try {
-                  final user = await app.login(data['email'], data['password']);
-                } catch (e) {
-                  AppService.alert(null, t(e));
-                }
-              },
-              child: T('login submit'),
-            ),
-          ],
+                  try {
+                    final user = await app.login(data['email'], data['password']);
+                  } catch (e) {
+                    AppService.alert(null, t(e));
+                  }
+                },
+                child: T('login submit'),
+              ),
+            ],
+          ),
         ),
       ),
     );
