@@ -1,4 +1,4 @@
-package com.example.clientf
+package com.flutterstudy.clientf
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
