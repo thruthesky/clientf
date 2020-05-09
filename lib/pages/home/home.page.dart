@@ -1,4 +1,5 @@
 import 'package:clientf/enginf_clientf_service/enginf.model.dart';
+import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.router.dart';
@@ -79,13 +80,13 @@ class _HomePageState extends State<HomePage> {
             ),
             RaisedButton(
               onPressed: () {
-                AppRouter.open(context, AppRoutes.profile);
+                open(AppRoutes.categoryList);
               },
               child: T('Create List'),
             ),
             RaisedButton(
               onPressed: () {
-                AppRouter.open(context, AppRoutes.profile);
+                open(AppRoutes.categoryCreate);
               },
               child: T('Create Category'),
             ),

@@ -12,7 +12,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
   Widget build(BuildContext context) {
 return Scaffold(
       appBar: AppBar(
-        title: T('setting'),
+        title: T('category list'),
       ),
       endDrawer: AppDrawer(),
       body: Center(

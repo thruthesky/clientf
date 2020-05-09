@@ -12,7 +12,7 @@ class _CategoryUpdatePageState extends State<CategoryUpdatePage> {
   Widget build(BuildContext context) {
 return Scaffold(
       appBar: AppBar(
-        title: T('setting'),
+        title: T('category update'),
       ),
       endDrawer: AppDrawer(),
       body: Center(

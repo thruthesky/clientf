@@ -1,4 +1,7 @@
 import 'package:clientf/globals.dart';
+import 'package:clientf/pages/category_create/category_create.page.dart';
+import 'package:clientf/pages/category_list/category_list.page.dart';
+import 'package:clientf/pages/category_update/category_update.page.dart';
 import 'package:clientf/pages/help/help.page.dart';
 import 'package:clientf/pages/home/home.page.dart';
 import 'package:clientf/pages/login/login.page.dart';
@@ -48,6 +51,12 @@ class AppRouter {
       route = _buildRoute(settings, HelpPage());
     else if (settings.name == AppRoutes.settings)
       route = _buildRoute(settings, SettingsPage());
+    else if (settings.name == AppRoutes.categoryCreate)
+      route = _buildRoute(settings, CategoryCreatePage());
+    else if (settings.name == AppRoutes.categoryList)
+      route = _buildRoute(settings, CategoryListPage());
+    else if (settings.name == AppRoutes.categoryUpdate)
+      route = _buildRoute(settings, CategoryUpdatePage());
     return route;
   }
 
