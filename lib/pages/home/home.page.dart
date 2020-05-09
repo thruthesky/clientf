@@ -2,6 +2,7 @@ import 'package:clientf/enginf_clientf_service/enginf.model.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.router.dart';
+import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,30 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             T('app subtitle'),
+            AppSpace.spaceBox,
+            T('관리자 로그인 이메일: admin@engin.com'),
+            AppSpace.halfBox,
+            T('관리자 로그인 비밀번호: 12345a'),
+            AppSpace.spaceBox,
+            Divider(
+              color: Colors.black,
+            ),
+            Selector<EnginfModel, FirebaseUser>(
+                builder: (context, user, child) {
+                  if (user == null) return SizedBox.shrink();
+                  return Column(
+                    children: <Widget>[
+                      Text('로그인 한 사용자 정보 '),
+                      Text('user login: ${user.email}'),
+                      Text('phoneNumber: ${user.phoneNumber}'),
+                      Text('displayName: ${user.displayName}'),
+                    ],
+                  );
+                },
+                selector: (_, model) => model.user),
+            Divider(
+              color: Colors.black,
+            ),
             RaisedButton(
               onPressed: () {
                 AppRouter.open(context, AppRoutes.register);
@@ -49,20 +74,21 @@ class _HomePageState extends State<HomePage> {
               },
               child: T('Profile'),
             ),
-            Selector<EnginfModel, FirebaseUser>(
-                builder: (context, user, child) {
-                  if (user == null) return SizedBox.shrink();
-                  // print('phoneNumber: ${user.phoneNumber}');
-                  // print('displayName: ${user.displayName}');
-                  return Column(
-                    children: <Widget>[
-                      Text('user login: ${user.email}'),
-                      Text('phoneNumber: ${user.phoneNumber}'),
-                      Text('displayName: ${user.displayName}'),
-                    ],
-                  );
-                },
-                selector: (_, model) => model.user),
+            Divider(
+              color: Colors.black,
+            ),
+            RaisedButton(
+              onPressed: () {
+                AppRouter.open(context, AppRoutes.profile);
+              },
+              child: T('Create List'),
+            ),
+            RaisedButton(
+              onPressed: () {
+                AppRouter.open(context, AppRoutes.profile);
+              },
+              child: T('Create Category'),
+            ),
           ],
         ),
       ),

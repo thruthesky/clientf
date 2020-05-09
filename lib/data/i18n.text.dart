@@ -8,7 +8,7 @@ const Map<String, Map<String, String>> textTranslations = {
     'en': 'Community App',
   },
   'app subtitle': {
-    'ko': '플러터 스터도 모임 공개 프로젝트',
+    'ko': '플러터 스터디 모임 공개 프로젝트',
     'en': 'Flutter study public project',
   },
   'home': {
@@ -134,6 +134,18 @@ const Map<String, Map<String, String>> textTranslations = {
   LOGIN_FIRST: {
     'ko': '로그인을 해 주세요.',
     'en': 'Please, login first!',
+  },
+  AUTH_USER_NOT_FOUND: {
+    'ko': '가입된 회원 정보를 찾을 수 없습니다.',
+    'en': 'User not found.',
+  },
+  USER_NOT_EXIST: {
+    'ko': '회원 정보 DB 에서 찾을 수 없습니다.',
+    'en': 'User not found in Database.',
+  },
+  AUTH_PHONE_NUMBER_ALREADY_EXIST: {
+    'ko': '전화 번호가 다른 회원에 의해서 등록되어져 있습니다.',
+    'en': 'The phone number is already registered by other user',
   }
 };
 
