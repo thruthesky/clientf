@@ -1,10 +1,14 @@
 # ClientF
 
-* 정식명칭: ClientF
+* 임시명칭: ClientF
 * 명칭설명: EngineF 의 Flutter Client 라는 뜻. Client 가 Angular 이면 ClientA 가 되고 View 이면 ClientV, React 이면 ClientR.
 * 라이센스: MIT
 * 설명: [파이어베이스 백엔드](https://github.com/thruthesky/enginf)와 플러터로 만드는 커뮤니티 앱
 * 기능: 회원 로그인, 로그아웃, 가입, 수정, 비밀번호 찾기, 회원 사진 등록, 게시판 전체 기능.
+* 본 앱은 파이어베이스를 백엔드로 사용하는 기본 커뮤니티 기능을 가지고 있습니다. 약간 수정을 하면 쇼핑몰 앱이나 회사 소개 앱 등 여러가지로 활용이 가능합니다.
+  * 모든 앱에서 회원 가입 및 정보 수정을 필수라고 할 수 있습니다. 또한 최소한의 공지 사항 또는 후기 게시판 정도의 기능은 있어야 겠죠.
+  * 파이어베이스를 기본으로 하기 때문에 서버 관리를 하지 않고 편하게 운영 할 수 있다.
+
 
 ## 개발 련련 문서
 
@@ -16,8 +20,20 @@
 
 ## 설치
 
-* `git clone `
+* `git clone https://github.com/thruthesky/clientf`
+* `cd clientf`
 * `git submodule update --init`
+
+### iOS 설치 예제
+
+* ios/GoogleService-Info.plist 파일을 삭제한다.
+* Xcode 에서 Runner > Identity 에서 Bundle ID 를 기록한다.
+* 파이어프로젝트에서 iOS 앱을 추가하고, Bundle ID 를 동일하게 기록한다.
+* GoogleService-Info.plist 를 다운로드해서 Xcode 의 Runner > Runner 아래로 드래그해서 넣는다.
+* 끝! 앱을 실행하고, 회원가입 한 후, Auth 에 추가되는지 본다.
+
+
+
 
 ## 회원 관리
 
