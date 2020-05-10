@@ -1,4 +1,3 @@
-
 import 'package:clientf/enginf_clientf_service/test/enginf.test.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/models/app.localization.dart';
@@ -31,11 +30,11 @@ class _CommunityAppState extends State<CommunityApp> {
   }
   @override
   Widget build(BuildContext context) {
-
     if (kDebugMode) {
+      // testError();
+      // testRouter();
       // testEnginfUser();
     }
-
 
     return MultiProvider(
       providers: [
@@ -44,7 +43,8 @@ class _CommunityAppState extends State<CommunityApp> {
       ],
       child: MaterialApp(
         theme: appTheme,
-        initialRoute: AppRoutes.home,
+        // initialRoute: AppRoutes.home,
+        initialRoute: AppRoutes.categoryList,
         // initialRoute: AppRoutes.profile,
         // initialRoute: AppRoutes.register,
         onGenerateRoute: AppRouter.generate,

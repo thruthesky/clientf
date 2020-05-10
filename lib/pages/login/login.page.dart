@@ -1,6 +1,7 @@
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
+import 'package:clientf/services/app.router.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
@@ -62,7 +63,8 @@ class _LoginPageState extends State<LoginPage> {
                   final data = getFormData();
 
                   try {
-                    final user = await app.login(data['email'], data['password']);
+                    await app.login(data['email'], data['password']);
+                    AppRouter.open(context, AppRoutes.home);
                   } catch (e) {
                     AppService.alert(null, t(e));
                   }

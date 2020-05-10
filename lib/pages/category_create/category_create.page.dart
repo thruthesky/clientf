@@ -1,4 +1,7 @@
+
+import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.i18n.dart';
+import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
@@ -63,11 +66,16 @@ class _CategoryCreatePageState extends State<CategoryCreatePage> {
               ),
             ),
             RaisedButton(
-              onPressed: () {
+              onPressed: () async {
                 ///
                 print(getFormData());
-
-                
+                try {
+                  final re = await app.f.categoryCreate(getFormData());
+                  print(re);
+                } catch (e) {
+                  AppService.alert(null, t(e));
+                  print(e);
+                }
               },
               child: T('Category Submit'),
             ),

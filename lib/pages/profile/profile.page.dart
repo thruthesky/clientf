@@ -61,6 +61,8 @@ class _ProfilePageState extends State<ProfilePage> {
   loadProfile() async {
     try {
       userData = await app.f.profile();
+      print('========> userData');
+      print(userData);
       setState(() {
         _nicknameController.text = userData.displayName;
         _phoneNumberController.text = userData.phoneNumber;

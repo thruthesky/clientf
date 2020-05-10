@@ -1,4 +1,10 @@
+import 'dart:async';
+
+import 'package:clientf/enginf_clientf_service/enginf.category.model.dart';
+import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.i18n.dart';
+import 'package:clientf/services/app.service.dart';
+import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -8,22 +14,77 @@ class CategoryUpdatePage extends StatefulWidget {
 }
 
 class _CategoryUpdatePageState extends State<CategoryUpdatePage> {
+  EnginCategory data;
+
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  /// TODO - form validation
+  getFormData() {
+    final String title = _titleController.text;
+    final String description = _descriptionController.text;
+
+    final category = {
+      'id': data.id,
+      'title': title,
+      'description': description,
+    };
+    return category;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Timer(Duration(milliseconds: 10), () async {
+      var arguments = routerArguments(context);
+      var _data = await app.f.categoryData(arguments['id']);
+      setState(() {
+        data = _data;
+        _titleController.text = data.title;
+        _descriptionController.text = data.description;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-return Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: T('category update'),
+        title: Text(data?.id ?? ''),
       ),
       endDrawer: AppDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            TextField(
+              controller: _titleController,
+              onSubmitted: (text) {},
+              decoration: InputDecoration(
+                hintText: t('input category title'),
+              ),
+            ),
+            AppSpace.halfBox,
+            TextField(
+              controller: _descriptionController,
+              onSubmitted: (text) {},
+              decoration: InputDecoration(
+                hintText: t('input category description'),
+              ),
+            ),
             RaisedButton(
-              onPressed: () {
+              onPressed: () async {
                 ///
+                print(getFormData());
+                try {
+                  final re = await app.f.categoryUpdate(getFormData());
+                  print(re);
+                } catch (e) {
+                  AppService.alert(null, t(e));
+                  print(e);
+                }
               },
-              child: T('Button'),
+              child: T('Category Submit'),
             ),
           ],
         ),
