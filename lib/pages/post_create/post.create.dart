@@ -73,8 +73,7 @@ class _PostCreatePageState extends State<PostCreatePage> {
               onPressed: () async {
                 try {
                   final re = await app.f.postCreate(getFormData());
-                  back();
-                  print(re);
+                  back(arguments: re);
                 } catch (e) {
                   AppService.alert(null, t(e));
                 }

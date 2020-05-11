@@ -1,4 +1,3 @@
-
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
@@ -71,7 +70,7 @@ class _CategoryCreatePageState extends State<CategoryCreatePage> {
                 print(getFormData());
                 try {
                   final re = await app.f.categoryCreate(getFormData());
-                  print(re);
+                  back(arguments: re);
                 } catch (e) {
                   AppService.alert(null, t(e));
                   print(e);

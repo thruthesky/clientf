@@ -31,6 +31,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
         print(list);
       });
     } catch (e) {
+      /// mount check?
       AppService.alert(null, t(e));
     }
   }
@@ -46,6 +47,14 @@ class _CategoryListPageState extends State<CategoryListPage> {
           ? PlatformCircularProgressIndicator()
           : Column(
               children: <Widget>[
+                RaisedButton(
+                  onPressed: () async {
+                    final re = await open(AppRoutes.categoryCreate);
+                    /// TODO: update the list when it gets newly created category data.
+                    print('CategoryList::createCategory: $re');
+                  },
+                  child: T('Create Category'),
+                ),
                 Expanded(
                   child: ListView.builder(
                     itemCount: list.ids.length,
@@ -53,7 +62,8 @@ class _CategoryListPageState extends State<CategoryListPage> {
                       var id = list.ids[i];
                       return ListTile(
                         title: Text(id),
-                        subtitle: Text('${list.data[id]['title']}\n${list.data[id]['description']}'),
+                        subtitle: Text(
+                            '${list.data[id]['title']}\n${list.data[id]['description']}'),
                         trailing: Icon(Icons.keyboard_arrow_right),
                         onTap: () {
                           open(

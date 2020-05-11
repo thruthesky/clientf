@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
+import 'package:clientf/pages/post_list/post_list_view.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/widgets/app.drawer.dart';
@@ -29,6 +30,7 @@ class _PostListPageState extends State<PostListPage> {
       final _re = await app.f.postList({
         'categories': [_arg['id']]
       });
+      print(_re);
       setState(() {
         posts = _re;
       });
@@ -47,36 +49,18 @@ class _PostListPageState extends State<PostListPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           RaisedButton(
-            onPressed: () {
-              open(AppRoutes.postCreate, arguments: {'id': id});
+            onPressed: () async {
+              final EnginPost post =
+                  await open(AppRoutes.postCreate, arguments: {'id': id});
+
+              /// TODO: update list after getting newly create post data.
+              print('/// TODO: update list after getting newly create post data.');
+              print(post);
             },
             child: T('Create Post'),
           ),
           if (posts != null) PostListView(posts: posts),
         ],
-      ),
-    );
-  }
-}
-
-class PostListView extends StatelessWidget {
-  const PostListView({
-    Key key,
-    @required this.posts,
-  }) : super(key: key);
-
-  final List<EnginPost> posts;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: posts.length,
-        itemBuilder: (context, i) {
-          return ListTile(
-            title: Text(posts[i].title ?? 'No title'),
-          );
-        },
       ),
     );
   }

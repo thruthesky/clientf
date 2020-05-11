@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 
 AppModel app = AppModel();
 
-open(String route, {arguments}) {
-  AppRouter.open(AppService.context, route, arguments: arguments);
+Future open(String route, {arguments}) {
+  return AppRouter.open(AppService.context, route, arguments: arguments);
 }
 
-back() {
-  Navigator.pop(AppService.context);
+back({arguments}) {
+  Navigator.pop(AppService.context, arguments);
 }
 
 dynamic routerArguments(context) {

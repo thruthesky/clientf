@@ -95,12 +95,6 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: T('Create List'),
                 ),
-                RaisedButton(
-                  onPressed: () {
-                    open(AppRoutes.categoryCreate);
-                  },
-                  child: T('Create Category'),
-                ),
               ],
             ),
             Row(
