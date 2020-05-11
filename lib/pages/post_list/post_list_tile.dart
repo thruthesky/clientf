@@ -50,6 +50,23 @@ class _PostListTitleState extends State<PostListTitle> {
                 child: Text('Edit'),
               ),
               RaisedButton(
+                onPressed: () async {
+                  print(widget.post);
+                  //// 여기서 부터. 게시글 삭제. 게시글 삭제 후. 코멘트 CRUD.
+                  AppService.confirm(
+                    title: 'confirm',
+                    content: 'do you want to delete?',
+                    onYes: () {
+                      print('yes');
+                    },
+                    onNo: () {
+                      print('no');
+                    },
+                  );
+                },
+                child: Text('Delete'),
+              ),
+              RaisedButton(
                 onPressed: () {
                   setState(() {
                     showContent = false;

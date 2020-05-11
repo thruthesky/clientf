@@ -1,5 +1,7 @@
 import 'package:clientf/data/i18n.text.dart';
+import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.defines.dart';
+import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.keys.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +52,6 @@ class AppService {
     setSetting(AppKey.runCount, run);
   }
 
-
   /// Show alert box
   /// @example AppService.alert(null, e.message);
   static alert(String title, String content) {
@@ -61,11 +62,40 @@ class AppService {
         content: Text(content),
         actions: <Widget>[
           PlatformDialogAction(
-            child: PlatformText('Ok'),
+            child: PlatformText(t('Ok')),
             onPressed: () => Navigator.pop(context),
           ),
         ],
       ),
+    );
+  }
+
+  /// Can it be synchronous by using async/await? So, it does not need to use callback functions.
+  static confirm({String title, String content, Function onNo, Function onYes}) {
+    return showPlatformDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: title != null ? Text(title) : null,
+          content: Text(content),
+          actions: <Widget>[
+            FlatButton(
+              child: T('no'),
+              onPressed: () {
+                onNo();
+                back();
+              },
+            ),
+            FlatButton(
+              child: T('yes'),
+              onPressed: () {
+                onYes();
+                back();
+              },
+            )
+          ],
+        );
+      },
     );
   }
 }

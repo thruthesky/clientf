@@ -11,6 +11,18 @@ const Map<String, Map<String, String>> textTranslations = {
     'ko': '플러터 스터디 모임 공개 프로젝트',
     'en': 'Flutter study public project',
   },
+  'ok': {
+    'ko': '확인',
+    'en': 'OK',
+  },
+  'yes': {
+    'ko': '예',
+    'en': 'Yes',
+  },
+  'no': {
+    'ko': '아니오',
+    'en': 'No',
+  },
   'home': {
     'ko': '홈',
     'en': 'Home',
@@ -94,10 +106,6 @@ const Map<String, Map<String, String>> textTranslations = {
   'logout': {
     'ko': '로그아웃',
     'en': 'Logout',
-  },
-  'ok': {
-    'ko': '확인',
-    'en': 'OK',
   },
   ERROR_INVALID_EMAIL: {
     'ko': '이메일 주소 형식 오류\n올바른 이메일 주소를 입력 해 주세요.',

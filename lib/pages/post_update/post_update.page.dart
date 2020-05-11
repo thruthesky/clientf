@@ -75,12 +75,12 @@ class _PostUpdatePageState extends State<PostUpdatePage> {
             RaisedButton(
               onPressed: () async {
                 try {
-                  print(getFormData());
+                  // print(getFormData());
                   final re = await app.f.postUpdate(getFormData());
-                  print(re);
+                  // print(re);
                   back(arguments: re);
                 } catch (e) {
-                  print(e);
+                  // print(e);
                   AppService.alert(null, t(e) + ': ' + e.message);
                 }
               },
