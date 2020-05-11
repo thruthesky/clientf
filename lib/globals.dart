@@ -9,6 +9,9 @@ open(String route, {arguments}) {
   AppRouter.open(AppService.context, route, arguments: arguments);
 }
 
+back() {
+  Navigator.pop(AppService.context);
+}
 
 dynamic routerArguments(context) {
   return ModalRoute.of(context).settings.arguments;

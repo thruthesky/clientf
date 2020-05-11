@@ -43,8 +43,8 @@ class _CommunityAppState extends State<CommunityApp> {
       ],
       child: MaterialApp(
         theme: appTheme,
-        // initialRoute: AppRoutes.home,
-        initialRoute: AppRoutes.categoryList,
+        initialRoute: AppRoutes.home,
+        // initialRoute: AppRoutes.categoryList,
         // initialRoute: AppRoutes.profile,
         // initialRoute: AppRoutes.register,
         onGenerateRoute: AppRouter.generate,

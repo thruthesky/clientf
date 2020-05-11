@@ -53,7 +53,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
                       var id = list.ids[i];
                       return ListTile(
                         title: Text(id),
-                        subtitle: Text(list.data[id]['title'] + '\n' + list.data[id]['description']),
+                        subtitle: Text('${list.data[id]['title']}\n${list.data[id]['description']}'),
                         trailing: Icon(Icons.keyboard_arrow_right),
                         onTap: () {
                           open(

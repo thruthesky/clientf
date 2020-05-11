@@ -62,38 +62,64 @@ class _HomePageState extends State<HomePage> {
             Divider(
               color: Colors.black,
             ),
-            RaisedButton(
-              onPressed: () {
-                AppRouter.open(context, AppRoutes.register);
-              },
-              child: T('Register'),
-            ),
-            RaisedButton(
-              onPressed: () {
-                AppRouter.open(context, AppRoutes.login);
-              },
-              child: T('Login'),
-            ),
-            RaisedButton(
-              onPressed: () {
-                AppRouter.open(context, AppRoutes.profile);
-              },
-              child: T('Profile'),
+            Row(
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () {
+                    AppRouter.open(context, AppRoutes.register);
+                  },
+                  child: T('Register'),
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    AppRouter.open(context, AppRoutes.login);
+                  },
+                  child: T('Login'),
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    AppRouter.open(context, AppRoutes.profile);
+                  },
+                  child: T('Profile'),
+                ),
+              ],
             ),
             Divider(
               color: Colors.black,
             ),
-            RaisedButton(
-              onPressed: () {
-                open(AppRoutes.categoryList);
-              },
-              child: T('Create List'),
+            Row(
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () {
+                    open(AppRoutes.categoryList);
+                  },
+                  child: T('Create List'),
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    open(AppRoutes.categoryCreate);
+                  },
+                  child: T('Create Category'),
+                ),
+              ],
             ),
-            RaisedButton(
-              onPressed: () {
-                open(AppRoutes.categoryCreate);
-              },
-              child: T('Create Category'),
+            Row(
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () {
+                    open(AppRoutes.postList, arguments: {'id': 'discussion'});
+                  },
+                  child: T('Discussion Forum'),
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    open(AppRoutes.postList, arguments: {'id': 'qna'});
+                  },
+                  child: T(
+                    'QnA Forum',
+                  ),
+                ),
+              ],
             ),
           ],
         ),

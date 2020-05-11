@@ -2,12 +2,12 @@ import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
 
-class SettingsPage extends StatefulWidget {
+class PostUpdatePage extends StatefulWidget {
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  _PostUpdatePageState createState() => _PostUpdatePageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _PostUpdatePageState extends State<PostUpdatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
