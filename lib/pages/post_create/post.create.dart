@@ -36,7 +36,7 @@ class _PostCreatePageState extends State<PostCreatePage> {
     final String content = _contentController.text;
 
     final data = {
-      'category': id,
+      'categories': [id],
       'title': title,
       'content': content,
     };
