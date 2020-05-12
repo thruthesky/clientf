@@ -5,7 +5,9 @@ import 'package:clientf/globals.dart';
 import 'package:clientf/pages/post_list/post_list_view.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
+import 'package:clientf/services/app.service.dart';
 import 'package:clientf/widgets/app.drawer.dart';
+import 'package:clientf/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class PostListPage extends StatefulWidget {
@@ -15,53 +17,99 @@ class PostListPage extends StatefulWidget {
 
 class _PostListPageState extends State<PostListPage> {
   String id;
-  List<EnginPost> posts;
+  List<EnginPost> posts = [];
+  int limit = 6;
+
+  bool loading = false;
+  bool noMorePosts = false;
+
+  final _scrollController =
+      ScrollController(initialScrollOffset: 0.0, keepScrollOffset: true);
 
   @override
   void initState() {
     super.initState();
 
-    Timer(Duration(milliseconds: 10), () async {
+    Timer(Duration(milliseconds: 10), () {
       var _arg = routerArguments(context);
       setState(() {
         id = _arg['id'];
       });
-
-      final _re = await app.f.postList({
-        'categories': [_arg['id']]
-      });
-      print(_re);
-      setState(() {
-        posts = _re;
-      });
-      print(_re.length);
+      _fetchPosts();
     });
+
+    _scrollController.addListener(_scrollListener);
+    loading = true;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: T(id ?? ''),
+      appBar: CustomAppBar(
+        title: t(id ?? ''),
+        actions: GestureDetector(
+          child: Icon(Icons.add),
+          onTap: () async {
+            final EnginPost post =
+                await open(AppRoutes.postCreate, arguments: {'id': id});
+
+            /// TODO: update list after getting newly create post data.
+            print(
+                '/// TODO: update list after getting newly create post data.');
+            print(post);
+          },
+        ),
       ),
       endDrawer: AppDrawer(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          RaisedButton(
-            onPressed: () async {
-              final EnginPost post =
-                  await open(AppRoutes.postCreate, arguments: {'id': id});
-
-              /// TODO: update list after getting newly create post data.
-              print('/// TODO: update list after getting newly create post data.');
-              print(post);
-            },
-            child: T('Create Post'),
-          ),
-          if (posts != null) PostListView(posts: posts),
-        ],
-      ),
+      body: posts != null
+          ? PostListView(posts: posts, controller: _scrollController)
+          : SizedBox.shrink(),
     );
+  }
+
+  _fetchPosts() async {
+    if (noMorePosts) return;
+
+    var req = {
+      'categories': [id],
+      'limit': limit,
+    };
+    if (posts.length > 0) {
+      req['startAfter'] = posts[posts.length - 1].created;
+    }
+
+
+    try {
+      final _re = await app.f.postList(req);
+      loading = false;
+      if (_re.length < limit) {
+        print('---------> No more posts!');
+        noMorePosts = true;
+      }
+      print(_re);
+      setState(() {
+        posts.addAll(_re);
+      });
+      for (var _p in _re) {
+        print(_p.title);
+      }
+    } catch (e) {
+      print(e);
+      AppService.alert(null, t(e));
+    }
+  }
+
+  void _scrollListener() {
+    bool isBottom = _scrollController.offset >=
+        _scrollController.position.maxScrollExtent - 200;
+
+    if (isBottom && loading == false && !noMorePosts && mounted) {
+      print('Load? $isBottom');
+      setState(() {
+        loading = true;
+      });
+      _fetchPosts();
+      print('load again');
+    }
   }
 }

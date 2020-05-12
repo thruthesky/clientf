@@ -30,8 +30,8 @@ class _CommunityAppState extends State<CommunityApp> {
     AppService.init();
     app.init();
 
-    // Timer(Duration(milliseconds: 100),
-    //     () => open(AppRoutes.postList, arguments: {'id': 'discussion'}));
+    Timer(Duration(milliseconds: 100),
+        () => open(AppRoutes.postList, arguments: {'id': 'discussion'}));
   }
   @override
   Widget build(BuildContext context) {

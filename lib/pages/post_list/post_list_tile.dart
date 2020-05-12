@@ -19,16 +19,27 @@ class PostListTitle extends StatefulWidget {
 
 class _PostListTitleState extends State<PostListTitle> {
   bool showContent = false;
+@override
 
   @override
   Widget build(BuildContext context) {
     if (showContent) {
       return Column(
         children: <Widget>[
-          Text('title: ${widget.post.title}'),
-          Text('author: ${widget.post.uid}'),
-          Text('created: ${widget.post.created}'),
-          Text('content: ${widget.post.content}'),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'title: ${widget.post.title}',
+                  style: TextStyle(fontSize: 48),
+                ),
+                Text('author: ${widget.post.uid}'),
+                Text('created: ${widget.post.created}'),
+                Text('content: ${widget.post.content}'),
+              ],
+            ),
+          ),
           Row(
             children: <Widget>[
               RaisedButton(
@@ -61,7 +72,7 @@ class _PostListTitleState extends State<PostListTitle> {
                       try {
                         final re = await app.f.postDelete(widget.post.id);
                         print(re);
-                        if ( re.deleted is int ) {
+                        if (re.deleted is int) {
                           AppService.alert(null, t('post deleted'));
                         }
                       } catch (e) {}
@@ -87,7 +98,12 @@ class _PostListTitleState extends State<PostListTitle> {
       );
     } else {
       return ListTile(
-        title: Text(widget.post.title ?? 'No title'),
+        title: Padding(
+          padding: EdgeInsets.only(top: 60.0, bottom: 60.0),
+
+          /// This padding is for testing.
+          child: Text(widget.post.title ?? 'No title'),
+        ),
         trailing: Icon(Icons.keyboard_arrow_down),
         onTap: () {
           setState(() {
@@ -97,4 +113,5 @@ class _PostListTitleState extends State<PostListTitle> {
       );
     }
   }
+
 }
