@@ -56,11 +56,18 @@ class _PostListTitleState extends State<PostListTitle> {
                   AppService.confirm(
                     title: 'confirm',
                     content: 'do you want to delete?',
-                    onYes: () {
-                      print('yes');
+                    onYes: () async {
+                      // print('yes');
+                      try {
+                        final re = await app.f.postDelete(widget.post.id);
+                        print(re);
+                        if ( re.deleted is int ) {
+                          AppService.alert(null, t('post deleted'));
+                        }
+                      } catch (e) {}
                     },
                     onNo: () {
-                      print('no');
+                      // print('no');
                     },
                   );
                 },

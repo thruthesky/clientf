@@ -107,6 +107,10 @@ const Map<String, Map<String, String>> textTranslations = {
     'ko': '로그아웃',
     'en': 'Logout',
   },
+  'post deleted': {
+    'ko': '글이 삭제되었습니다.',
+    'en': 'Post has been deleted!',
+  },
   ERROR_INVALID_EMAIL: {
     'ko': '이메일 주소 형식 오류\n올바른 이메일 주소를 입력 해 주세요.',
     'en': 'The email address is badly formatted.\nPleae input correct email.',
