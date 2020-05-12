@@ -18,7 +18,7 @@ class PostListPage extends StatefulWidget {
 class _PostListPageState extends State<PostListPage> {
   String id;
   List<EnginPost> posts = [];
-  int limit = 6;
+  int limit = 10;
 
   bool loading = false;
   bool noMorePosts = false;
