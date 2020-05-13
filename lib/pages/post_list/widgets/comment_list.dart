@@ -16,7 +16,12 @@ class _CommentListState extends State<CommentList> {
     return Column(
       children: <Widget>[
         if (widget.post.comments != null)
-          for (var c in widget.post.comments) CommentItem(c),
+          for (var c in widget.post.comments)
+            CommentItem(
+              widget.post,
+              c,
+              key: ValueKey(c['id']),
+            ),
       ],
     );
   }

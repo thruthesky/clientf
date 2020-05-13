@@ -1,7 +1,7 @@
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
+import 'package:clientf/pages/post_list/widgets/comment_box.dart';
 import 'package:clientf/pages/post_list/widgets/comment_list.dart';
-import 'package:clientf/pages/post_list/widgets/post_list_comment_box.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
@@ -99,7 +99,11 @@ class _PostListItemState extends State<PostListItem> {
               ),
             ],
           ),
-          if (showCommentBox) PostListCommentBox(widget.post),
+          if (showCommentBox)
+            CommentBox(
+              widget.post,
+              key: ValueKey(widget.post.id),
+            ),
           CommentList(widget.post)
         ],
       );

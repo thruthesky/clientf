@@ -87,6 +87,21 @@ class _AppDrawerState extends State<AppDrawer> {
               AppRouter.open(context, AppRoutes.home);
             },
           ),
+          DrawerDivider(title: t('Forum')),
+          MenuItem(
+            title: t('discussion'),
+            icon: Icons.chat_bubble,
+            onTap: () {
+              open(AppRoutes.postList, arguments: {'id': 'discussion'});
+            },
+          ),
+          MenuItem(
+            title: t('qna'),
+            icon: Icons.chat_bubble_outline,
+            onTap: () {
+              open(AppRoutes.postList, arguments: {'id': 'qna'});
+            },
+          ),
           DrawerDivider(title: t('Etc')),
           MenuItem(
             title: t('help'),

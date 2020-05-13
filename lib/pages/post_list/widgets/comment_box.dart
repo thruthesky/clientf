@@ -1,21 +1,26 @@
+import 'package:clientf/enginf_clientf_service/enginf.comment.model.dart';
+import 'package:clientf/enginf_clientf_service/enginf.forum.model.dart';
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class PostListCommentBox extends StatefulWidget {
-  PostListCommentBox(
+class CommentBox extends StatefulWidget {
+  CommentBox(
     this.post, {
+    this.parentComment,
     Key key,
   }) : super(key: key);
 
   final EnginePost post;
+  final EngineComment parentComment;
 
   @override
-  _PostListCommentBoxState createState() => _PostListCommentBoxState();
+  _CommentBoxState createState() => _CommentBoxState();
 }
 
-class _PostListCommentBoxState extends State<PostListCommentBox> {
+class _CommentBoxState extends State<CommentBox> {
   final TextEditingController _contentController = TextEditingController();
 
   /// TODO - form validation
@@ -26,6 +31,9 @@ class _PostListCommentBoxState extends State<PostListCommentBox> {
       'postId': widget.post.id,
       'content': content,
     };
+    if (widget.parentComment != null) {
+      data['parentId'] = widget.parentComment.id;
+    }
     return data;
   }
 
@@ -38,7 +46,7 @@ class _PostListCommentBoxState extends State<PostListCommentBox> {
             controller: _contentController,
             onSubmitted: (text) {},
             decoration: InputDecoration(
-              hintText: t('input content'),
+              hintText: t('input comment'),
             ),
           ),
         ),
@@ -47,7 +55,9 @@ class _PostListCommentBoxState extends State<PostListCommentBox> {
           onTap: () async {
             print(getFormData());
             var re = await app.f.commentCreate(getFormData());
-            print(re);
+            print('CommentBox:: Comment created. $re');
+            Provider.of<EngineForumModel>(context, listen: false)
+                .addComment(re, widget.post.id, widget.parentComment?.id);
           },
         ),
       ],
