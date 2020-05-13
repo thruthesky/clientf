@@ -4,10 +4,10 @@ import 'package:clientf/services/app.service.dart';
 import 'package:flutter/material.dart';
 
 /// Returns translated string from the text code.
-/// If [code] is [EnginError], then it takes [EnginError.code] as [code] and translate it.
+/// If [code] is [EngineError], then it takes [EngineError.code] as [code] and translate it.
 String t(code, {info}) {
   // print(code);
-  if (code is EnginError) code = code.code;
+  if (code is EngineError) code = code.code;
   return AppLocalizations.of(AppService.context).t(code, info: info);
 }
 

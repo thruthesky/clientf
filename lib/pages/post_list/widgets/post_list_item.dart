@@ -1,28 +1,31 @@
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
+import 'package:clientf/pages/post_list/widgets/comment_list.dart';
+import 'package:clientf/pages/post_list/widgets/post_list_comment_box.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:flutter/material.dart';
 
-class PostListTitle extends StatefulWidget {
-  PostListTitle(
+class PostListItem extends StatefulWidget {
+  PostListItem(
     this.post, {
     Key key,
   }) : super(key: key);
 
-  final EnginPost post;
+  final EnginePost post;
 
   @override
-  _PostListTitleState createState() => _PostListTitleState();
+  _PostListItemState createState() => _PostListItemState();
 }
 
-class _PostListTitleState extends State<PostListTitle> {
-  bool showContent = false;
-@override
-
+class _PostListItemState extends State<PostListItem> {
+  bool showContent = true;
+  bool showCommentBox = true;
+  @override
   @override
   Widget build(BuildContext context) {
+    // if ( widget.post == null ) return SizedBox.shrink();
     if (showContent) {
       return Column(
         children: <Widget>[
@@ -32,10 +35,10 @@ class _PostListTitleState extends State<PostListTitle> {
               children: <Widget>[
                 Text(
                   'title: ${widget.post.title}',
-                  style: TextStyle(fontSize: 48),
+                  style: TextStyle(fontSize: 32),
                 ),
                 Text('author: ${widget.post.uid}'),
-                Text('created: ${widget.post.created}'),
+                Text('created: ${widget.post.createdAt}'),
                 Text('content: ${widget.post.content}'),
               ],
             ),
@@ -44,7 +47,9 @@ class _PostListTitleState extends State<PostListTitle> {
             children: <Widget>[
               RaisedButton(
                 onPressed: () {
-                  AppService.alert(null, t('Not supported'));
+                  setState(() {
+                    showCommentBox = !showCommentBox;
+                  });
                 },
                 child: Text('Reply'),
               ),
@@ -52,7 +57,7 @@ class _PostListTitleState extends State<PostListTitle> {
                 onPressed: () async {
                   print('go to edit page:');
                   print(widget.post);
-                  final EnginPost post = await open(AppRoutes.postUpdate,
+                  final EnginePost post = await open(AppRoutes.postUpdate,
                       arguments: {'post': widget.post});
 
                   /// TODO: update post list after updating a post.
@@ -72,7 +77,7 @@ class _PostListTitleState extends State<PostListTitle> {
                       try {
                         final re = await app.f.postDelete(widget.post.id);
                         print(re);
-                        if (re.deleted is int) {
+                        if (re.deletedAt is int) {
                           AppService.alert(null, t('post deleted'));
                         }
                       } catch (e) {}
@@ -94,12 +99,14 @@ class _PostListTitleState extends State<PostListTitle> {
               ),
             ],
           ),
+          if (showCommentBox) PostListCommentBox(widget.post),
+          CommentList(widget.post)
         ],
       );
     } else {
       return ListTile(
         title: Padding(
-          padding: EdgeInsets.only(top: 60.0, bottom: 60.0),
+          padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
 
           /// This padding is for testing.
           child: Text(widget.post.title ?? 'No title'),
@@ -113,5 +120,4 @@ class _PostListTitleState extends State<PostListTitle> {
       );
     }
   }
-
 }

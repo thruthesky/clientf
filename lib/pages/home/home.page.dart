@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
             Divider(
               color: Colors.black,
             ),
-            Selector<EnginfModel, FirebaseUser>(
+            Selector<EngineModel, FirebaseUser>(
                 builder: (context, user, child) {
                   if (user == null) return SizedBox.shrink();
                   return Column(

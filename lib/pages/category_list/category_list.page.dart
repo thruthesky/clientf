@@ -13,7 +13,7 @@ class CategoryListPage extends StatefulWidget {
 }
 
 class _CategoryListPageState extends State<CategoryListPage> {
-  EnginCategoryList list;
+  EngineCategoryList list;
 
   @override
   void initState() {
@@ -50,8 +50,13 @@ class _CategoryListPageState extends State<CategoryListPage> {
                 RaisedButton(
                   onPressed: () async {
                     final re = await open(AppRoutes.categoryCreate);
-                    /// TODO: update the list when it gets newly created category data.
-                    print('CategoryList::createCategory: $re');
+                    if (re != null) {
+                      /// TODO: update the list when it gets newly created category data.
+                      /// This is only for admin & There shouldn't be much categories.
+                      /// So, just reloading the whole category list will be fine.
+                      print('CategoryList::createCategory: $re');
+                      loadCategories();
+                    }
                   },
                   child: T('Create Category'),
                 ),

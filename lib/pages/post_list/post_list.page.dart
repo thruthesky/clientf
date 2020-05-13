@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
-import 'package:clientf/pages/post_list/post_list_view.dart';
+import 'package:clientf/pages/post_list/widgets/post_list.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
@@ -17,7 +17,7 @@ class PostListPage extends StatefulWidget {
 
 class _PostListPageState extends State<PostListPage> {
   String id;
-  List<EnginPost> posts = [];
+  List<EnginePost> posts = [];
   int limit = 10;
 
   bool loading = false;
@@ -50,19 +50,20 @@ class _PostListPageState extends State<PostListPage> {
         actions: GestureDetector(
           child: Icon(Icons.add),
           onTap: () async {
-            final EnginPost post =
+            final EnginePost post =
                 await open(AppRoutes.postCreate, arguments: {'id': id});
 
-            /// TODO: update list after getting newly create post data.
-            print(
-                '/// TODO: update list after getting newly create post data.');
-            print(post);
+            if (post != null) {
+              setState(() {
+                posts.insert(0, post);
+              });
+            }
           },
         ),
       ),
       endDrawer: AppDrawer(),
       body: posts != null
-          ? PostListView(posts: posts, controller: _scrollController)
+          ? PostList(posts: posts, controller: _scrollController)
           : SizedBox.shrink(),
     );
   }
@@ -73,11 +74,11 @@ class _PostListPageState extends State<PostListPage> {
     var req = {
       'categories': [id],
       'limit': limit,
+      'includeComments': true,
     };
     if (posts.length > 0) {
-      req['startAfter'] = posts[posts.length - 1].created;
+      req['startAfter'] = posts[posts.length - 1].createdAt;
     }
-
 
     try {
       final _re = await app.f.postList(req);
@@ -86,13 +87,13 @@ class _PostListPageState extends State<PostListPage> {
         print('---------> No more posts!');
         noMorePosts = true;
       }
-      print(_re);
+      // print(_re);
       setState(() {
         posts.addAll(_re);
       });
-      for (var _p in _re) {
-        print(_p.title);
-      }
+      // for (var _p in _re) {
+      //   print(_p.title);
+      // }
     } catch (e) {
       print(e);
       AppService.alert(null, t(e));
