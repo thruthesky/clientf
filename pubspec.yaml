@@ -29,6 +29,9 @@ dependencies:
 
   cloud_functions: ^0.4.2+3
   firebase_auth: ^0.16.0
+  flutter_signin_button: ^1.0.0
+
+  google_sign_in: ^4.4.4
 
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2

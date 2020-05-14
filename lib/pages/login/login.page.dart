@@ -6,7 +6,8 @@ import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -58,19 +59,32 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               AppSpace.halfBox,
-              RaisedButton(
+              SignInButton(
+                Buttons.Email,
                 onPressed: () async {
                   final data = getFormData();
 
                   try {
-                    await app.login(data['email'], data['password']);
+                    await app.loginWithEmailAndPassword(
+                        data['email'], data['password']);
                     AppRouter.open(context, AppRoutes.home);
                   } catch (e) {
                     AppService.alert(null, t(e));
                   }
                 },
-                child: T('login submit'),
               ),
+              AppSpace.halfBox,
+              SignInButton(
+                Buttons.Google,
+                onPressed: () async {
+                  try {
+                    await app.loginWithGoogleAccount();
+                    AppRouter.open(context, AppRoutes.home);
+                  } catch (e) {
+                    AppService.alert(null, t(e));
+                  }
+                },
+              )
             ],
           ),
         ),

@@ -19,8 +19,14 @@ class AppModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<FirebaseUser> login(String email, String password) async {
-    final user = await f.login(email, password);
+  Future<FirebaseUser> loginWithEmailAndPassword(String email, String password) async {
+    final user = await f.loginWithEmailAndPassword(email, password);
+    notifyListeners();
+    return user;
+  }
+
+  Future<FirebaseUser> loginWithGoogleAccount() async {
+    final user = await f.loginWithGoogleAccount();
     notifyListeners();
     return user;
   }
