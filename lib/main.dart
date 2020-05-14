@@ -30,8 +30,8 @@ class _CommunityAppState extends State<CommunityApp> {
     AppService.init();
     app.init();
 
-    Timer(Duration(milliseconds: 100),
-        () => open(AppRoutes.postList, arguments: {'id': 'discussion'}));
+    // Timer(Duration(milliseconds: 100),
+    //     () => open(AppRoutes.postList, arguments: {'id': 'discussion'}));
   }
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,8 @@ class _CommunityAppState extends State<CommunityApp> {
       ],
       child: MaterialApp(
         theme: appTheme,
-        initialRoute: AppRoutes.home,
+        // initialRoute: AppRoutes.home,
+        initialRoute: AppRoutes.login,
         // initialRoute: AppRoutes.categoryList,
         // initialRoute: AppRoutes.profile,
         // initialRoute: AppRoutes.register,

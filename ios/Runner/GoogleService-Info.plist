@@ -32,5 +32,18 @@
 	<string>1:767572519351:ios:9b7b0264b2a88628132032</string>
 	<key>DATABASE_URL</key>
 	<string>https://enginf-856e7.firebaseio.com</string>
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<!-- TODO Replace this value: -->
+			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+			<string>com.googleusercontent.apps.767572519351-1jp52f51d30bb467af37rmnn45k6rtb8</string>
+		</array>
+	</dict>
+</array>
 </dict>
 </plist>
