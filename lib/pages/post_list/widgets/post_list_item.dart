@@ -1,3 +1,4 @@
+import 'package:clientf/enginf_clientf_service/enginf.forum.model.dart';
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/pages/post_list/widgets/comment_box.dart';
@@ -6,6 +7,7 @@ import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PostListItem extends StatefulWidget {
   PostListItem(
@@ -21,7 +23,7 @@ class PostListItem extends StatefulWidget {
 
 class _PostListItemState extends State<PostListItem> {
   bool showContent = true;
-  bool showCommentBox = true;
+  bool showCommentBox = false;
   @override
   @override
   Widget build(BuildContext context) {
@@ -57,8 +59,12 @@ class _PostListItemState extends State<PostListItem> {
                 onPressed: () async {
                   print('go to edit page:');
                   print(widget.post);
+
+                  /// TODO: 로직을 ForumModel 로 집어 넣을 것.
                   final EnginePost post = await open(AppRoutes.postUpdate,
                       arguments: {'post': widget.post});
+                  Provider.of<EngineForumModel>(context, listen: false)
+                      .updatePost(post);
 
                   /// TODO: update post list after updating a post.
                   print(post);
@@ -73,9 +79,13 @@ class _PostListItemState extends State<PostListItem> {
                     title: 'confirm',
                     content: 'do you want to delete?',
                     onYes: () async {
-                      // print('yes');
+                      /// TODO: 로직을 ForumModel 로 집어 넣을 것.
                       try {
                         final re = await app.f.postDelete(widget.post.id);
+                        setState(() {
+                          widget.post.title = re.title;
+                          widget.post.content = re.content;
+                        });
                         print(re);
                         if (re.deletedAt is int) {
                           AppService.alert(null, t('post deleted'));
@@ -103,6 +113,8 @@ class _PostListItemState extends State<PostListItem> {
             CommentBox(
               widget.post,
               key: ValueKey(widget.post.id),
+              onCancel: () => setState(() => showCommentBox = false),
+              onSubmit : () => setState(() => showCommentBox = false),
             ),
           CommentList(widget.post)
         ],
