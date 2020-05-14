@@ -4,6 +4,7 @@ class AppColor {
   static final Color white = Colors.white;
   static final Color black = Colors.black;
   static final Color grey = Colors.grey;
+  static final Color light =  Color(0xffE0E0E0);
   static final Color font = Colors.black;
   static final Color red = Colors.red;
   static final Color yellow = Colors.yellowAccent;

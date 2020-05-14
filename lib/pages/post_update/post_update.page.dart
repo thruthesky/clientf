@@ -14,7 +14,7 @@ class PostUpdatePage extends StatefulWidget {
 }
 
 class _PostUpdatePageState extends State<PostUpdatePage> {
-  EnginPost post;
+  EnginePost post;
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();

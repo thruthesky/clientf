@@ -14,7 +14,7 @@ class CategoryUpdatePage extends StatefulWidget {
 }
 
 class _CategoryUpdatePageState extends State<CategoryUpdatePage> {
-  EnginCategory data;
+  EngineCategory data;
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();

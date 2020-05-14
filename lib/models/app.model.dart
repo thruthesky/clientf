@@ -8,7 +8,7 @@ class AppModel extends ChangeNotifier {
   /// false - closed
   bool drawer = false;
 
-  final EnginfModel f = EnginfModel();
+  final EngineModel f = EngineModel();
 
   AppModel() {
     print('AppModel() consturctor');
