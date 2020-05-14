@@ -18,6 +18,13 @@ class PostListPage extends StatefulWidget {
 
 class _PostListPageState extends State<PostListPage> {
   EngineForumModel forumModel = EngineForumModel();
+
+  @override
+  void dispose() {
+    forumModel.disposed = true;
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
