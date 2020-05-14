@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 String t(code, {info}) {
   // print(code);
   if (code is EngineError) code = code.code;
+  if ( code is FlutterError ) code = code.message;
   return AppLocalizations.of(AppService.context).t(code, info: info);
 }
 

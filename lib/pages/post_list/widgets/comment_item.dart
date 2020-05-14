@@ -33,7 +33,7 @@ class _CommentItemState extends State<CommentItem> {
   void initState() {
     comment = EngineComment.fromEnginData(widget.comment);
 
-    print('CommentItem: $comment');
+    print('CommentItem::initState() $comment');
     super.initState();
   }
 
@@ -66,15 +66,9 @@ class _CommentItemState extends State<CommentItem> {
                   onReply: () => setState(() {
                     replyMode = !replyMode;
                   }),
-                  onEdit: () {
-                    //// 여기서 부터. 코멘트 쓰기/삭제 처리 했음. 수정을 하면 됨.
-                    /// TODO: 코멘트 수정 후, 코드 좀 정리하고, 파일 업로드 할 것.
-                    /// TODO: 파일 업로드 할 때, 사진 썸네일 익스텐션을 사용한다.
-                    ///
-                    setState(() {
-                      editMode = true;
-                    });
-                  },
+                  onEdit: () => setState(() {
+                    editMode = true;
+                  }),
                   onDelete: () async {
                     var re = await app.f.commentDelete(comment.id);
                     setState(() {
