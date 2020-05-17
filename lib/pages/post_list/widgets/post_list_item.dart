@@ -24,12 +24,13 @@ class PostListItem extends StatefulWidget {
 class _PostListItemState extends State<PostListItem> {
   bool showContent = true;
   bool showCommentBox = false;
-  
+
   @override
   void initState() {
     print('--> _PostListItemState::initState() called for: ${widget.post.id}');
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     // if ( widget.post == null ) return SizedBox.shrink();
@@ -55,11 +56,14 @@ class _PostListItemState extends State<PostListItem> {
           Row(
             children: <Widget>[
               RaisedButton(
-                onPressed: () {
-                  setState(() {
-                    forumModel(context).prepareCommentBox(widget.post);
-                    showCommentBox = !showCommentBox;
-                  });
+                onPressed: () async {
+                  final re = await AppService.openCommentBox(widget.post, null, null);
+                  Provider.of<EngineForumModel>(context, listen: false)
+                      .addComment(re, widget.post, null);
+
+                  // setState(() {
+                  //   showCommentBox = !showCommentBox;
+                  // });
                 },
                 child: Text('Reply'),
               ),
@@ -117,17 +121,13 @@ class _PostListItemState extends State<PostListItem> {
               ),
             ],
           ),
-
-
-
           if (showCommentBox)
             CommentBox(
               widget.post,
-              onCancel: () => setState(() => showCommentBox = false),
+              // onCancel: () => setState(() => showCommentBox = false),
               onSubmit: () => setState(() => showCommentBox = false),
               key: ValueKey('PostListItem::CommentBox::' + widget.post.id),
             ),
-
           CommentList(
             widget.post,
             key: ValueKey('ColumnList${widget.post.id}'),

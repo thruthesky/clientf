@@ -9,7 +9,7 @@ import 'package:clientf/models/firestore.model.dart';
 import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
-import 'package:clientf/widgets/display_uploaded_images.dart';
+import 'package:clientf/widgets/uploaded_images_box.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -24,7 +24,7 @@ class CommentBox extends StatefulWidget {
     this.parentComment,
     this.currentComment,
     this.onSubmit,
-    this.onCancel,
+    // this.onCancel,
     Key key,
   }) : super(key: key);
   final EnginePost post;
@@ -36,7 +36,7 @@ class CommentBox extends StatefulWidget {
   EngineComment currentComment;
 
   final Function onSubmit;
-  final Function onCancel;
+  // final Function onCancel;
 
   @override
   _CommentBoxState createState() => _CommentBoxState();
@@ -105,11 +105,9 @@ class _CommentBoxState extends State<CommentBox> {
     return !isCreate;
   }
 
-
-
   @override
   void initState() {
-    widget.post.comments.removeWhere((c) => c.id == null);
+    // widget.post.comments.removeWhere((c) => c.id == null);
     print('-> CommentBox::initState() -> ${widget.post.comments}');
 
     super.initState();
@@ -137,66 +135,76 @@ class _CommentBoxState extends State<CommentBox> {
       providers: [
         ChangeNotifierProvider(
             create: (context) =>
-                FirestoreModel('comment', widget.currentComment)),
+                FirestoreModel(widget.currentComment)),
       ],
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              UploadIcon(),
-              Expanded(
-                child: TextField(
-                  controller: _contentController,
-                  onSubmitted: (text) {},
-                  decoration: InputDecoration(
-                    hintText: t('input comment'),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                child: inLoading
-                    ? PlatformCircularProgressIndicator()
-                    : Icon(Icons.send),
-                onTap: () async {
-                  if (inLoading) return;
-                  setState(() {
-                    inLoading = true;
-                  });
+      child: Scaffold(
+        appBar: AppBar(
+          title: T('edit comment'),
+        ),
+        body: SafeArea(
+          child: Container(
+            color: AppColor.light,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(child: T('원글 또는 부모 코멘트 글 목록'),),
+                Row(
+                  children: <Widget>[
+                    UploadIcon(),
+                    Expanded(
+                      child: TextField(
+                        controller: _contentController,
+                        onSubmitted: (text) {},
+                        decoration: InputDecoration(
+                          hintText: t('input comment'),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      child: inLoading
+                          ? PlatformCircularProgressIndicator()
+                          : Icon(Icons.send),
+                      onTap: () async {
+                        if (inLoading) return;
+                        setState(() {
+                          inLoading = true;
+                        });
 
-                  var data = getFormData();
-                  // print(getFormData());
-                  try {
-                    if (isCreate) {
-                      /// create (reply)
-                      var re = await app.f.commentCreate(data);
-                      print('create: $data');
-                      Provider.of<EngineForumModel>(context, listen: false)
-                          .addComment(
-                              re, widget.post, widget.parentComment?.id);
-                    } else {
-                      /// update
-                      var re = await app.f.commentUpdate(getFormData());
-                      print('CommentBox:: Comment update. $re');
-                      widget.currentComment.content = re['content'];
-                    }
-                  } catch (e) {
-                    print(e);
-                    AppService.alert(null, t(e));
-                  }
-                  print('calling: onSubmit');
-                  widget.onSubmit();
-                },
-              ),
-              if (!inLoading)
-                GestureDetector(
-                  child: Icon(Icons.cancel),
-                  onTap: widget.onCancel,
+                        var data = getFormData();
+                        // print(getFormData());
+                        try {
+                          if (isCreate) {
+                            /// create (reply)
+                            var re = await app.f.commentCreate(data);
+                            print('create: $data');
+                            back( arguments: re);
+                          } else {
+                            /// update
+                            var re = await app.f.commentUpdate(getFormData());
+                            print('CommentBox:: Comment update. $re');
+                            widget.currentComment.content = re.content;
+                          }
+                        } catch (e) {
+                          print(e);
+                          AppService.alert(null, t(e));
+                        }
+                        print('calling: onSubmit');
+                        // widget.onSubmit();
+                      },
+                    ),
+                    // if (!inLoading)
+                    //   GestureDetector(
+                    //     child: Icon(Icons.cancel),
+                    //     onTap: widget.onCancel,
+                    //   ),
+                  ],
                 ),
-            ],
+                UploadProgressBar(),
+                UploadedImagesBox(),
+              ],
+            ),
           ),
-          UploadProgressBar(),
-          DisplayuploadedImages(),
-        ],
+        ),
       ),
     );
   }

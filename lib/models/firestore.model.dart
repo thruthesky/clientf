@@ -26,12 +26,12 @@ class FirestoreModel extends ChangeNotifier {
   double uploadPercentage = 0;
 
   var doc;
-  var col;
+  // var col;
 
 
 
 
-  FirestoreModel(this.col, this.doc);
+  FirestoreModel(this.doc);
 
   // [urls] 에 저장을 하면 안되고, 코멘트에 바로 저장을 해야 한다. 그리고 서버에도 같이 저장을 해야 한다.
   // List<String> urls = [];
@@ -160,12 +160,14 @@ class FirestoreModel extends ChangeNotifier {
     // urls.add(_uploadedUrl);
 
 
-    /// 도큐먼트에 파일을 추가한다.
+    /// 도큐먼트의 [urls] 속성에 업로드한 사진 URL을 추가한다.
     doc.urls.add(_uploadedUrl);
 
     print('-----> doc.urls: ${doc.urls}');
 
     notifyListeners();
     return _uploadedUrl;
+
   }
+
 }

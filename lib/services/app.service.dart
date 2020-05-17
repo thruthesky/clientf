@@ -1,5 +1,6 @@
 import 'package:clientf/data/i18n.text.dart';
 import 'package:clientf/globals.dart';
+import 'package:clientf/pages/post_list/widgets/comment_box.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.keys.dart';
@@ -105,7 +106,7 @@ class AppService {
       context: context,
       builder: (BuildContext bc) {
         return SafeArea(
-                  child: Container(
+          child: Container(
             child: new Wrap(
               children: <Widget>[
                 for (var item in items)
@@ -124,5 +125,50 @@ class AppService {
         );
       },
     );
+  }
+
+  static openCommentBox(post, parentComment, currentComment) {
+    return openDialog(CommentBox(
+      post,
+      parentComment: parentComment,
+      currentComment: currentComment,
+    ));
+  }
+
+  static openDialog(childWidget) {
+    return showGeneralDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: Colors.black45,
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
+          return childWidget;
+
+          // Center(
+          //   child: Container(
+          //     width: MediaQuery.of(context).size.width - 10,
+          //     height: MediaQuery.of(context).size.height - 80,
+          //     padding: EdgeInsets.all(20),
+          //     color: Colors.white,
+          //     child: Column(
+          //       children: [
+          //         RaisedButton(
+          //           onPressed: () {
+          //             Navigator.of(context).pop();
+          //           },
+          //           child: Text(
+          //             "Save",
+          //             style: TextStyle(color: Colors.white),
+          //           ),
+          //           color: const Color(0xFF1BC0C5),
+          //         )
+          //       ],
+          //     ),
+          //   ),
+          // );
+        });
   }
 }
