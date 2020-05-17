@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:clientf/services/app.i18n.dart';
 
+/// TODO: 이 모델이 과연 필요한가? 그냥 라이브러리로 쓰면 안되나? 왜냐하면 모든 생성/수정이 별도의 페이지에서 작업된다.
 /// FirestoreModel 에서는 사진을 찍어 올리고, 삭제 등 전반 적인 관리를 한다.
 ///
 ///
@@ -90,6 +91,7 @@ class FirestoreModel extends ChangeNotifier {
 
   /// `check permission` for certain device function access
   ///
+  /// TODO: iOS 에서 권한을 두번 물어 보는데, 한번으로 줄일 것.
   ///
   Future<bool> requestPermission(Permission permission) async {
     // You can can also directly ask the permission about its status.
@@ -136,7 +138,7 @@ class FirestoreModel extends ChangeNotifier {
               event.snapshot.totalByteCount.toDouble());
       print(uploadPercentage);
 
-      // 
+      //
       notifyListeners();
 
       // var event = snapshot?.data?.snapshot;
@@ -165,5 +167,25 @@ class FirestoreModel extends ChangeNotifier {
 
     notifyListeners();
     return _uploadedUrl;
+  }
+
+  Future delete(String url) async {
+    // print(doc);
+    // print(url);
+    var ref = await FirebaseStorage.instance.getReferenceFromUrl(url);
+
+    List urls = doc.urls;
+    try {
+      await ref.delete();
+
+      urls.removeWhere((element) => element == url);
+    } catch (e) {
+      print('Got error .... remove anyway');
+
+      /// TODO: 파일이 존재하지 않으면 그냥 삭제한다. 다만, 다른 에러가 있을 수 있으니 확인이 필요하다.
+      urls.removeWhere((element) => element == url);
+      print(e);
+      throw e;
+    }
   }
 }

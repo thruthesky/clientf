@@ -41,7 +41,7 @@ class _CommentItemState extends State<CommentItem> {
               CommentButtons(
                 onReply: () async {
                   final re = await AppService.openCommentBox(
-                      widget.post, widget.comment, null);
+                      widget.post, widget.comment, EngineComment());
                   Provider.of<EngineForumModel>(context, listen: false)
                       .addComment(re, widget.post, widget.comment.id);
                 },

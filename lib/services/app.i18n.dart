@@ -2,6 +2,7 @@ import 'package:clientf/enginf_clientf_service/enginf.error.model.dart';
 import 'package:clientf/models/app.localization.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Returns translated string from the text code.
 /// If [code] is [EngineError], then it takes [EngineError.code] as [code] and translate it.
@@ -9,6 +10,9 @@ String t(code, {info}) {
   // print(code);
   if (code is EngineError) code = code.code;
   if ( code is FlutterError ) code = code.message;
+  if ( code is PlatformException ) {
+    code = code.details;
+  }
   return AppLocalizations.of(AppService.context).t(code, info: info);
 }
 

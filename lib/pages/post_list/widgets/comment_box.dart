@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:clientf/enginf_clientf_service/enginf.comment.model.dart';
-import 'package:clientf/enginf_clientf_service/enginf.forum.model.dart';
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/models/firestore.model.dart';
@@ -9,11 +8,11 @@ import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/widgets/display_uploaded_images.dart';
+import 'package:clientf/widgets/upload_icon.dart';
+import 'package:clientf/widgets/upload_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
-
-import 'package:image_picker/image_picker.dart';
 
 class CommentBox extends StatefulWidget {
   CommentBox(
@@ -30,7 +29,7 @@ class CommentBox extends StatefulWidget {
   final EngineComment parentComment;
 
   /// When user updates a comment, [currentComemnt] will be set.
-  EngineComment currentComment;
+  final EngineComment currentComment;
 
   final Function onSubmit;
   // final Function onCancel;
@@ -105,10 +104,10 @@ class _CommentBoxState extends State<CommentBox> {
   @override
   void initState() {
     Timer.run(() {
-      if (isCreate) {
-        /// 임시 코멘트 생성. README 참고.
-        widget.currentComment = EngineComment();
-      }
+      // if (isCreate) {
+      //   /// 임시 코멘트 생성. README 참고.
+      //   widget.currentComment = EngineComment();
+      // }
       if (isUpdate) {
         _contentController.text = widget.currentComment.content;
       }
@@ -134,7 +133,7 @@ class _CommentBoxState extends State<CommentBox> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Expanded(
-                  child: T('원글 또는 부모 코멘트 글 목록'),
+                  child: T('원글 또는 부모 코멘트 글 목록까지만 보여주고 나머지 코멘트는 감춘다.'),
                 ),
                 Row(
                   children: <Widget>[
@@ -179,98 +178,20 @@ class _CommentBoxState extends State<CommentBox> {
                           print(e);
                           AppService.alert(null, t(e));
                         }
-                        print('calling: onSubmit');
-                        // widget.onSubmit();
                       },
                     ),
-                    // if (!inLoading)
-                    //   GestureDetector(
-                    //     child: Icon(Icons.cancel),
-                    //     onTap: widget.onCancel,
-                    //   ),
                   ],
                 ),
                 UploadProgressBar(),
-                DisplayUploadedImages(comment: widget.currentComment),
+                DisplayUploadedImages(
+                  comment: widget.currentComment,
+                  editable: true,
+                ),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class UploadProgressBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<FirestoreModel>(
-      builder: (context, model, child) {
-        if (model.uploadTask == null || !model.uploadTask.isInProgress)
-          return SizedBox.shrink();
-        print('-> ${model.uploadPercentage}');
-        return Column(
-          children: [
-            LinearProgressIndicator(value: model.uploadPercentage / 100),
-            Text('${model.uploadPercentage.round()} % '),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class UploadIcon extends StatelessWidget {
-  UploadIcon(
-    this.onUpload, {
-    Key key,
-  }) : super(key: key);
-
-  final Function onUpload;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Icon(Icons.photo_camera),
-      onTap: () {
-        AppService.bottomSheet([
-          {
-            'icon': Icons.photo_camera,
-            'text': t('Take photo from camera'),
-            'onTap': () async {
-              back();
-              print('from camea');
-              String url =
-                  await Provider.of<FirestoreModel>(context, listen: false)
-                      .pickAndUploadImage(context, ImageSource.camera.index);
-              print('file uploaded: $url');
-              onUpload(url);
-            }
-          },
-          {
-            'icon': Icons.photo_album,
-            'text': t('Take photo from Gallary'),
-            'onTap': () async {
-              back();
-              var model = Provider.of<FirestoreModel>(context, listen: false);
-
-              print('from gallery: doc: ${model.doc}');
-              String url = await model.pickAndUploadImage(
-                  context, ImageSource.gallery.index);
-
-              print('file uploaded: $url');
-              onUpload(url);
-            }
-          },
-          {
-            'icon': Icons.close,
-            'text': t('cancel'),
-            'onTap': () {
-              back();
-            }
-          },
-        ]);
-      },
     );
   }
 }

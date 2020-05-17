@@ -1,3 +1,4 @@
+import 'package:clientf/enginf_clientf_service/enginf.comment.model.dart';
 import 'package:clientf/enginf_clientf_service/enginf.forum.model.dart';
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
@@ -44,7 +45,8 @@ class _PostListItemState extends State<PostListItem> {
             children: <Widget>[
               RaisedButton(
                 onPressed: () async {
-                  final re = await AppService.openCommentBox(widget.post, null, null);
+                  final re = await AppService.openCommentBox(
+                      widget.post, null, EngineComment());
                   Provider.of<EngineForumModel>(context, listen: false)
                       .addComment(re, widget.post, null);
 
