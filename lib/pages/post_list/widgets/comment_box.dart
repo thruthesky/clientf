@@ -1,20 +1,16 @@
-import 'dart:async';
+
 
 import 'package:clientf/enginf_clientf_service/enginf.comment.model.dart';
-import 'package:clientf/enginf_clientf_service/enginf.forum.model.dart';
-import 'package:clientf/enginf_clientf_service/enginf.model.dart';
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/models/firestore.model.dart';
 import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
-import 'package:clientf/widgets/uploaded_images_box.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:clientf/widgets/display_uploaded_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
-import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 
@@ -200,7 +196,7 @@ class _CommentBoxState extends State<CommentBox> {
                   ],
                 ),
                 UploadProgressBar(),
-                UploadedImagesBox(),
+                DisplayUploadedImages(comment: widget.currentComment),
               ],
             ),
           ),

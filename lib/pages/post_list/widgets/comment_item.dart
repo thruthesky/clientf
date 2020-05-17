@@ -85,7 +85,7 @@ class CommentContent extends StatelessWidget {
         padding: EdgeInsets.all(AppSpace.space),
         child: Column(
           children: <Widget>[
-            DisplayUploadedImages(comment.urls),
+            DisplayUploadedImages(comment: comment,),
             Text('[${comment.depth}] ${comment.content}'),
           ],
         ),
