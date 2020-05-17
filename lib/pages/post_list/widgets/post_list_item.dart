@@ -24,10 +24,17 @@ class PostListItem extends StatefulWidget {
 class _PostListItemState extends State<PostListItem> {
   bool showContent = true;
   bool showCommentBox = false;
+  
   @override
+  void initState() {
+    print('--> _PostListItemState::initState() called for: ${widget.post.id}');
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     // if ( widget.post == null ) return SizedBox.shrink();
+
+    // print('--> _PostListItemState: build(): ${widget.post}');
     if (showContent) {
       return Column(
         children: <Widget>[
@@ -50,6 +57,7 @@ class _PostListItemState extends State<PostListItem> {
               RaisedButton(
                 onPressed: () {
                   setState(() {
+                    forumModel(context).prepareCommentBox(widget.post);
                     showCommentBox = !showCommentBox;
                   });
                 },
@@ -57,8 +65,8 @@ class _PostListItemState extends State<PostListItem> {
               ),
               RaisedButton(
                 onPressed: () async {
-                  print('go to edit page:');
-                  print(widget.post);
+                  // print('go to edit page:');
+                  // print(widget.post);
 
                   /// TODO: 로직을 ForumModel 로 집어 넣을 것.
                   final EnginePost post = await open(AppRoutes.postUpdate,
@@ -67,7 +75,7 @@ class _PostListItemState extends State<PostListItem> {
                       .updatePost(post);
 
                   /// TODO: update post list after updating a post.
-                  print(post);
+                  // print(post);
                 },
                 child: Text('Edit'),
               ),
@@ -109,14 +117,21 @@ class _PostListItemState extends State<PostListItem> {
               ),
             ],
           ),
+
+
+
           if (showCommentBox)
             CommentBox(
               widget.post,
-              key: ValueKey(widget.post.id),
               onCancel: () => setState(() => showCommentBox = false),
-              onSubmit : () => setState(() => showCommentBox = false),
+              onSubmit: () => setState(() => showCommentBox = false),
+              key: ValueKey('PostListItem::CommentBox::' + widget.post.id),
             ),
-          CommentList(widget.post)
+
+          CommentList(
+            widget.post,
+            key: ValueKey('ColumnList${widget.post.id}'),
+          )
         ],
       );
     } else {

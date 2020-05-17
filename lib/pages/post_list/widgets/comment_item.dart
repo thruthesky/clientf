@@ -7,7 +7,6 @@ import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CommentItem extends StatefulWidget {
   const CommentItem(
@@ -16,7 +15,7 @@ class CommentItem extends StatefulWidget {
     Key key,
   }) : super(key: key);
   final EnginePost post;
-  final comment;
+  final EngineComment comment;
 
   @override
   _CommentItemState createState() => _CommentItemState();
@@ -27,61 +26,70 @@ class _CommentItemState extends State<CommentItem> {
 
   bool editMode = false;
   bool replyMode = false;
-  EngineComment comment;
 
   @override
   void initState() {
-    comment = EngineComment.fromEnginData(widget.comment);
-
-    print('CommentItem::initState() $comment');
+    // print('CommentItem::initState() ${widget.comment}');
+    if ( widget.comment.id == null ) {
+      editMode = true;
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (comment == null) return SizedBox.shrink();
+    if (widget.comment == null) return SizedBox.shrink();
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(AppSpace.space),
       color: AppColor.scaffoldBackgroundColor,
       child: Column(
         children: <Widget>[
-          if (editMode)
+          if (editMode) // Edit comment
             Column(
               children: <Widget>[
-                T('edit comment'),
+                T('edit box'),
                 CommentBox(
                   widget.post,
-                  currentComment: comment,
+                  currentComment: widget.comment,
                   onCancel: () => setState(() => editMode = false),
-                  onSubmit: () => setState(() => editMode = false),
+                  onSubmit: () => setState(() {
+                    print('got Submit event: ');
+                    editMode = false;
+                  }),
+                  key: ValueKey('CommentBox${widget.comment.id}'),
                 ),
               ],
             ),
-          if (!editMode)
+          if (!editMode) // Show comment
             Column(
               children: <Widget>[
-                CommentContent(comment: comment),
+                CommentContent(comment: widget.comment),
                 CommentButtons(
                   onReply: () => setState(() {
                     replyMode = !replyMode;
                   }),
                   onEdit: () => setState(() {
+                    print('onEdit: (), got it:');
                     editMode = true;
                   }),
                   onDelete: () async {
-                    var re = await app.f.commentDelete(comment.id);
+                    /// Delte
+                    var re = await app.f.commentDelete(widget.comment.id);
                     setState(() {
-                      comment.content = re['content'];
+                      widget.comment.content = re['content'];
                     });
                   },
                 ),
                 if (replyMode)
                   CommentBox(
                     widget.post,
-                    parentComment: comment,
+                    parentComment: widget.comment,
                     onCancel: () => setState(() => replyMode = false),
                     onSubmit: () => setState(() => replyMode = false),
+                    // Will prevent 'element tree dup on test mode'.
+                    key: ValueKey(
+                        'CommentBoxReply::CommentBox::' + randomString()),
                   ),
               ],
             ),
@@ -101,6 +109,7 @@ class CommentContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print('--> is EnginComment? ${comment.runtimeType}');
     return Container(
       width: double.infinity,
       child: Container(

@@ -37,6 +37,13 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  firebase_core: ^0.4.4+3
+  firebase_storage: ^3.1.5
+
+  image_picker: ^0.6.6+1
+  permission_handler: ^5.0.0+hotfix.6
+  flutter_image_compress: ^0.6.7
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

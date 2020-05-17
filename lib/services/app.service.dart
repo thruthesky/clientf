@@ -71,7 +71,8 @@ class AppService {
   }
 
   /// Can it be synchronous by using async/await? So, it does not need to use callback functions.
-  static confirm({String title, String content, Function onNo, Function onYes}) {
+  static confirm(
+      {String title, String content, Function onNo, Function onYes}) {
     return showPlatformDialog<void>(
       context: context,
       builder: (context) {
@@ -94,6 +95,32 @@ class AppService {
               },
             )
           ],
+        );
+      },
+    );
+  }
+
+  static bottomSheet(List<Map<String, dynamic>> items) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return SafeArea(
+                  child: Container(
+            child: new Wrap(
+              children: <Widget>[
+                for (var item in items)
+                  new ListTile(
+                    leading: new Icon(item['icon']),
+                    title: new Text(item['text']),
+                    onTap: item['onTap'],
+                    // new ListTile(
+                    //   leading: new Icon(Icons.videocam),
+                    //   title: new Text('Video'),
+                    //   onTap: () => {},
+                  ),
+              ],
+            ),
+          ),
         );
       },
     );
