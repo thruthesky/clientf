@@ -28,9 +28,6 @@ class FirestoreModel extends ChangeNotifier {
   var doc;
   // var col;
 
-
-
-
   FirestoreModel(this.doc);
 
   // [urls] 에 저장을 하면 안되고, 코멘트에 바로 저장을 해야 한다. 그리고 서버에도 같이 저장을 해야 한다.
@@ -138,6 +135,8 @@ class FirestoreModel extends ChangeNotifier {
           (event.snapshot.bytesTransferred.toDouble() /
               event.snapshot.totalByteCount.toDouble());
       print(uploadPercentage);
+
+      // 
       notifyListeners();
 
       // var event = snapshot?.data?.snapshot;
@@ -159,7 +158,6 @@ class FirestoreModel extends ChangeNotifier {
 
     // urls.add(_uploadedUrl);
 
-
     /// 도큐먼트의 [urls] 속성에 업로드한 사진 URL을 추가한다.
     doc.urls.add(_uploadedUrl);
 
@@ -167,7 +165,5 @@ class FirestoreModel extends ChangeNotifier {
 
     notifyListeners();
     return _uploadedUrl;
-
   }
-
 }

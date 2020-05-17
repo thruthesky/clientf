@@ -1,6 +1,7 @@
-
+import 'dart:async';
 
 import 'package:clientf/enginf_clientf_service/enginf.comment.model.dart';
+import 'package:clientf/enginf_clientf_service/enginf.forum.model.dart';
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/models/firestore.model.dart';
@@ -103,35 +104,24 @@ class _CommentBoxState extends State<CommentBox> {
 
   @override
   void initState() {
-    // widget.post.comments.removeWhere((c) => c.id == null);
-    print('-> CommentBox::initState() -> ${widget.post.comments}');
-
+    Timer.run(() {
+      if (isCreate) {
+        /// 임시 코멘트 생성. README 참고.
+        widget.currentComment = EngineComment();
+      }
+      if (isUpdate) {
+        _contentController.text = widget.currentComment.content;
+      }
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // print('--> reply? isCreate: $isCreate, isUpdate: $isUpdate, currentComment: ${widget.currentComment}');
-
-    if (isCreate) {
-      /// 임시 코멘트 생성. README 참고.
-      widget.currentComment = EngineComment();
-      // print('really?');
-
-      /// 임시 코멘트를 글 목록의 코멘트 사이에 끼워 넣음.
-      // Provider.of<EngineForumModel>(context, listen: false).addComment(
-      //     widget.currentComment, widget.post, widget.parentComment?.id,
-      //     notify: false);
-    }
-    if (isUpdate) {
-      _contentController.text = widget.currentComment.content;
-    }
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            create: (context) =>
-                FirestoreModel(widget.currentComment)),
+            create: (context) => FirestoreModel(widget.currentComment)),
       ],
       child: Scaffold(
         appBar: AppBar(
@@ -143,10 +133,14 @@ class _CommentBoxState extends State<CommentBox> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Expanded(child: T('원글 또는 부모 코멘트 글 목록'),),
+                Expanded(
+                  child: T('원글 또는 부모 코멘트 글 목록'),
+                ),
                 Row(
                   children: <Widget>[
-                    UploadIcon(),
+                    UploadIcon((String url) {
+                      setState(() {});
+                    }),
                     Expanded(
                       child: TextField(
                         controller: _contentController,
@@ -173,12 +167,13 @@ class _CommentBoxState extends State<CommentBox> {
                             /// create (reply)
                             var re = await app.f.commentCreate(data);
                             print('create: $data');
-                            back( arguments: re);
+                            back(arguments: re);
                           } else {
                             /// update
                             var re = await app.f.commentUpdate(getFormData());
                             print('CommentBox:: Comment update. $re');
                             widget.currentComment.content = re.content;
+                            back(arguments: re);
                           }
                         } catch (e) {
                           print(e);
@@ -226,9 +221,12 @@ class UploadProgressBar extends StatelessWidget {
 }
 
 class UploadIcon extends StatelessWidget {
-  const UploadIcon({
+  UploadIcon(
+    this.onUpload, {
     Key key,
   }) : super(key: key);
+
+  final Function onUpload;
 
   @override
   Widget build(BuildContext context) {
@@ -245,6 +243,8 @@ class UploadIcon extends StatelessWidget {
               String url =
                   await Provider.of<FirestoreModel>(context, listen: false)
                       .pickAndUploadImage(context, ImageSource.camera.index);
+              print('file uploaded: $url');
+              onUpload(url);
             }
           },
           {
@@ -259,11 +259,7 @@ class UploadIcon extends StatelessWidget {
                   context, ImageSource.gallery.index);
 
               print('file uploaded: $url');
-
-              /// 여기서 부터.
-              /// 사진 하나 등록 할 때 바로 서버에 urls 필드를 업데이트 않는다. 전송을 할 때, 다 같이 저장을 한다.
-              /// 사진이 삭제되었으면, 그냥 현재 doc 에서 url 만 빼 놓는다.
-              // app.f.commentAddUrl(id, url);
+              onUpload(url);
             }
           },
           {

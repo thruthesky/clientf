@@ -1,5 +1,4 @@
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
-import 'package:clientf/globals.dart';
 import 'package:clientf/pages/post_list/widgets/post_list_item.dart';
 import 'package:flutter/material.dart';
 

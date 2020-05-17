@@ -27,31 +27,18 @@ class _PostListItemState extends State<PostListItem> {
 
   @override
   void initState() {
-    print('--> _PostListItemState::initState() called for: ${widget.post.id}');
+    // print('--> _PostListItemState::initState() called for: ${widget.post.id}');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // if ( widget.post == null ) return SizedBox.shrink();
-
-    // print('--> _PostListItemState: build(): ${widget.post}');
     if (showContent) {
       return Column(
         children: <Widget>[
           Padding(
             padding: EdgeInsets.all(20),
-            child: Column(
-              children: <Widget>[
-                Text(
-                  'title: ${widget.post.title}',
-                  style: TextStyle(fontSize: 32),
-                ),
-                Text('author: ${widget.post.uid}'),
-                Text('created: ${widget.post.createdAt}'),
-                Text('content: ${widget.post.content}'),
-              ],
-            ),
+            child: PostListContent(widget: widget),
           ),
           Row(
             children: <Widget>[
@@ -150,5 +137,29 @@ class _PostListItemState extends State<PostListItem> {
         },
       );
     }
+  }
+}
+
+class PostListContent extends StatelessWidget {
+  const PostListContent({
+    Key key,
+    @required this.widget,
+  }) : super(key: key);
+
+  final PostListItem widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Text(
+          'title: ${widget.post.title}',
+          style: TextStyle(fontSize: 32),
+        ),
+        Text('author: ${widget.post.uid}'),
+        Text('created: ${widget.post.createdAt}'),
+        Text('content: ${widget.post.content}'),
+      ],
+    );
   }
 }
