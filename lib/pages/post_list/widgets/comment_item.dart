@@ -49,7 +49,7 @@ class _CommentItemState extends State<CommentItem> {
                   final re = await AppService.openCommentBox(
                       widget.post, null, widget.comment);
                   Provider.of<EngineForumModel>(context, listen: false)
-                      .addComment(re, widget.post, null);
+                      .updateComment(re, widget.post);
                 },
                 onDelete: () async {
                   /// Delte
