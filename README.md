@@ -30,6 +30,12 @@
 * `cd clientf`
 * `git submodule update --init`
 
+### 안드로이드에서 테스트할 때 필요한 설정
+* 소셜 로그인을 진행할 경우 Android Hash key 등록이 필요하다.
+  * [Kakao developers Key Hash 등록](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-android-v1)
+  * [파이어베이스 SHA-1 Key 등록](https://developers.google.com/android/guides/client-auth?hl=ko)
+
+
 ### iOS 설치 예제
 
 * ios/GoogleService-Info.plist 파일을 삭제한다.
