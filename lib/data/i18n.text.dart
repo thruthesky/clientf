@@ -158,7 +158,11 @@ const Map<String, Map<String, String>> textTranslations = {
   AUTH_PHONE_NUMBER_ALREADY_EXIST: {
     'ko': '전화 번호가 다른 회원에 의해서 등록되어져 있습니다.',
     'en': 'The phone number is already registered by other user',
-  }
+  },
+  ALREADY_LOGIN_ON_REGISTER_PAGE: {
+    'ko': '앗! 이미 로그인을 하였습니다.\n로그인을 한 상태에서는 회원 가입 페이지를 열 수 없습니다.',
+    'en': 'Ooh! You have already logged in.\nYou cannot open register page while you are logged in.',
+  },
 };
 
 ///

@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 
 import 'dart:math';
 
+
+/// 전체 앱 state 를 관리하는 모델.
+/// 
+/// 글로벌 영역에서 instance 를 생성하고, 전체 앱에서 공유를 한다.
 AppModel app = AppModel();
 
 Future open(String route, {arguments}) {

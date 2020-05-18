@@ -1,11 +1,18 @@
+import 'package:clientf/enginf_clientf_service/enginf.defines.dart';
+import 'package:clientf/enginf_clientf_service/enginf.user.model.dart';
 import 'package:clientf/globals.dart';
+import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.router.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
+import 'package:clientf/widgets/display_uploaded_images.dart';
+import 'package:clientf/widgets/upload_icon.dart';
+import 'package:clientf/widgets/upload_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image/network.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -13,6 +20,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  EngineUser user = EngineUser();
+  int progress = 0;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nicknameController = TextEditingController();
@@ -48,67 +57,139 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       endDrawer: AppDrawer(),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(AppSpace.space),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              TextField(
-                controller: _emailController,
-                onSubmitted: (text) {},
-                decoration: InputDecoration(
-                  hintText: t('input email'),
+        child: app.loggedIn
+            ? T(ALREADY_LOGIN_ON_REGISTER_PAGE)
+            : Padding(
+                padding: EdgeInsets.all(AppSpace.space),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    UploadIcon(
+                      user,
+                      (p) {
+                        setState(() {
+                          progress = p;
+                        });
+                      },
+                      (String url) {
+                        setState(() {});
+                      },
+                      icon: UserPhoto(user),
+                    ),
+                    UploadProgressBar(progress),
+                    // DisplayUploadedImages(
+                    //   user,
+                    //   editable: true,
+                    // ),
+                    AppSpace.spaceBox,
+                    TextField(
+                      controller: _emailController,
+                      onSubmitted: (text) {},
+                      decoration: InputDecoration(
+                        hintText: t('input email'),
+                      ),
+                    ),
+                    AppSpace.halfBox,
+                    TextField(
+                      controller: _passwordController,
+                      onSubmitted: (text) {},
+                      decoration: InputDecoration(
+                        hintText: t('input password'),
+                      ),
+                    ),
+                    AppSpace.halfBox,
+                    TextField(
+                      controller: _nicknameController,
+                      onSubmitted: (text) {},
+                      decoration: InputDecoration(
+                        hintText: t('input nickname'),
+                      ),
+                    ),
+                    AppSpace.halfBox,
+                    TextField(
+                      controller: _phoneNumberController,
+                      onSubmitted: (text) {},
+                      decoration: InputDecoration(
+                        hintText: t('input phone number'),
+                      ),
+                    ),
+                    AppSpace.halfBox,
+                    TextField(
+                      controller: _birthdayController,
+                      onSubmitted: (text) {},
+                      decoration: InputDecoration(
+                        hintText: t('input birthday'),
+                      ),
+                    ),
+                    RaisedButton(
+                      onPressed: () async {
+                        // print('Register button pressed');
+                        final data = getFormData();
+                        try {
+                          await app.f.register(data);
+                          AppRouter.open(context, AppRoutes.home);
+                        } catch (e) {
+                          AppService.alert(null, t(e));
+                        }
+                      },
+                      child: T('register submit'),
+                    ),
+                  ],
                 ),
               ),
-              AppSpace.halfBox,
-              TextField(
-                controller: _passwordController,
-                onSubmitted: (text) {},
-                decoration: InputDecoration(
-                  hintText: t('input password'),
-                ),
-              ),
-              AppSpace.halfBox,
-              TextField(
-                controller: _nicknameController,
-                onSubmitted: (text) {},
-                decoration: InputDecoration(
-                  hintText: t('input nickname'),
-                ),
-              ),
-              AppSpace.halfBox,
-              TextField(
-                controller: _phoneNumberController,
-                onSubmitted: (text) {},
-                decoration: InputDecoration(
-                  hintText: t('input phone number'),
-                ),
-              ),
-              AppSpace.halfBox,
-              TextField(
-                controller: _birthdayController,
-                onSubmitted: (text) {},
-                decoration: InputDecoration(
-                  hintText: t('input birthday'),
-                ),
-              ),
-              RaisedButton(
-                onPressed: () async {
-                  // print('Register button pressed');
-                  final data = getFormData();
-                  try {
-                    await app.f.register(data);
-                    AppRouter.open(context, AppRoutes.home);
-                  } catch (e) {
-                    AppService.alert(null, t(e));
-                  }
-                },
-                child: T('register submit'),
-              ),
-            ],
-          ),
-        ),
       ),
+    );
+  }
+}
+
+class UserPhoto extends StatelessWidget {
+  UserPhoto(
+    this.user, {
+    Key key,
+  }) : super(key: key);
+
+  final EngineUser user;
+  @override
+  Widget build(BuildContext context) {
+    String url;
+    if (user.urls != null && user.urls.length > 0) {
+      url = user.urls[0];
+    }
+
+    return Column(
+      children: <Widget>[
+        if (url == null)
+          Material(
+            elevation: 4.0,
+            shape: CircleBorder(),
+            clipBehavior: Clip.hardEdge,
+            color: Colors.blueAccent,
+            child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.person,
+                  size: 128,
+                  color: AppColor.white,
+                )),
+          ),
+        if (user != null)
+          ClipOval(
+            child: Image(
+                image: NetworkImageWithRetry(url),
+                width: 160,
+                height: 160,
+                fit: BoxFit.cover),
+          ),
+        AppSpace.halfBox,
+        if (url == null) Text('Upload photo'),
+        if (url != null) ...[
+          Text('Change photo'),
+          RaisedButton(
+            onPressed: () {},
+            child: T('Delete Photo'),
+          ),
+        ],
+      ],
     );
   }
 }

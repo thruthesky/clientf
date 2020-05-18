@@ -12,7 +12,12 @@ class AppModel extends ChangeNotifier {
   /// false - closed
   bool drawer = false;
 
+  bool online = false;
+
   final EngineModel f = EngineModel();
+
+  bool get loggedIn => f.loggedIn;
+  bool get notLoggedIn => f.notLoggedIn;
 
   AppModel() {
     // print('AppModel() consturctor');

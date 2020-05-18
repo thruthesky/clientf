@@ -55,6 +55,7 @@ class _HomePageState extends State<HomePage> {
                       Text('user login: ${user.email}'),
                       Text('phoneNumber: ${user.phoneNumber}'),
                       Text('displayName: ${user.displayName}'),
+                      Text('Anonymous: ${user.isAnonymous}'),
                     ],
                   );
                 },

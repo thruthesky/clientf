@@ -10,10 +10,11 @@ import 'package:image_picker/image_picker.dart';
 /// 사진은 Firestore 에 등록하고 [doc.urls] 에 URL 을 추가하는데 이것을 Document 에 바로 저장하면 된다.
 /// 사진 업로드 중에 percentage 는 [onProgress] 콜백으로 표시하고
 /// 사진 업로드가 완료되면 [onUpload] 콜백이 호출 된다.
-/// 
+/// [icon] 에는 원하는 아이콘을 집어 넣으면 된다. 아이콘 뿐만아니라 원하는 위젯을 아무거나 넣으면 된다. 사용자 사진 등록시에는 아이콘(사진)과 문자열을 가지는 Column 을 [icon] 에 지정해도 된다.
+///
 /// 참고로 [UploadIcon] 에서 Percentage 를 [UploadProgressBar] 로 표시하고 업로드가 되면 [DisplayUploadedImages] 로 표시를 하면 된다.
-/// 
-/// 
+///
+///
 /// ``` dart
 /// UploadIcon(widget.currentComment, (p) {
 ///   setState(() {
@@ -29,6 +30,7 @@ class UploadIcon extends StatelessWidget {
     this.doc,
     this.onProgress,
     this.onUpload, {
+    this.icon,
     Key key,
   }) : super(key: key);
 
@@ -41,10 +43,14 @@ class UploadIcon extends StatelessWidget {
   /// 업로드 진행 콜백. Percentage 값을 알려 줌.
   final Function onProgress;
 
+  Widget icon;
+
   @override
   Widget build(BuildContext context) {
+    if (icon == null) icon = Icon(Icons.photo_camera);
     return GestureDetector(
-      child: Icon(Icons.photo_camera),
+      behavior: HitTestBehavior.opaque,
+      child: icon,
       onTap: () {
         AppService.bottomSheet([
           {

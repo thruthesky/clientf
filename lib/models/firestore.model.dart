@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:clientf/services/app.i18n.dart';
 
-/// TODO: 이 모델이 과연 필요한가? 그냥 라이브러리로 쓰면 안되나? 왜냐하면 모든 생성/수정이 별도의 페이지에서 작업된다.
 /// FirestoreModel 에서는 사진을 찍어 올리고, 삭제 등 전반 적인 관리를 한다.
 ///
 ///
@@ -21,17 +20,11 @@ import 'package:clientf/services/app.i18n.dart';
 /// * firebase_firestore 플러그인 설정
 /// * Firebase 콘솔에서 해당 프로젝트의 Firestore 생성 및 적절한 권한 설정
 ///
+/// 파일(사진) 삭제를 할 때, [doc] 에 값을 주고 초기화 하여 `delete` 메소를 호출하면 된다.
 class FirestoreModel {
   StorageUploadTask uploadTask;
-  // double uploadPercentage = 0;
-
   var doc;
-  // var col;
-
   FirestoreModel(this.doc);
-
-  // [urls] 에 저장을 하면 안되고, 코멘트에 바로 저장을 해야 한다. 그리고 서버에도 같이 저장을 해야 한다.
-  // List<String> urls = [];
 
   /// 사진을 선택한다.
   ///
