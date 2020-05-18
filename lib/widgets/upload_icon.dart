@@ -4,7 +4,25 @@ import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
+
+/// 업로드 아이콘을 표히사고 클릭을 하면 사진 업로드를 한다.
+///
+/// 사진은 Firestore 에 등록하고 [doc.urls] 에 URL 을 추가하는데 이것을 Document 에 바로 저장하면 된다.
+/// 사진 업로드 중에 percentage 는 [onProgress] 콜백으로 표시하고
+/// 사진 업로드가 완료되면 [onUpload] 콜백이 호출 된다.
+/// 
+/// 참고로 [UploadIcon] 에서 Percentage 를 [UploadProgressBar] 로 표시하고 업로드가 되면 [DisplayUploadedImages] 로 표시를 하면 된다.
+/// 
+/// 
+/// ``` dart
+/// UploadIcon(widget.currentComment, (p) {
+///   setState(() {
+///     progress = p;
+///   });
+/// }, (String url) {
+///   setState(() {});
+/// })
+/// ```
 
 class UploadIcon extends StatelessWidget {
   UploadIcon(
@@ -35,10 +53,6 @@ class UploadIcon extends StatelessWidget {
             'onTap': () async {
               back();
               print('from camea');
-              // String url =
-              //     await Provider.of<FirestoreModel>(context, listen: false)
-              //         .pickAndUploadImage(context, ImageSource.camera.index);
-
               String url = await FirestoreModel(doc).pickAndUploadImage(
                 context,
                 ImageSource.camera.index,
@@ -54,23 +68,12 @@ class UploadIcon extends StatelessWidget {
             'text': t('Take photo from Gallary'),
             'onTap': () async {
               back();
-              // var model = Provider.of<FirestoreModel>(context, listen: false);
-
-              // print('from gallery: doc: ${model.doc}');
-              // String url = await model.pickAndUploadImage(
-              //     context, ImageSource.gallery.index);
-
-              // print('file uploaded: $url');
-              // onUpload(url);
-
               String url = await FirestoreModel(doc).pickAndUploadImage(
                 context,
                 ImageSource.gallery.index,
                 onUploadComplete: onUpload,
                 onUploadPercentage: onProgress,
               );
-              print('UploadIcon:: gallery: file uploaded: $url');
-              // onUpload(url);
             }
           },
           {

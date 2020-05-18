@@ -12,7 +12,7 @@ class AppRoutes {
   static String categoryUpdate = 'categoryUpdate';
   static String postList = 'postList';
   static String postCreate = 'postCreate';
-  static String postUpdate = 'postUpdate';
+  static String postUpdate = 'postCreate';
 }
 
 class HiveBox {

@@ -1,6 +1,3 @@
-import 'package:clientf/enginf_clientf_service/enginf.comment.model.dart';
-import 'package:clientf/enginf_clientf_service/enginf.forum.model.dart';
-import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/models/firestore.model.dart';
 import 'package:clientf/services/app.color.dart';
@@ -10,15 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image/network.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
+/// 업로드된 사진을 표시
+///
 class DisplayUploadedImages extends StatefulWidget {
-  DisplayUploadedImages({
-    this.post,
-    this.comment,
+  /// [doc] 사용자 도큐먼트
+  DisplayUploadedImages(
+    this.doc, {
     this.editable = false,
   });
 
-  final EnginePost post;
-  final EngineComment comment;
+  final doc;
   final bool editable;
 
   @override
@@ -28,9 +26,8 @@ class DisplayUploadedImages extends StatefulWidget {
 class _DisplayUploadedImagesState extends State<DisplayUploadedImages> {
   @override
   Widget build(BuildContext context) {
-    List<dynamic> urls =
-        this.widget.post != null ? widget.post.urls : widget.comment.urls;
-    if (urls == null || urls.length == 0) return SizedBox.shrink();
+    if (widget.doc.urls == null || widget.doc.urls.length == 0)
+      return SizedBox.shrink();
     return GridView.builder(
       shrinkWrap: true,
       padding: EdgeInsets.all(10),
@@ -40,15 +37,15 @@ class _DisplayUploadedImagesState extends State<DisplayUploadedImages> {
         maxCrossAxisExtent: 140,
         childAspectRatio: 5 / 3, // Grid 한 칸에 들어가는 Child Item 의 너비와 높이 비율
       ),
-      itemCount: urls.length,
+      itemCount: widget.doc.urls.length,
       itemBuilder: (context, i) {
-        String url = urls.elementAt(i);
+        String url = widget.doc.urls.elementAt(i);
         return GridTile(
           child: Image(
             image: NetworkImageWithRetry(url),
           ),
           footer: DeleteIcon(
-            widget.comment,
+            widget.doc,
             url,
             widget.editable,
             () => setState(() {}),
@@ -62,14 +59,14 @@ class _DisplayUploadedImagesState extends State<DisplayUploadedImages> {
 
 class DeleteIcon extends StatefulWidget {
   DeleteIcon(
-    this.comment,
+    this.doc,
     this.url,
     this.editable,
     this.onDelete, {
     Key key,
   }) : super(key: key);
 
-  final EngineComment comment;
+  final doc;
   final String url;
   final bool editable;
   final Function onDelete;
@@ -90,7 +87,7 @@ class _DeleteIconState extends State<DeleteIcon> {
           inLoading = true;
         });
         try {
-          await FirestoreModel(widget.comment).delete(widget.url);
+          await FirestoreModel(widget.doc).delete(widget.url);
         } catch (e) {
           print(e);
           AppService.alert(null, t(e));

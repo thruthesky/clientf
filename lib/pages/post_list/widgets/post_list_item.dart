@@ -7,6 +7,7 @@ import 'package:clientf/pages/post_list/widgets/comment_list.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
+import 'package:clientf/widgets/display_uploaded_images.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +40,7 @@ class _PostListItemState extends State<PostListItem> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.all(20),
-            child: PostListContent(widget: widget),
+            child: PostListContent(widget.post), // 글 제목 & 내용 & 사진 & 기타 정보
           ),
           Row(
             children: <Widget>[
@@ -49,33 +50,23 @@ class _PostListItemState extends State<PostListItem> {
                       widget.post, null, EngineComment());
                   Provider.of<EngineForumModel>(context, listen: false)
                       .addComment(re, widget.post, null);
-
-                  // setState(() {
-                  //   showCommentBox = !showCommentBox;
-                  // });
                 },
                 child: Text('Reply'),
               ),
               RaisedButton(
                 onPressed: () async {
-                  // print('go to edit page:');
-                  // print(widget.post);
-
                   /// TODO: 로직을 ForumModel 로 집어 넣을 것.
                   final EnginePost post = await open(AppRoutes.postUpdate,
                       arguments: {'post': widget.post});
                   Provider.of<EngineForumModel>(context, listen: false)
                       .updatePost(post);
-
-                  /// TODO: update post list after updating a post.
-                  // print(post);
                 },
                 child: Text('Edit'),
               ),
               RaisedButton(
                 onPressed: () async {
                   print(widget.post);
-                  //// 여기서 부터. 게시글 삭제. 게시글 삭제 후. 코멘트 CRUD.
+
                   AppService.confirm(
                     title: 'confirm',
                     content: 'do you want to delete?',
@@ -143,24 +134,27 @@ class _PostListItemState extends State<PostListItem> {
 }
 
 class PostListContent extends StatelessWidget {
-  const PostListContent({
+  const PostListContent(
+    this.post, {
     Key key,
-    @required this.widget,
   }) : super(key: key);
 
-  final PostListItem widget;
+  final EnginePost post;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Text(
-          'title: ${widget.post.title}',
+          'title: ${post.title}',
           style: TextStyle(fontSize: 32),
         ),
-        Text('author: ${widget.post.uid}'),
-        Text('created: ${widget.post.createdAt}'),
-        Text('content: ${widget.post.content}'),
+        Text('author: ${post.uid}'),
+        Text('created: ${post.createdAt}'),
+        Text('content: ${post.content}'),
+        DisplayUploadedImages(
+          post,
+        ),
       ],
     );
   }

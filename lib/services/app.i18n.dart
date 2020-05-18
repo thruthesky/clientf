@@ -8,7 +8,10 @@ import 'package:flutter/services.dart';
 /// If [code] is [EngineError], then it takes [EngineError.code] as [code] and translate it.
 String t(code, {info}) {
   // print(code);
-  if (code is EngineError) code = code.code;
+  if (code is EngineError) {
+    code = code.code;
+    // if (info == null) info = code.message;
+  }
   if ( code is FlutterError ) code = code.message;
   if ( code is PlatformException ) {
     code = code.details;

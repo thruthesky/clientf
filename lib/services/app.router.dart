@@ -7,7 +7,6 @@ import 'package:clientf/pages/home/home.page.dart';
 import 'package:clientf/pages/login/login.page.dart';
 import 'package:clientf/pages/post_create/post.create.dart';
 import 'package:clientf/pages/post_list/post_list.page.dart';
-import 'package:clientf/pages/post_update/post_update.page.dart';
 import 'package:clientf/pages/profile/profile.page.dart';
 import 'package:clientf/pages/register/register.page.dart';
 import 'package:clientf/pages/settings/settings.page.dart';
@@ -64,8 +63,6 @@ class AppRouter {
       route = _buildRoute(settings, PostListPage());
     else if (settings.name == AppRoutes.postCreate)
       route = _buildRoute(settings, PostCreatePage());
-    else if (settings.name == AppRoutes.postUpdate)
-      route = _buildRoute(settings, PostUpdatePage());
     return route;
   }
 

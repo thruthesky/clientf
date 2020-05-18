@@ -184,7 +184,7 @@ class _CommentBoxState extends State<CommentBox> {
               ),
               UploadProgressBar(progress),
               DisplayUploadedImages(
-                comment: widget.currentComment,
+                widget.currentComment,
                 editable: true,
               ),
             ],

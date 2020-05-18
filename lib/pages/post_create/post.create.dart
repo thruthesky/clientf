@@ -7,6 +7,7 @@ import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:clientf/widgets/display_uploaded_images.dart';
+import 'package:clientf/widgets/upload_icon.dart';
 import 'package:clientf/widgets/upload_progress_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -16,11 +17,13 @@ class PostCreatePage extends StatefulWidget {
 }
 
 class _PostCreatePageState extends State<PostCreatePage> {
-  String id;
+  EnginePost post = EnginePost();
+  String postId;
+  int progress = 0;
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
-  EnginePost post = EnginePost();
+
   @override
   void initState() {
     super.initState();
@@ -28,7 +31,16 @@ class _PostCreatePageState extends State<PostCreatePage> {
     Timer(Duration(milliseconds: 10), () {
       var _arg = routerArguments(context);
       setState(() {
-        id = _arg['id'];
+        /// 글 생성시, post.id (카테고리)
+        postId = _arg['id'];
+
+        /// 글 수정시, post document.
+        var _post = _arg['post'];
+        if (_post != null) {
+          post = _post;
+          _titleController.text = post.title;
+          _contentController.text = post.content;
+        }
       });
     });
   }
@@ -38,25 +50,28 @@ class _PostCreatePageState extends State<PostCreatePage> {
     final String title = _titleController.text;
     final String content = _contentController.text;
 
+    /// TODO: 카테고리는 사용자가 선택 할 수 있도록 옵션 처리 할 것.
     final data = {
-      'categories': [id],
+      'categories': isCreate ? [postId] : post.categories,
       'title': title,
       'content': content,
       'urls': post.urls,
     };
 
+    if (isUpdate) {
+      data['id'] = post.id;
+    }
     return data;
   }
 
-  /// 여기서 부터.
-  /// FirestoreModel 을 처음 만들 때, 글 목록에서, 쓰기/수정을 다 한다는 계획이었는데,
-  /// 지금은 페이지가 다 나뉘어져서 Model 을 없애고 가능한 callback 으로 한다.
-  /// 그래야지. 다른 앱으로 작업을 할 때 쉬워진다. 다만 callback 을 매우 깨끗하게 작업을 해야 한다.
+  bool get isCreate => postId != null;
+  bool get isUpdate => !isCreate;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: T(id ?? ''),
+        title: T(postId ?? post.title ?? ''),
       ),
       endDrawer: AppDrawer(),
       body: Center(
@@ -81,20 +96,41 @@ class _PostCreatePageState extends State<PostCreatePage> {
             AppSpace.halfBox,
             UploadProgressBar(0),
             DisplayUploadedImages(
-              post: post,
+              post,
               editable: true,
             ),
             AppSpace.halfBox,
-            RaisedButton(
-              onPressed: () async {
-                try {
-                  final re = await app.f.postCreate(getFormData());
-                  back(arguments: re);
-                } catch (e) {
-                  AppService.alert(null, t(e));
-                }
-              },
-              child: T('Create Post'),
+            UploadProgressBar(progress),
+            AppSpace.halfBox,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                UploadIcon(post, (p) {
+                  setState(() {
+                    progress = p;
+                  });
+                }, (String url) {
+                  setState(() {});
+                }),
+                RaisedButton(
+                  onPressed: () async {
+                    try {
+                      var re;
+                      if (isCreate) {
+                        re = await app.f.postCreate(getFormData());
+                      } else {
+                        re = await app.f.postUpdate(getFormData());
+                      }
+
+                      back(arguments: re);
+                    } catch (e) {
+                      print(e);
+                      AppService.alert(null, t(e));
+                    }
+                  },
+                  child: T(isCreate ? 'Create Post' : 'Update Post'),
+                ),
+              ],
             ),
           ],
         ),
