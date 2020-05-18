@@ -68,7 +68,7 @@ class UploadIcon extends StatelessWidget {
             'text': t('Take photo from Gallary'),
             'onTap': () async {
               back();
-              String url = await FirestoreModel(doc).pickAndUploadImage(
+              await FirestoreModel(doc).pickAndUploadImage(
                 context,
                 ImageSource.gallery.index,
                 onUploadComplete: onUpload,

@@ -141,7 +141,7 @@ class FirestoreModel {
         uploadPercentage = 100 *
             (event.snapshot.bytesTransferred.toDouble() /
                 event.snapshot.totalByteCount.toDouble());
-        print(uploadPercentage);
+        // print(uploadPercentage);
         onUploadPercentage(uploadPercentage.round());
       });
     }
@@ -152,16 +152,15 @@ class FirestoreModel {
 
     var _uploadedUrl = await storageReference.getDownloadURL();
 
-    print('File Uploaded: $_uploadedUrl');
-
-    // urls.add(_uploadedUrl);
-
     /// 도큐먼트의 [urls] 속성에 업로드한 사진 URL을 추가한다.
     doc.urls.add(_uploadedUrl);
 
-    print('-----> doc.urls: ${doc.urls}');
 
-    if (onUploadComplete != null) onUploadComplete(_uploadedUrl);
+    /// 업로드 성공
+    if (onUploadComplete != null) {
+      onUploadComplete(_uploadedUrl);
+      onUploadPercentage(0); // Percentage 를 0 으로 해서, Progress Bar 가 사라지게 함.
+    }
     return _uploadedUrl;
   }
 
