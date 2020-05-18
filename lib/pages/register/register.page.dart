@@ -8,8 +8,10 @@ import 'package:clientf/services/app.router.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
+import 'package:clientf/widgets/custom_app_bar.dart';
 import 'package:clientf/widgets/upload_icon.dart';
 import 'package:clientf/widgets/upload_progress_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image/network.dart';
 
@@ -44,17 +46,21 @@ class _RegisterPageState extends State<RegisterPage> {
       'phoneNumber': phoneNumber,
       'birthday': birthday,
     };
+
+    /// 회원 가입
     if (app.notLoggedIn) {
+
+      /// 회원 가입시에만 이메일과 비빌번호를 지정
       data['email'] = email;
       data['password'] = password;
+
+      /// 회원 가입을 할 때에는 사진이 `Anonymous` 로 업로드 되어져있는데,
+      ///   - 그 사진의 URL 을 `Enginef`로 전달하고
+      ///   - `Enginef`에서 해당 사용자의 `Firebase Auth` 에 기록을 한다.
+      if (user.urls != null && user.urls.length > 0) {
+        data['photoURL'] = user.urls[0];
+      }
     }
-    if (user.urls != null && user.urls.length > 0) {
-      data['photoURL'] = user.urls[0];
-    } else {
-      data['photoURL'] = null;
-    }
-    print('data: ');
-    print(data);
     return data;
   }
 
@@ -74,13 +80,6 @@ class _RegisterPageState extends State<RegisterPage> {
         _nicknameController.text = user.displayName;
         _phoneNumberController.text = user.phoneNumber;
         _birthdayController.text = user.birthday;
-
-        /// 사용자 사진을 `AppStore` 에서 수정 할 수 있도록 호환 작업.
-        if (_user.photoURL != null) {
-          user.urls = [_user.photoURL];
-        }
-        print('========> loadProfile()');
-        print(user);
       });
     } catch (e) {
       AppService.alert(null, t(e));
@@ -90,8 +89,8 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: T('Register'),
+      appBar: CustomAppBar(
+        title: t('Register'),
       ),
       endDrawer: AppDrawer(),
       body: SingleChildScrollView(
@@ -103,22 +102,25 @@ class _RegisterPageState extends State<RegisterPage> {
               UploadIcon(
                 user,
                 (p) {
+                  /// 업로드 Percentage 표시
                   setState(() {
                     progress = p;
                   });
                 },
-                (String url) {
-                  setState(() {});
+                (String url) async {
+                  /// 사진 업로드
+                  try {
+                    /// 사진을 업로드하면, `Enginef` 에 바로 저장을 해 버린다. 즉, 전송 버튼을 누르지 않아도 이미 업데이트가 되어져 버린다.
+                    await app.f.update({'photoURL': url});
+                    setState(() {});
+                  } catch (e) {
+                    AppService.alert(null, t(e));
+                  }
                 },
                 icon: UserPhoto(user),
               ),
               UploadProgressBar(progress),
-              // DisplayUploadedImages(
-              //   user,
-              //   editable: true,
-              // ),
               AppSpace.spaceBox,
-
               app.notLoggedIn
                   ? TextField(
                       controller: _emailController,
@@ -163,18 +165,16 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               RaisedButton(
                 onPressed: () async {
-                  // print('Register button pressed');
+                  /// 전송 버튼
                   final data = getFormData();
                   try {
                     if (app.notLoggedIn) {
                       await app.f.register(data);
-                       AppRouter.open(context, AppRoutes.home);
+                      AppRouter.open(context, AppRoutes.home);
                     } else {
                       await app.f.update(data);
                       AppService.alert(null, t('profile updated'));
                     }
-
-                   
                   } catch (e) {
                     AppService.alert(null, t(e));
                   }
@@ -205,50 +205,46 @@ class UserPhoto extends StatefulWidget {
 class _UserPhotoState extends State<UserPhoto> {
   @override
   Widget build(BuildContext context) {
-    String url;
-    print('UserPHoto::before: ');
-    print(widget.user);
-    print(widget.user.urls);
-    if (widget.user.urls != null && widget.user.urls.length > 0) {
-      url = widget.user.urls[0];
-    }
-    print('user url: $url');
 
+    /// `Firebase Auth` 의 `photoUrl` 을 바로 보여준다.
+    String url = app.f.user?.photoUrl;
+    bool hasPhoto = url != null && url != DELETED_PHOTO;
     return Column(
       children: <Widget>[
-        if (url == null)
-          Material(
-            elevation: 4.0,
-            shape: CircleBorder(),
-            clipBehavior: Clip.hardEdge,
-            color: Colors.blueAccent,
-            child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.person,
-                  size: 128,
-                  color: AppColor.white,
-                )),
-          ),
-        if (url != null)
-          ClipOval(
-            child: Image(
-                image: NetworkImageWithRetry(url),
-                width: 160,
-                height: 160,
-                fit: BoxFit.cover),
-          ),
+        hasPhoto
+            ? ClipOval(
+                child: Image(
+                    image: NetworkImageWithRetry(url),
+                    width: 160,
+                    height: 160,
+                    fit: BoxFit.cover),
+              )
+            : Material(
+                elevation: 4.0,
+                shape: CircleBorder(),
+                clipBehavior: Clip.hardEdge,
+                color: Colors.blueAccent,
+                child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.person,
+                      size: 128,
+                      color: AppColor.white,
+                    )),
+              ),
         AppSpace.halfBox,
-        if (url == null) Text('Upload photo'),
-        if (url != null) ...[
+        if (!hasPhoto) Text('Upload photo'),
+        if (hasPhoto) ...[
           Text('Change photo'),
           RaisedButton(
             onPressed: () async {
+              /// 사진 삭제
               try {
                 await AppStore(widget.user).delete(url);
+                await app.f.update({'photoURL': DELETED_PHOTO}); // @see README
                 setState(() {});
               } catch (e) {
-                t(e);
+                AppService.alert(null, t(e));
               }
             },
             child: T('Delete Photo'),

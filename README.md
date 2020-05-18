@@ -111,7 +111,7 @@ try {
 * 회원 프로필 사진, 글, 코멘트 등에서 사용 할 수 있는데, 사용 할 수 있는 범위가 꽤 넓다.
   * 이에 따라 `AppStore` 도 유연하게 되어져 있다.
 * `AppStore` 는 State 로 관리하지 순수 Future 와 Callback 으로만 관리를 한다.
-
+* 회원 사진의 경우 `photoUrl` 삭제가 안된다. `null` 값을 저장 할 수 없다. 그래서 `app.defines.dart` 에 정의된 `DELETED_PHOTO` 값을 지정하여, 사진이 삭제 되었음을 표시한다.
 
 ## 소스의 구성
 

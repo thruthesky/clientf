@@ -5,6 +5,7 @@ import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.router.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
+import 'package:clientf/widgets/custom_app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,8 +30,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: T('appName'),
+      appBar: CustomAppBar(
+        title: t('appName'),
       ),
       endDrawer: AppDrawer(),
       body: Center(
@@ -65,27 +66,32 @@ class _HomePageState extends State<HomePage> {
             Divider(
               color: Colors.black,
             ),
-            Row(
-              children: <Widget>[
-                RaisedButton(
-                  onPressed: () {
-                    AppRouter.open(context, AppRoutes.register);
-                  },
-                  child: T('Register'),
-                ),
-                RaisedButton(
-                  onPressed: () {
-                    AppRouter.open(context, AppRoutes.login);
-                  },
-                  child: T('Login'),
-                ),
-                RaisedButton(
-                  onPressed: () {
-                    AppRouter.open(context, AppRoutes.register);
-                  },
-                  child: T('Profile'),
-                ),
-              ],
+            Selector<EngineModel, bool>(
+              builder: (context, loggedIn, builder) {
+                return Row(
+                  children: <Widget>[
+                    RaisedButton(
+                      onPressed: () {
+                        AppRouter.open(context, AppRoutes.register);
+                      },
+                      child: T(app.loggedIn ? 'Profile' : 'Register'),
+                    ),
+                    RaisedButton(
+                      onPressed: () {
+                        AppRouter.open(context, AppRoutes.login);
+                      },
+                      child: T('Login'),
+                    ),
+                    RaisedButton(
+                      onPressed: () {
+                        app.f.logout();
+                      },
+                      child: T('Logout'),
+                    ),
+                  ],
+                );
+              },
+              selector: (_, model) => model.loggedIn,
             ),
             Divider(
               color: Colors.black,

@@ -1,4 +1,6 @@
 
+const String DELETED_PHOTO = 'https://userphoto.org/deleted.png';
+
 
 class AppRoutes {
   static String home = 'home';
