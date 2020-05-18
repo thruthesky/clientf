@@ -55,7 +55,9 @@ class _HomePageState extends State<HomePage> {
                       Text('user login: ${user.email}'),
                       Text('phoneNumber: ${user.phoneNumber}'),
                       Text('displayName: ${user.displayName}'),
+                      Text('photoURL: ${user.photoUrl}'),
                       Text('Anonymous: ${user.isAnonymous}'),
+                      // Text('Photo on Firestore: ${user.urls.toString()}'),
                     ],
                   );
                 },
@@ -79,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 RaisedButton(
                   onPressed: () {
-                    AppRouter.open(context, AppRoutes.profile);
+                    AppRouter.open(context, AppRoutes.register);
                   },
                   child: T('Profile'),
                 ),

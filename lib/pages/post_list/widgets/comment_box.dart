@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:clientf/enginf_clientf_service/enginf.comment.model.dart';
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
-import 'package:clientf/models/firestore.model.dart';
 import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';

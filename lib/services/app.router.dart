@@ -7,7 +7,6 @@ import 'package:clientf/pages/home/home.page.dart';
 import 'package:clientf/pages/login/login.page.dart';
 import 'package:clientf/pages/post_create/post.create.dart';
 import 'package:clientf/pages/post_list/post_list.page.dart';
-import 'package:clientf/pages/profile/profile.page.dart';
 import 'package:clientf/pages/register/register.page.dart';
 import 'package:clientf/pages/settings/settings.page.dart';
 import 'package:clientf/services/app.defines.dart';
@@ -47,8 +46,6 @@ class AppRouter {
       route = _buildRoute(settings, RegisterPage());
     else if (settings.name == AppRoutes.login)
       route = _buildRoute(settings, LoginPage());
-    else if (settings.name == AppRoutes.profile)
-      route = _buildRoute(settings, ProfilePage());
     else if (settings.name == AppRoutes.help)
       route = _buildRoute(settings, HelpPage());
     else if (settings.name == AppRoutes.settings)

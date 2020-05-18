@@ -43,34 +43,32 @@
 
 ## 회원 관리
 
-@todo: 개발가이드로 이동
+* 앱을 시작하면 `Firebase Auth` 의 `Anonymous` 로 자동 로그인을 한다. 사용자가 로그아웃을 해도 `Anonymous`로 자동 로그인을 한다.
 
-* 정보 업데이트가 필요 없는, 회원 로그인, 로그아웃은 EnginF 와 상관없이 그냥 `firebase_auth` 플러그인으로 하면 된다.
-* 회원 가입이나 수정과 같이 정보를 업데이트하는 경우, Enginf 를 통해서 하면 된다.
-
-
+* 로그인과 로그아웃은 `Enginef` 로 연결하지 않고 직접 `Firebase Auth`로 로그인/로그아웃을 한다.
+* 다만, 회원 가입이나 회원 정보 수정과 같이 정보를 회원 정보를 업데이트하는 경우에는 Enginf 를 통해서 해야 한다.
 
 ### 회원 가입 로직
 
-* 회원 가입을 하면 로그인 세션이 연결되고 유지되어야 한다.
-  * Functions 를 통해서 계정을 생성하면, 로그인 세션이 생성되지 않는다.
-  * 즉, Functions 를 통해서 계정을 생성하고, 플러터에서 로그인을 한다.
+* 회원 가입과 회원 정보 수정은 같은 `register` 페이지에서 한다.
 
-* route: user.register
-* data 는 기본적으로 email 과 password 는 필수. 나머지는 얼마든지 추가로 저장 가능.
-* 회원 가입을 하면 기본적으로 Auth 에 계정이 생성되며,
-* Firestore `user` collection 에 UID 로 추가된 값이 저장 됨
+* 회원 가입을 하기 전에는 Anonymous 로 로그인 된 상태이다.
+* 회원 가입 페이지에서 사진을 업로드하면
+  * Anonymous 로그인을 한 상태이므로 `Firestore`에 사진을 등록 할 수 있다.
+  * 실제로 가입을 하면, 업로드한 사진을 사용자 정보로 집어 넣는다.
+* `Enginf` 를 통해서 가입(계정을 생성)하면, 로그인이 되지 않으므로, 별도로 로그인을 해야 한다.
+  * 즉, `Enginf` 를 통해서 가입(계정을 생성 및 정보 저장)하고, 플러터에서 `Firebase Auth`로 로그인을 한다.
+
+* 회원 정보 저장시 입력 데이터는 Map 값으로
+  * `email` 과 `password` 는 `필수 속성`. 
+  * `displayName`, `phoneNumber`, `photoURL` 은 이미 정해져 있는 `선택 속성`
+  * 그 외 얼마든지 추가로 저장 가능하다. 이를 `추가 속성`이라 한다.
+
+* 회원 가입을 하면 기본적으로 `Firebase Auth` 에 계정이 생성되며, `필수 속성`과 `선택 속성`이 `Firebase Auth` 에 저장되고 
+  * `추가 속성`은 Firestore `user` collection 에 UID 로 그 외의 나머지 값이 저장 된다.
 
 
 * 에러코드. 서버 README 참고
-* 
-<!-- 
-코드 | 설명
---- | ---
-input-data-is-not-provided | 회원 가입 정보를 전달하지 않은 경우
-email-is-not-provided | 이메일 주소를 입력하지 않은 경우
-password-is-not-provided | 비밀번호를 입력하지 않은 경우
-auth/email-already-exists | 동일한 메일 주소가 이미 가입되어져 있는 경우 -->
 
 ## 로그인
 
@@ -109,34 +107,15 @@ try {
 
 ## 파일(사진) 업로드 관련 코딩
 
-* `Firestore` 클래스를 통해서 사진을 가져오고(찍고) 업로드 및 삭제를 담당한다.
+* `AppStore` 클래스는 `Firestoer`에 사진을 쉽게 등록 할 수 있도록 도와 준다.
 * 회원 프로필 사진, 글, 코멘트 등에서 사용 할 수 있는데, 사용 할 수 있는 범위가 꽤 넓다.
-  * State 로 관리를 하려면 앱의 상단에 Provider 로 등록해야하는데
-    * 프로필 사진, 글 사진 등 서로 다른 종류의 사진을 관리 해야 하기 때문에 불편하다.
-  * 그래서 그냥 Future 또는 callback 으로 관리를 한다.
-
-``` 이전 내용
-* 파일(사진)은 Firestore 에 등록하고 그 URL 을 각 collection/document 에 저장한다.
-* URL 저장과 삭제는 `addUrl()`, `removeUrl()`을 사용한다.
-* 글 (또는 코멘트 및 기타 collection) 수정을 할 때에는 해당 document 에 이미 `urls` 속성이 있어서 document 에 값을 바로 저장하고, 화면에 보열 줄 때에도 `urls` 속성을 참고해서 보여주면 된다.
-* 하지만 글 (또는 코멘트 및 기타 collection)을 작성할 때에는 `urls` 속성 뿐만아니라 document 자체가 존재하지 않는다.
-* 그래서 다음과 같이 일관적인 코딩을 모든 collection/document 에 적용한다.
-
-* 코멘트 예제
-  * 코멘트 생성(또는 수정) 박스를 `FirestoreModel` 로 state 관리한다.
-  * 코멘트를 생성 할 때 현재 코멘트를 담는 변수가 null 이면, `EnginComment()`와 같이 해서 현재 코멘트를 담는 변수에 넣어준다.
-    * 그리고 코멘트 생성 관련 모든 정보를 현재 코멘트 변수에 넣고 관리하다가 저장 버튼을 클릭하면 백엔드로 전송을 한다.
-
-* 파일(사진) 화면에 표시
-  * `DisplayUploadedImages` 에서하는데, `FirestoreModel.doc.files` 를 쓰면, 굳이 현재 위젯이 user, post, comment 인지에 따라서 별도의 코딩을 할 필요 없이, Dependency Inject 으로 처리 할 수 있다.
-```
+  * 이에 따라 `AppStore` 도 유연하게 되어져 있다.
+* `AppStore` 는 State 로 관리하지 순수 Future 와 Callback 으로만 관리를 한다.
 
 
+## 소스의 구성
 
-
-## 온라인 세미나 진행
-
-* 파이어베이스 및 백엔드 설정
+* 파이어베이스 및 Enginf 설정
   * 백엔드 설치 설명서 제공
 * ClientF 의 기본 폴더 및 파일 구조
 * 라우팅 및 페이지 구조

@@ -1,6 +1,6 @@
 import 'package:clientf/globals.dart';
-import 'package:clientf/models/firestore.model.dart';
 import 'package:clientf/services/app.color.dart';
+import 'package:clientf/services/app.firestore.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +87,7 @@ class _DeleteIconState extends State<DeleteIcon> {
           inLoading = true;
         });
         try {
-          await FirestoreModel(widget.doc).delete(widget.url);
+          await AppStore(widget.doc).delete(widget.url);
         } catch (e) {
           print(e);
           AppService.alert(null, t(e));

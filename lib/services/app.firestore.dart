@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:clientf/services/app.i18n.dart';
 
-/// FirestoreModel 에서는 사진을 찍어 올리고, 삭제 등 전반 적인 관리를 한다.
+/// AppStore 에서는 사진을 찍어 올리고, 삭제 등 전반 적인 관리를 한다.
 ///
 ///
 /// 사진을 카메라로 찍거나 갤러리에서 가져와서 Firestore 에 업로드하고 URL 업로드된 이미지의 URL 을 리턴함,
@@ -21,10 +21,13 @@ import 'package:clientf/services/app.i18n.dart';
 /// * Firebase 콘솔에서 해당 프로젝트의 Firestore 생성 및 적절한 권한 설정
 ///
 /// 파일(사진) 삭제를 할 때, [doc] 에 값을 주고 초기화 하여 `delete` 메소를 호출하면 된다.
-class FirestoreModel {
+/// 
+/// 사용자 사진(프로필 사진)을 등록하면 `Firebase Auth`의 `photoUrl` 속성에 등록되어져야 한다.
+/// 그래서 회원 가입, 정보 수정을 할 때, [doc.urls] 의 URL 을 `photoUrl`로 복사해서 백엔드로 전송을 하면 된다.
+class AppStore {
   StorageUploadTask uploadTask;
   var doc;
-  FirestoreModel(this.doc);
+  AppStore(this.doc);
 
   /// 사진을 선택한다.
   ///
@@ -167,12 +170,16 @@ class FirestoreModel {
       await ref.delete();
 
       urls.removeWhere((element) => element == url);
+      print('remove photo: urls:');
+      print(urls);
     } catch (e) {
       print('Got error .... remove anyway');
-
       /// TODO: 파일이 존재하지 않으면 그냥 삭제한다. 다만, 다른 에러가 있을 수 있으니 확인이 필요하다.
       urls.removeWhere((element) => element == url);
       print(e);
+
+      print('remove photo: urls:');
+      print(urls);
       throw e;
     }
   }

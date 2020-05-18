@@ -76,7 +76,7 @@ class _AppDrawerState extends State<AppDrawer> {
             title: t('Profile'),
             icon: Icons.person,
             onTap: () {
-              AppRouter.open(context, AppRoutes.profile);
+              AppRouter.open(context, AppRoutes.register);
             },
           ),
           MenuItem(

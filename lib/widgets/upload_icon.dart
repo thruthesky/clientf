@@ -1,5 +1,5 @@
 import 'package:clientf/globals.dart';
-import 'package:clientf/models/firestore.model.dart';
+import 'package:clientf/services/app.firestore.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:flutter/material.dart';
@@ -43,14 +43,15 @@ class UploadIcon extends StatelessWidget {
   /// 업로드 진행 콜백. Percentage 값을 알려 줌.
   final Function onProgress;
 
-  Widget icon;
+  final Widget icon;
 
   @override
   Widget build(BuildContext context) {
-    if (icon == null) icon = Icon(Icons.photo_camera);
+    var _icon = icon;
+    if (icon == null) _icon = Icon(Icons.photo_camera);
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      child: icon,
+      child: _icon,
       onTap: () {
         AppService.bottomSheet([
           {
@@ -59,7 +60,7 @@ class UploadIcon extends StatelessWidget {
             'onTap': () async {
               back();
               print('from camea');
-              String url = await FirestoreModel(doc).pickAndUploadImage(
+              String url = await AppStore(doc).pickAndUploadImage(
                 context,
                 ImageSource.camera.index,
                 onUploadComplete: onUpload,
@@ -74,7 +75,7 @@ class UploadIcon extends StatelessWidget {
             'text': t('Take photo from Gallary'),
             'onTap': () async {
               back();
-              await FirestoreModel(doc).pickAndUploadImage(
+              await AppStore(doc).pickAndUploadImage(
                 context,
                 ImageSource.gallery.index,
                 onUploadComplete: onUpload,
