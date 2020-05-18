@@ -10,11 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kakao_flutter_sdk/all.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   await Hive.initFlutter();
   await Hive.openBox(HiveBox.settings);
+  KakaoContext.clientId = "48a0fa6a6e0c650c919f5a00adba5d3f";
   runApp(CommunityApp());
 }
 
