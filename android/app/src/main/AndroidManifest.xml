@@ -26,5 +26,14 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <!-- 카카오 native 추가 -->
+        <activity android:name="com.kakao.sdk.flutter.AuthCodeCustomTabsActivity">
+            <intent-filter android:label="flutter_web_auth"> <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="kakao48a0fa6a6e0c650c919f5a00adba5d3f" android:host="oauth"/>
+            </intent-filter>
+        </activity>
     </application>
 </manifest>
