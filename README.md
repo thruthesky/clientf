@@ -109,6 +109,13 @@ try {
 
 ## 파일(사진) 업로드 관련 코딩
 
+* `Firestore` 클래스를 통해서 사진을 가져오고(찍고) 업로드 및 삭제를 담당한다.
+* 회원 프로필 사진, 글, 코멘트 등에서 사용 할 수 있는데, 사용 할 수 있는 범위가 꽤 넓다.
+  * State 로 관리를 하려면 앱의 상단에 Provider 로 등록해야하는데
+    * 프로필 사진, 글 사진 등 서로 다른 종류의 사진을 관리 해야 하기 때문에 불편하다.
+  * 그래서 그냥 Future 또는 callback 으로 관리를 한다.
+
+``` 이전 내용
 * 파일(사진)은 Firestore 에 등록하고 그 URL 을 각 collection/document 에 저장한다.
 * URL 저장과 삭제는 `addUrl()`, `removeUrl()`을 사용한다.
 * 글 (또는 코멘트 및 기타 collection) 수정을 할 때에는 해당 document 에 이미 `urls` 속성이 있어서 document 에 값을 바로 저장하고, 화면에 보열 줄 때에도 `urls` 속성을 참고해서 보여주면 된다.
@@ -122,7 +129,8 @@ try {
 
 * 파일(사진) 화면에 표시
   * `DisplayUploadedImages` 에서하는데, `FirestoreModel.doc.files` 를 쓰면, 굳이 현재 위젯이 user, post, comment 인지에 따라서 별도의 코딩을 할 필요 없이, Dependency Inject 으로 처리 할 수 있다.
-  
+```
+
 
 
 

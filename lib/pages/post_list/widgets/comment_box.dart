@@ -42,6 +42,7 @@ class _CommentBoxState extends State<CommentBox> {
   final TextEditingController _contentController = TextEditingController();
 
   bool inLoading = false;
+  int progress = 0;
 
   /// TODO: app model 로 이동할 것
   // File _imageFile;
@@ -117,78 +118,76 @@ class _CommentBoxState extends State<CommentBox> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-            create: (context) => FirestoreModel(widget.currentComment)),
-      ],
-      child: Scaffold(
-        appBar: AppBar(
-          title: T('edit comment'),
-        ),
-        body: SafeArea(
-          child: Container(
-            color: AppColor.light,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Expanded(
-                  child: T('원글 또는 부모 코멘트 글 목록까지만 보여주고 나머지 코멘트는 감춘다.'),
-                ),
-                Row(
-                  children: <Widget>[
-                    UploadIcon((String url) {
-                      setState(() {});
-                    }),
-                    Expanded(
-                      child: TextField(
-                        controller: _contentController,
-                        onSubmitted: (text) {},
-                        decoration: InputDecoration(
-                          hintText: t('input comment'),
-                        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: T('edit comment'),
+      ),
+      body: SafeArea(
+        child: Container(
+          color: AppColor.light,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Expanded(
+                child: T('원글 또는 부모 코멘트 글 목록까지만 보여주고 나머지 코멘트는 감춘다.'),
+              ),
+              Row(
+                children: <Widget>[
+                  UploadIcon(widget.currentComment, (p) {
+                    setState(() {
+                      progress = p;
+                    });
+                  }, (String url) {
+                    setState(() {});
+                  }),
+                  Expanded(
+                    child: TextField(
+                      controller: _contentController,
+                      onSubmitted: (text) {},
+                      decoration: InputDecoration(
+                        hintText: t('input comment'),
                       ),
                     ),
-                    GestureDetector(
-                      child: inLoading
-                          ? PlatformCircularProgressIndicator()
-                          : Icon(Icons.send),
-                      onTap: () async {
-                        if (inLoading) return;
-                        setState(() {
-                          inLoading = true;
-                        });
+                  ),
+                  GestureDetector(
+                    child: inLoading
+                        ? PlatformCircularProgressIndicator()
+                        : Icon(Icons.send),
+                    onTap: () async {
+                      if (inLoading) return;
+                      setState(() {
+                        inLoading = true;
+                      });
 
-                        var data = getFormData();
-                        // print(getFormData());
-                        try {
-                          if (isCreate) {
-                            /// create (reply)
-                            var re = await app.f.commentCreate(data);
-                            print('create: $data');
-                            back(arguments: re);
-                          } else {
-                            /// update
-                            var re = await app.f.commentUpdate(getFormData());
-                            print('CommentBox:: Comment update. $re');
-                            widget.currentComment.content = re.content;
-                            back(arguments: re);
-                          }
-                        } catch (e) {
-                          print(e);
-                          AppService.alert(null, t(e));
+                      var data = getFormData();
+                      // print(getFormData());
+                      try {
+                        if (isCreate) {
+                          /// create (reply)
+                          var re = await app.f.commentCreate(data);
+                          print('create: $data');
+                          back(arguments: re);
+                        } else {
+                          /// update
+                          var re = await app.f.commentUpdate(getFormData());
+                          print('CommentBox:: Comment update. $re');
+                          widget.currentComment.content = re.content;
+                          back(arguments: re);
                         }
-                      },
-                    ),
-                  ],
-                ),
-                UploadProgressBar(),
-                DisplayUploadedImages(
-                  comment: widget.currentComment,
-                  editable: true,
-                ),
-              ],
-            ),
+                      } catch (e) {
+                        print(e);
+                        AppService.alert(null, t(e));
+                      }
+                    },
+                  ),
+                ],
+              ),
+              UploadProgressBar(progress),
+              DisplayUploadedImages(
+                comment: widget.currentComment,
+                editable: true,
+              ),
+            ],
           ),
         ),
       ),

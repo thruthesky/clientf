@@ -84,7 +84,7 @@ class _PostUpdatePageState extends State<PostUpdatePage> {
                   AppService.alert(null, t(e) + ': ' + e.message);
                 }
               },
-              child: T('Create'),
+              child: T('Update Post'),
             ),
           ],
         ),

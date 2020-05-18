@@ -1,6 +1,5 @@
 import 'package:clientf/services/app.service.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -22,9 +21,9 @@ import 'package:clientf/services/app.i18n.dart';
 /// * firebase_firestore 플러그인 설정
 /// * Firebase 콘솔에서 해당 프로젝트의 Firestore 생성 및 적절한 권한 설정
 ///
-class FirestoreModel extends ChangeNotifier {
+class FirestoreModel {
   StorageUploadTask uploadTask;
-  double uploadPercentage = 0;
+  // double uploadPercentage = 0;
 
   var doc;
   // var col;
@@ -56,6 +55,8 @@ class FirestoreModel extends ChangeNotifier {
     num sourceIdx, {
     double maxWidth = 1024,
     int imageQuality = 85,
+    Function onUploadPercentage,
+    Function onUploadComplete,
   }) async {
     File file;
     const source = [ImageSource.camera, ImageSource.gallery];
@@ -76,7 +77,8 @@ class FirestoreModel extends ChangeNotifier {
       if (file != null) {
         file = await compressAndGetImage(file);
 
-        return await upload(file);
+        /// 성공이면 사진 URL 을 리턴
+        return await upload(file, onUploadPercentage, onUploadComplete);
       }
     } else {
       /// 권한이 없으면 알림을 한다.
@@ -120,7 +122,8 @@ class FirestoreModel extends ChangeNotifier {
   }
 
   /// Starts an upload task
-  Future<String> upload(File file) async {
+  Future<String> upload(
+      File file, Function onUploadPercentage, Function onUploadComplete) async {
     final FirebaseStorage _storage =
         FirebaseStorage(storageBucket: 'gs://enginf-856e7.appspot.com');
 
@@ -130,25 +133,18 @@ class FirestoreModel extends ChangeNotifier {
     print(filePath);
     print(file);
     uploadTask = _storage.ref().child(filePath).putFile(file);
-    uploadPercentage = 0;
+    double uploadPercentage = 0;
 
-    uploadTask.events.listen((event) {
-      uploadPercentage = 100 *
-          (event.snapshot.bytesTransferred.toDouble() /
-              event.snapshot.totalByteCount.toDouble());
-      print(uploadPercentage);
-
-      //
-      notifyListeners();
-
-      // var event = snapshot?.data?.snapshot;
-      // if (event?.error != null) {
-      //   print('error ----->: ${event.error}');
-      // }
-
-      // double progressPercent =
-      //     event != null ? event.bytesTransferred / event.totalByteCount : 0;
-    });
+    /// 업로드 Progress Listener
+    if (onUploadPercentage != null) {
+      uploadTask.events.listen((event) {
+        uploadPercentage = 100 *
+            (event.snapshot.bytesTransferred.toDouble() /
+                event.snapshot.totalByteCount.toDouble());
+        print(uploadPercentage);
+        onUploadPercentage(uploadPercentage.round());
+      });
+    }
 
     await uploadTask.onComplete;
     StorageReference storageReference =
@@ -165,7 +161,7 @@ class FirestoreModel extends ChangeNotifier {
 
     print('-----> doc.urls: ${doc.urls}');
 
-    notifyListeners();
+    if (onUploadComplete != null) onUploadComplete(_uploadedUrl);
     return _uploadedUrl;
   }
 
