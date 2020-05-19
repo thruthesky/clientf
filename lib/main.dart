@@ -1,6 +1,6 @@
-
 import 'dart:async';
 
+import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/models/app.localization.dart';
 import 'package:clientf/services/app.defines.dart';
@@ -34,8 +34,14 @@ class _CommunityAppState extends State<CommunityApp> {
     app.f = ef;
     app.init();
 
-    Timer(Duration(milliseconds: 100),
-        () => open(AppRoutes.postList, arguments: {'id': 'discussion'}));
+    // Timer(
+    //   Duration(milliseconds: 100),
+    //   () => open(
+    //     AppRoutes.postList,
+    //     arguments: {'id': 'discussion'},
+    //   ),
+    // );
+
   }
   @override
   Widget build(BuildContext context) {

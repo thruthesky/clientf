@@ -8,24 +8,24 @@ import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/display_uploaded_images.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CommentItem extends StatefulWidget {
-  const CommentItem(
+  CommentItem(
     this.post,
     this.comment, {
     Key key,
+    @required this.onStateChanged,
   }) : super(key: key);
   final EnginePost post;
   final EngineComment comment;
+
+  final Function onStateChanged;
 
   @override
   _CommentItemState createState() => _CommentItemState();
 }
 
 class _CommentItemState extends State<CommentItem> {
-  _CommentItemState();
-
   @override
   Widget build(BuildContext context) {
     if (widget.comment == null) return SizedBox.shrink();
@@ -40,21 +40,29 @@ class _CommentItemState extends State<CommentItem> {
               CommentContent(comment: widget.comment),
               CommentButtons(
                 onReply: () async {
+                  /// Comment Reply
                   final re = await AppService.openCommentBox(
                       widget.post, widget.comment, EngineComment());
-                  Provider.of<EngineForumModel>(context, listen: false)
+                  EngineForumList()
                       .addComment(re, widget.post, widget.comment.id);
+
+                      /// 코멘트가 작성되면 부모 위젯의 setState(...) 를 호출한다.
+                  widget.onStateChanged();
                 },
                 onEdit: () async {
+                  /// Comment Edit
                   final re = await AppService.openCommentBox(
                       widget.post, null, widget.comment);
-                  Provider.of<EngineForumModel>(context, listen: false)
-                      .updateComment(re, widget.post);
+                  EngineForumList().updateComment(re, widget.post);
+                  setState(() {
+                    /** 코멘트 수정 반영 */
+                  });
                 },
                 onDelete: () async {
-                  /// Delte
+                  /// Comment Delte
                   var re = await app.f.commentDelete(widget.comment.id);
                   setState(() {
+                    /** 코멘트 삭제 반영 */
                     widget.comment.content = re['content'];
                   });
                 },

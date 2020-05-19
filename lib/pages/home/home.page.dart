@@ -1,3 +1,4 @@
+import 'package:clientf/enginf_clientf_service/enginf.forum.model.dart';
 import 'package:clientf/enginf_clientf_service/enginf.model.dart';
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
@@ -22,7 +23,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<EnginePost> posts = [];
+  EngineForumList forum = EngineForumList();
   _HomePageState() {
     //
   }
@@ -34,23 +35,10 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  loadPosts() async {
-    var box = Hive.box(HiveBox.cache);
-    // renderPosts(box.get('post'));
-    final re = await ef.postDocuments({});
-    // print(re);
-
-    renderPosts(re);
-    box.put('post', re);
-  }
-
-  renderPosts(List _posts) {
-    print('posts: ${posts.length}');
-    posts = ef.sanitizePosts(_posts);
-    // print(posts[0].runtimeType);
-    setState(() {
-      /** 글 화면에 표시 */
-    });
+  loadPosts() {
+    forum.id = 'discussion';
+    forum.noOfPostsPerPage = 20;
+    forum.loadPage(onLoad: () => setState(() => {}));
   }
 
   @override
@@ -66,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             HomeTopMenus(),
-            LatestPosts(posts),
+            LatestPosts(forum.posts),
           ],
         ),
       ),
@@ -116,7 +104,7 @@ class LatestPosts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('LatestPosts:: posts');
+    // print('LatestPosts:: posts');
     for (EnginePost p in posts) print(p.title);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

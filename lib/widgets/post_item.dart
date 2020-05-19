@@ -9,10 +9,12 @@ import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/widgets/display_uploaded_images.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class PostListItem extends StatefulWidget {
-  PostListItem(
+/// 글을 보여주고 수정/삭제/코멘트 등의 작업을 할 수 있다.
+///
+/// 다만, 새글을 추가하지는 않는다. 따라서 글 목록 자체는 필요 없이 글 하나의 정보만 필요하다.
+class PostItem extends StatefulWidget {
+  PostItem(
     this.post, {
     Key key,
   }) : super(key: key);
@@ -20,63 +22,68 @@ class PostListItem extends StatefulWidget {
   final EnginePost post;
 
   @override
-  _PostListItemState createState() => _PostListItemState();
+  _PostItemState createState() => _PostItemState();
 }
 
-class _PostListItemState extends State<PostListItem> {
+class _PostItemState extends State<PostItem> {
   bool showContent = true;
   bool showCommentBox = false;
 
   @override
   void initState() {
-    // print('--> _PostListItemState::initState() called for: ${widget.post.id}');
+    // print('--> _PostItemState::initState() called for: ${widget.post.id}');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    EnginePost post = widget.post;
+    EngineForumList forum = EngineForumList();
     if (showContent) {
       return Column(
         children: <Widget>[
           Padding(
             padding: EdgeInsets.all(20),
-            child: PostListContent(widget.post), // 글 제목 & 내용 & 사진 & 기타 정보
+            child: PostItemContent(post), // 글 제목 & 내용 & 사진 & 기타 정보
           ),
           Row(
             children: <Widget>[
               RaisedButton(
+                child: Text('Reply'),
                 onPressed: () async {
                   final re = await AppService.openCommentBox(
-                      widget.post, null, EngineComment());
-                  Provider.of<EngineForumModel>(context, listen: false)
-                      .addComment(re, widget.post, null);
+                      post, null, EngineComment());
+                  forum.addComment(re, post, null);
+                  setState(() {
+                    /** 수정 반영 */
+                  });
                 },
-                child: Text('Reply'),
               ),
               RaisedButton(
-                onPressed: () async {
-                  /// TODO: 로직을 ForumModel 로 집어 넣을 것.
-                  final EnginePost post = await open(AppRoutes.postUpdate,
-                      arguments: {'post': widget.post});
-                  Provider.of<EngineForumModel>(context, listen: false)
-                      .updatePost(post);
-                },
                 child: Text('Edit'),
+                onPressed: () async {
+                  /// 글 수정
+                  final EnginePost updatedPost = await open(
+                      AppRoutes.postUpdate,
+                      arguments: {'post': post});
+                  print(updatedPost);
+                  forum.updatePost(post, updatedPost);
+                  setState(() {
+                    /** 글 수정 반영 */
+                  });
+                },
               ),
               RaisedButton(
                 onPressed: () async {
-                  print(widget.post);
-
                   AppService.confirm(
                     title: 'confirm',
                     content: 'do you want to delete?',
                     onYes: () async {
-                      /// TODO: 로직을 ForumModel 로 집어 넣을 것.
                       try {
-                        final re = await app.f.postDelete(widget.post.id);
+                        final re = await app.f.postDelete(post.id);
                         setState(() {
-                          widget.post.title = re.title;
-                          widget.post.content = re.content;
+                          post.title = re.title;
+                          post.content = re.content;
                         });
                         print(re);
                         if (re.deletedAt is int) {
@@ -103,14 +110,14 @@ class _PostListItemState extends State<PostListItem> {
           ),
           if (showCommentBox)
             CommentBox(
-              widget.post,
+              post,
               // onCancel: () => setState(() => showCommentBox = false),
               onSubmit: () => setState(() => showCommentBox = false),
-              key: ValueKey('PostListItem::CommentBox::' + widget.post.id),
+              key: ValueKey('PostItem::CommentBox::' + post.id),
             ),
           CommentList(
-            widget.post,
-            key: ValueKey('ColumnList${widget.post.id}'),
+            post,
+            key: ValueKey('ColumnList${post.id}'),
           )
         ],
       );
@@ -120,7 +127,7 @@ class _PostListItemState extends State<PostListItem> {
           padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
 
           /// This padding is for testing.
-          child: Text(widget.post.title ?? 'No title'),
+          child: Text(post.title ?? 'No title'),
         ),
         trailing: Icon(Icons.keyboard_arrow_down),
         onTap: () {
@@ -133,8 +140,8 @@ class _PostListItemState extends State<PostListItem> {
   }
 }
 
-class PostListContent extends StatelessWidget {
-  const PostListContent(
+class PostItemContent extends StatelessWidget {
+  const PostItemContent(
     this.post, {
     Key key,
   }) : super(key: key);
@@ -143,6 +150,7 @@ class PostListContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print('postItem content: $post');
     return Column(
       children: <Widget>[
         Text(
