@@ -1,3 +1,4 @@
+import 'package:clientf/enginf_clientf_service/enginf.model.dart';
 import 'package:clientf/models/app.model.dart';
 import 'package:clientf/services/app.router.dart';
 import 'package:clientf/services/app.service.dart';
@@ -10,6 +11,11 @@ import 'dart:math';
 /// 
 /// 글로벌 영역에서 instance 를 생성하고, 전체 앱에서 공유를 한다.
 AppModel app = AppModel();
+
+/// EngineF state
+EngineModel ef = EngineModel();
+
+
 
 Future open(String route, {arguments}) {
   return AppRouter.open(AppService.context, route, arguments: arguments);

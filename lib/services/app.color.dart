@@ -13,4 +13,8 @@ class AppColor {
   static final Color primaryColorDarker = Color(0xff1B449C);
   static final Color accentColor = Colors.grey[100];
   static final Color scaffoldBackgroundColor = Color(0xff88B8FF);
+
+
+
+  static final Color divider = Colors.black38;
 }

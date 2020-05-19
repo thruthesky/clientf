@@ -49,7 +49,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
     /// 회원 가입
     if (app.notLoggedIn) {
-
       /// 회원 가입시에만 이메일과 비빌번호를 지정
       data['email'] = email;
       data['password'] = password;
@@ -111,7 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   /// 사진 업로드
                   try {
                     /// 사진을 업로드하면, `Enginef` 에 바로 저장을 해 버린다. 즉, 전송 버튼을 누르지 않아도 이미 업데이트가 되어져 버린다.
-                    await app.f.update({'photoURL': url});
+                    await ef.userUpdate({'photoURL': url});
                     setState(() {});
                   } catch (e) {
                     AppService.alert(null, t(e));
@@ -172,7 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       await app.f.register(data);
                       AppRouter.open(context, AppRoutes.home);
                     } else {
-                      await app.f.update(data);
+                      await ef.userUpdate(data);
                       AppService.alert(null, t('profile updated'));
                     }
                   } catch (e) {
@@ -205,7 +204,6 @@ class UserPhoto extends StatefulWidget {
 class _UserPhotoState extends State<UserPhoto> {
   @override
   Widget build(BuildContext context) {
-
     /// `Firebase Auth` 의 `photoUrl` 을 바로 보여준다.
     String url = app.f.user?.photoUrl;
     bool hasPhoto = url != null && url != DELETED_PHOTO;
@@ -241,7 +239,7 @@ class _UserPhotoState extends State<UserPhoto> {
               /// 사진 삭제
               try {
                 await AppStore(widget.user).delete(url);
-                await app.f.update({'photoURL': DELETED_PHOTO}); // @see README
+                await ef.userUpdate({'photoURL': DELETED_PHOTO}); // @see README
                 setState(() {});
               } catch (e) {
                 AppService.alert(null, t(e));

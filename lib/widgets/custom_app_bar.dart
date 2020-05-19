@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:clientf/enginf_clientf_service/enginf.model.dart';
+import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
@@ -88,25 +89,29 @@ class UserPhoto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipOval(
-      child: Selector<EngineModel, String>(
-        builder: (context, url, child) {
-          if (url == null || url == '' || url == DELETED_PHOTO) {
-            return Image.asset(
-              'assets/images/user-icon.png',
-              width: 40,
-              height: 40,
-              fit: BoxFit.contain,
-            );
-          } else {
-            return Image(
-                image: NetworkImageWithRetry(url),
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => open(app.loggedIn ? AppRoutes.register : AppRoutes.login),
+      child: ClipOval(
+        child: Selector<EngineModel, String>(
+          builder: (context, url, child) {
+            if (url == null || url == '' || url == DELETED_PHOTO) {
+              return Image.asset(
+                'assets/images/user-icon.png',
                 width: 40,
                 height: 40,
-                fit: BoxFit.cover);
-          }
-        },
-        selector: (_, model) => model.user?.photoUrl,
+                fit: BoxFit.contain,
+              );
+            } else {
+              return Image(
+                  image: NetworkImageWithRetry(url),
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover);
+            }
+          },
+          selector: (_, model) => model.user?.photoUrl,
+        ),
       ),
     );
   }

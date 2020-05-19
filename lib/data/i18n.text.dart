@@ -1,11 +1,13 @@
 import 'package:clientf/enginf_clientf_service/enginf.defines.dart';
+import 'package:clientf/services/app.defines.dart';
+import 'package:flutter/foundation.dart';
 
 /// 대소문자 구분없이 기록
 /// 나중에 모두 소문자로 변경해서 사용 함
 const Map<String, Map<String, String>> textTranslations = {
   'appname': {
-    'ko': '커뮤니티 앱',
-    'en': 'Community App',
+    'ko': '좌충우돌 플러터',
+    'en': 'Flutter Beginners',
   },
   'app subtitle': {
     'ko': '플러터 스터디 모임 공개 프로젝트',
@@ -111,6 +113,26 @@ const Map<String, Map<String, String>> textTranslations = {
     'ko': '글이 삭제되었습니다.',
     'en': 'Post has been deleted!',
   },
+  'discussion': {
+    'ko': '자유토론',
+    'en': 'Discussion',
+  },
+  'qna': {
+    'ko': '질문과답변',
+    'en': 'QnA',
+  },
+  'news': {
+    'ko': '새소식',
+    'en': 'News',
+  },
+  NO_TITLE: {
+    'ko': '제목이 없습니다.',
+    'en': 'This post have no title.',
+  },
+  POST_TITLE_DELETED: {
+    'ko': '삭제되었습니다.',
+    'en': 'This post is deleted.',
+  },
   ERROR_INVALID_EMAIL: {
     'ko': '이메일 주소 형식 오류\n올바른 이메일 주소를 입력 해 주세요.',
     'en': 'The email address is badly formatted.\nPleae input correct email.',
@@ -161,17 +183,19 @@ const Map<String, Map<String, String>> textTranslations = {
   },
   ALREADY_LOGIN_ON_REGISTER_PAGE: {
     'ko': '앗! 이미 로그인을 하였습니다.\n로그인을 한 상태에서는 회원 가입 페이지를 열 수 없습니다.',
-    'en': 'Ooh! You have already logged in.\nYou cannot open register page while you are logged in.',
+    'en':
+        'Ooh! You have already logged in.\nYou cannot open register page while you are logged in.',
   },
 };
 
-///
+
+/// i18n 문자열 키 소문자 확인
+/// 
+/// i18n 문자열의 키는 반드시 소문자열 이어야한다.
 void i18nTextKeyToLower() {
-  for (String k in textTranslations.keys) {
-    if (k != k.toLowerCase()) {
-      print('ERROR ========================>');
-      print('i18n key must be in lower case');
-      print('$k');
+  if (kDebugMode) {
+    for (String k in textTranslations.keys) {
+      assert(k == k.toLowerCase(), 'i18n key [$k] must be in lower case');
     }
   }
 }

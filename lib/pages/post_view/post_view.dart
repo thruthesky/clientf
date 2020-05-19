@@ -4,17 +4,17 @@ import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
 
-class SettingsPage extends StatefulWidget {
+class PostViewPage extends StatefulWidget {
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  _PostViewPageState createState() => _PostViewPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _PostViewPageState extends State<PostViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: T('setting'),
+        title: T('글 읽기'),
       ),
       endDrawer: AppDrawer(),
       body: Center(

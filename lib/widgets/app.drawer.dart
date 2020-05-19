@@ -59,34 +59,30 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
           DrawerDivider(title: t('Member')),
           MenuItem(
-            title: t('Register'),
+            title: t(app.loggedIn ? 'Profile' : 'Register'),
             icon: Icons.person_add,
             onTap: () {
               AppRouter.open(context, AppRoutes.register);
             },
           ),
-          MenuItem(
-            title: t('Login'),
-            icon: Icons.arrow_forward,
-            onTap: () {
-              AppRouter.open(context, AppRoutes.login);
-            },
-          ),
-          MenuItem(
-            title: t('Profile'),
-            icon: Icons.person,
-            onTap: () {
-              AppRouter.open(context, AppRoutes.register);
-            },
-          ),
-          MenuItem(
-            title: t('Logout'),
-            icon: Icons.reply,
-            onTap: () async {
-              await app.f.logout();
-              AppRouter.open(context, AppRoutes.home);
-            },
-          ),
+          if (app.notLoggedIn)
+            MenuItem(
+              title: t('Login'),
+              icon: Icons.arrow_forward,
+              onTap: () {
+                AppRouter.open(context, AppRoutes.login);
+              },
+            ),
+
+          if (app.loggedIn)
+            MenuItem(
+              title: t('Logout'),
+              icon: Icons.reply,
+              onTap: () async {
+                await app.f.logout();
+                AppRouter.open(context, AppRoutes.home);
+              },
+            ),
           DrawerDivider(title: t('Forum')),
           MenuItem(
             title: t('discussion'),
@@ -100,6 +96,20 @@ class _AppDrawerState extends State<AppDrawer> {
             icon: Icons.chat_bubble_outline,
             onTap: () {
               open(AppRoutes.postList, arguments: {'id': 'qna'});
+            },
+          ),
+          MenuItem(
+            title: t('새소식'),
+            icon: Icons.chat_bubble_outline,
+            onTap: () {
+              open(AppRoutes.postList, arguments: {'id': 'news'});
+            },
+          ),
+          MenuItem(
+            title: t('정보 공유'),
+            icon: Icons.chat_bubble_outline,
+            onTap: () {
+              open(AppRoutes.postList, arguments: {'id': 'share'});
             },
           ),
           DrawerDivider(title: t('Etc')),
