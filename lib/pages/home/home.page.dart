@@ -1,3 +1,5 @@
+import 'package:clientf/services/app.service.dart';
+
 import '../../flutter_engine/engine.forum.dart';
 import '../../flutter_engine/engine.post.model.dart';
 import 'package:clientf/globals.dart';
@@ -34,6 +36,7 @@ class _HomePageState extends State<HomePage> {
       id: 'discussion',
       limit: 12,
       onLoad: () => setState(() => {}),
+      onError: (e) => AppService.alert(null, t(e)),
       cacheKey: 'front-page',
     );
   }

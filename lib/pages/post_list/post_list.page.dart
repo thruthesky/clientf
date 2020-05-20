@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:clientf/services/app.service.dart';
+
 import '../../flutter_engine/engine.forum.dart';
 import '../../flutter_engine/engine.post.model.dart';
 import 'package:clientf/globals.dart';
@@ -30,12 +32,15 @@ class _PostListPageState extends State<PostListPage> {
       forum.loadPage(
         id: _arg['id'],
         onLoad: () {
-        print('post loaded');
-        print(forum.posts);
-        setState(() {
-          /** posts loaded */
-        });
-      }, cacheKey: 'forum-list-${_arg['id']}');
+          print('post loaded');
+          print(forum.posts);
+          setState(() {
+            /** posts loaded */
+          });
+        },
+        onError: (e) => AppService.alert(null, t(e)),
+        cacheKey: 'forum-list-${_arg['id']}',
+      );
 
       // forum.init(id: _arg['id']);
 

@@ -1,4 +1,5 @@
 
+import 'package:clientf/flutter_engine/engine.globals.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/models/app.localization.dart';
 import 'package:clientf/services/app.defines.dart';
@@ -52,7 +53,7 @@ class _CommunityAppState extends State<CommunityApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => app),
-        ChangeNotifierProvider(create: (context) => app.f),
+        ChangeNotifierProvider(create: (context) => ef  ),
       ],
       child: MaterialApp(
         theme: appTheme,
