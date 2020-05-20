@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:clientf/flutter_engine/engine.globals.dart';
 import 'package:clientf/flutter_engine/widgets/engine.text.dart';
+import 'package:clientf/flutter_engine/widgets/engine.upload_icon.dart';
+import 'package:clientf/flutter_engine/widgets/upload_progress_bar.dart';
 
 import '../../flutter_engine/engine.post.model.dart';
 import 'package:clientf/globals.dart';
@@ -10,8 +12,6 @@ import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:clientf/widgets/engine/display_uploaded_images.dart';
-import 'package:clientf/widgets/engine/upload_icon.dart';
-import 'package:clientf/widgets/upload_progress_bar.dart';
 import 'package:flutter/material.dart';
 
 class PostCreatePage extends StatefulWidget {
@@ -97,18 +97,18 @@ class _PostCreatePageState extends State<PostCreatePage> {
               ),
             ),
             AppSpace.halfBox,
-            UploadProgressBar(0),
+            EngineProgressBar(0),
             DisplayUploadedImages(
               post,
               editable: true,
             ),
             AppSpace.halfBox,
-            UploadProgressBar(progress),
+            EngineProgressBar(progress),
             AppSpace.halfBox,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                UploadIcon(post, (p) {
+                EngineUploadIcon(post, (p) {
                   setState(() {
                     progress = p;
                   });

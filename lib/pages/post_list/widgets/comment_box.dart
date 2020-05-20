@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:clientf/flutter_engine/engine.globals.dart';
 import 'package:clientf/flutter_engine/widgets/engine.text.dart';
+import 'package:clientf/flutter_engine/widgets/engine.upload_icon.dart';
+import 'package:clientf/flutter_engine/widgets/upload_progress_bar.dart';
 
 import '../../../flutter_engine/engine.comment.model.dart';
 import '../../../flutter_engine/engine.post.model.dart';
@@ -10,8 +12,6 @@ import 'package:clientf/services/app.color.dart';
 
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/widgets/engine/display_uploaded_images.dart';
-import 'package:clientf/widgets/engine/upload_icon.dart';
-import 'package:clientf/widgets/upload_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
@@ -134,7 +134,7 @@ class _CommentBoxState extends State<CommentBox> {
               ),
               Row(
                 children: <Widget>[
-                  UploadIcon(widget.currentComment, (p) {
+                  EngineUploadIcon(widget.currentComment, (p) {
                     setState(() {
                       progress = p;
                     });
@@ -183,7 +183,7 @@ class _CommentBoxState extends State<CommentBox> {
                   ),
                 ],
               ),
-              UploadProgressBar(progress),
+              EngineProgressBar(progress),
               DisplayUploadedImages(
                 widget.currentComment,
                 editable: true,

@@ -1,7 +1,7 @@
+import 'package:clientf/flutter_engine/engine.firestore.dart';
 import 'package:clientf/flutter_engine/engine.globals.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
-import 'package:clientf/services/app.firestore.dart';
 
 import 'package:clientf/services/app.service.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 /// 업로드된 사진을 표시
 ///
-class DisplayUploadedImages extends StatefulWidget {
+class DisplayUploadedImages extends StatefulWidget { 
   /// [doc] 사용자 도큐먼트
   DisplayUploadedImages(
     this.doc, {
@@ -88,7 +88,7 @@ class _DeleteIconState extends State<DeleteIcon> {
           inLoading = true;
         });
         try {
-          await AppStore(widget.doc).delete(widget.url);
+          await EngineFirestore(widget.doc).delete(widget.url);
         } catch (e) {
           print(e);
           AppService.alert(null, t(e));
