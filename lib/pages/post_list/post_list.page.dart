@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:clientf/enginf_clientf_service/enginf.forum.model.dart';
+import 'package:clientf/enginf_clientf_service/enginf.forum.dart';
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/pages/post_list/widgets/post_list.dart';
@@ -16,7 +16,7 @@ class PostListPage extends StatefulWidget {
 }
 
 class _PostListPageState extends State<PostListPage> {
-  EngineForumList forum = EngineForumList();
+  EngineForum forum = EngineForum();
 
   @override
   void initState() {
@@ -25,14 +25,17 @@ class _PostListPageState extends State<PostListPage> {
     Timer(Duration(milliseconds: 10), () async {
       var _arg = routerArguments(context);
 
-      forum.id = _arg['id'];
+      // forum.id = _arg['id'];
       forum.initScrollListener();
-      forum.loadPage(onLoad: () {
+      forum.loadPage(
+        id: _arg['id'],
+        onLoad: () {
         print('post loaded');
+        print(forum.posts);
         setState(() {
           /** posts loaded */
         });
-      });
+      }, cacheKey: 'forum-list-${_arg['id']}');
 
       // forum.init(id: _arg['id']);
 

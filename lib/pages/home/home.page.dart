@@ -1,19 +1,13 @@
-import 'package:clientf/enginf_clientf_service/enginf.forum.model.dart';
-import 'package:clientf/enginf_clientf_service/enginf.model.dart';
+import 'package:clientf/enginf_clientf_service/enginf.forum.dart';
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
-import 'package:clientf/services/app.router.dart';
-import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:clientf/widgets/custom_app_bar.dart';
-import 'package:clientf/widgets/post_title.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:clientf/widgets/engine/post_title.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -23,7 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  EngineForumList forum = EngineForumList();
+  EngineForum forum = EngineForum();
   _HomePageState() {
     //
   }
@@ -36,9 +30,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadPosts() {
-    forum.id = 'discussion';
-    forum.noOfPostsPerPage = 20;
-    forum.loadPage(onLoad: () => setState(() => {}));
+    forum.loadPage(
+      id: 'discussion',
+      limit: 12,
+      onLoad: () => setState(() => {}),
+      cacheKey: 'front-page',
+    );
   }
 
   @override
@@ -105,7 +102,7 @@ class LatestPosts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // print('LatestPosts:: posts');
-    for (EnginePost p in posts) print(p.title);
+    // for (EnginePost p in posts) print(p.title);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

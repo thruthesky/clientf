@@ -1,12 +1,12 @@
 import 'package:clientf/enginf_clientf_service/enginf.comment.model.dart';
-import 'package:clientf/enginf_clientf_service/enginf.forum.model.dart';
+import 'package:clientf/enginf_clientf_service/enginf.forum.dart';
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
-import 'package:clientf/widgets/display_uploaded_images.dart';
+import 'package:clientf/widgets/engine/display_uploaded_images.dart';
 import 'package:flutter/material.dart';
 
 class CommentItem extends StatefulWidget {
@@ -43,7 +43,7 @@ class _CommentItemState extends State<CommentItem> {
                   /// Comment Reply
                   final re = await AppService.openCommentBox(
                       widget.post, widget.comment, EngineComment());
-                  EngineForumList()
+                  EngineForum()
                       .addComment(re, widget.post, widget.comment.id);
 
                       /// 코멘트가 작성되면 부모 위젯의 setState(...) 를 호출한다.
@@ -53,7 +53,7 @@ class _CommentItemState extends State<CommentItem> {
                   /// Comment Edit
                   final re = await AppService.openCommentBox(
                       widget.post, null, widget.comment);
-                  EngineForumList().updateComment(re, widget.post);
+                  EngineForum().updateComment(re, widget.post);
                   setState(() {
                     /** 코멘트 수정 반영 */
                   });

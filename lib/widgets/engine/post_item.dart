@@ -1,5 +1,5 @@
 import 'package:clientf/enginf_clientf_service/enginf.comment.model.dart';
-import 'package:clientf/enginf_clientf_service/enginf.forum.model.dart';
+import 'package:clientf/enginf_clientf_service/enginf.forum.dart';
 import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/pages/post_list/widgets/comment_box.dart';
@@ -7,7 +7,7 @@ import 'package:clientf/pages/post_list/widgets/comment_list.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
-import 'package:clientf/widgets/display_uploaded_images.dart';
+import 'package:clientf/widgets/engine/display_uploaded_images.dart';
 import 'package:flutter/material.dart';
 
 /// 글을 보여주고 수정/삭제/코멘트 등의 작업을 할 수 있다.
@@ -38,7 +38,7 @@ class _PostItemState extends State<PostItem> {
   @override
   Widget build(BuildContext context) {
     EnginePost post = widget.post;
-    EngineForumList forum = EngineForumList();
+    EngineForum forum = EngineForum();
     if (showContent) {
       return Column(
         children: <Widget>[

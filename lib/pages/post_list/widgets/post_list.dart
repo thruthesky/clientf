@@ -1,11 +1,11 @@
-import 'package:clientf/enginf_clientf_service/enginf.forum.model.dart';
-import 'package:clientf/widgets/post_item.dart';
+import 'package:clientf/enginf_clientf_service/enginf.forum.dart';
+import 'package:clientf/widgets/engine/post_item.dart';
 import 'package:flutter/material.dart';
 
 class PostList extends StatefulWidget {
   PostList(this.forum, {Key key}) : super(key: key);
 
-  final EngineForumList forum;
+  final EngineForum forum;
 
   @override
   _PostListState createState() => _PostListState();

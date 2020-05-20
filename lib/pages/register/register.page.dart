@@ -9,9 +9,8 @@ import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:clientf/widgets/custom_app_bar.dart';
-import 'package:clientf/widgets/upload_icon.dart';
+import 'package:clientf/widgets/engine/upload_icon.dart';
 import 'package:clientf/widgets/upload_progress_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image/network.dart';
 

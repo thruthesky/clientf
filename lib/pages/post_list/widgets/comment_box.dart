@@ -6,12 +6,11 @@ import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.i18n.dart';
 import 'package:clientf/services/app.service.dart';
-import 'package:clientf/widgets/display_uploaded_images.dart';
-import 'package:clientf/widgets/upload_icon.dart';
+import 'package:clientf/widgets/engine/display_uploaded_images.dart';
+import 'package:clientf/widgets/engine/upload_icon.dart';
 import 'package:clientf/widgets/upload_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider/provider.dart';
 
 class CommentBox extends StatefulWidget {
   CommentBox(
