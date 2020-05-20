@@ -48,6 +48,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: EngineAppBar(
         title: t('appName'),
+        
+        onTapUserPhoto: () => open(ef.loggedIn ? AppRoutes.register : AppRoutes.login),
       ),
       endDrawer: AppDrawer(),
       body: SingleChildScrollView(

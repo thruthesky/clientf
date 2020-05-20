@@ -1,6 +1,7 @@
 import 'package:clientf/flutter_engine/engine.globals.dart';
 import 'package:clientf/flutter_engine/widgets/engine.app_bar.dart';
 import 'package:clientf/flutter_engine/widgets/engine.register_form.dart';
+import 'package:clientf/globals.dart';
 
 
 import 'package:clientf/services/app.defines.dart';
@@ -22,6 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: EngineAppBar(
         title: t('Register'),
+        onTapUserPhoto: () => open(ef.loggedIn ? AppRoutes.register : AppRoutes.login),
       ),
       endDrawer: AppDrawer(),
       body: SingleChildScrollView(

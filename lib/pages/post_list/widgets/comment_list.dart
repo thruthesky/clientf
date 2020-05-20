@@ -18,19 +18,10 @@ class CommentList extends StatefulWidget {
 class _CommentListState extends State<CommentList> {
   @override
   void initState() {
-    var arr = [];
-    for (var c in widget.post.comments) {
-      /// 주의! 한번 파싱을 했으면, Type 이 Map<dynamic, dynamic> 에서 EngineComment 로 벼하는데,
-      /// 랜더링을 다시 할 때, 또 다시 파싱하는데, 이 때, _TypeError 가 발생한다.
-      if (c is EngineComment) {
-        arr.add(c);
-      } else {
-        arr.add(EngineComment.fromEnginData(c));
-      }
-    }
-    widget.post.comments = arr;
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {

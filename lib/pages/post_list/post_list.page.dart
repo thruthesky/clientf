@@ -68,6 +68,7 @@ class _PostListPageState extends State<PostListPage> {
             }
           },
         ),
+        onTapUserPhoto: () => open(ef.loggedIn ? AppRoutes.register : AppRoutes.login),
       ),
       endDrawer: AppDrawer(),
       body: PostList(forum),
