@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import '../../flutter_engine/enginf.forum.dart';
-import '../../flutter_engine/enginf.post.model.dart';
+import '../../flutter_engine/engine.forum.dart';
+import '../../flutter_engine/engine.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/pages/post_list/widgets/post_list.dart';
 import 'package:clientf/services/app.defines.dart';
