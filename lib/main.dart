@@ -1,7 +1,8 @@
 
+import 'package:clientf/flutter_engine/engine.app.localization.dart';
 import 'package:clientf/flutter_engine/engine.globals.dart';
+import 'package:clientf/flutter_engine/engine.model.dart';
 import 'package:clientf/globals.dart';
-import 'package:clientf/models/app.localization.dart';
 import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/services/app.router.dart';
 import 'package:clientf/services/app.service.dart';
@@ -30,8 +31,9 @@ class _CommunityAppState extends State<CommunityApp> {
     AppService.init();
 
     /// 아래의 코드는 Backward compatibilities 를 위한 것으로 삭제되어야 한다.
-    app.f = ef;
     app.init();
+
+    ef = EngineModel(navigatorKey: AppService.navigatorKey);
 
     // Timer(
     //   Duration(milliseconds: 100),

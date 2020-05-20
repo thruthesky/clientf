@@ -1,12 +1,13 @@
 import 'package:clientf/flutter_engine/engine.defines.dart';
 import 'package:clientf/flutter_engine/engine.globals.dart';
+import 'package:clientf/flutter_engine/widgets/engine.text.dart';
+import 'package:clientf/services/app.firestore.dart';
 
 import '../../flutter_engine/engine.user.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.defines.dart';
-import 'package:clientf/services/app.firestore.dart';
-import 'package:clientf/services/app.i18n.dart';
+
 import 'package:clientf/services/app.router.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
@@ -75,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   loadProfile() async {
     try {
-      var _user = await app.f.profile();
+      var _user = await ef.profile();
       setState(() {
         user = _user;
         _nicknameController.text = user.displayName;
@@ -170,7 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   final data = getFormData();
                   try {
                     if (app.notLoggedIn) {
-                      await app.f.register(data);
+                      await ef.register(data);
                       AppRouter.open(context, AppRoutes.home);
                     } else {
                       await ef.userUpdate(data);
@@ -207,7 +208,7 @@ class _UserPhotoState extends State<UserPhoto> {
   @override
   Widget build(BuildContext context) {
     /// `Firebase Auth` 의 `photoUrl` 을 바로 보여준다.
-    String url = app.f.user?.photoUrl;
+    String url = ef.user?.photoUrl;
     bool hasPhoto = url != null && url != DELETED_PHOTO;
     return Column(
       children: <Widget>[

@@ -1,3 +1,5 @@
+import 'package:clientf/flutter_engine/engine.globals.dart';
+import 'package:clientf/flutter_engine/widgets/engine.text.dart';
 import 'package:clientf/services/app.service.dart';
 
 import '../../flutter_engine/engine.forum.dart';
@@ -5,7 +7,7 @@ import '../../flutter_engine/engine.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.defines.dart';
-import 'package:clientf/services/app.i18n.dart';
+
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:clientf/widgets/custom_app_bar.dart';
 import 'package:clientf/widgets/engine/post_title.dart';

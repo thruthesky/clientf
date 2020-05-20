@@ -1,8 +1,9 @@
-import 'package:clientf/data/i18n.text.dart';
+import 'package:clientf/flutter_engine/engine.globals.dart';
+import 'package:clientf/flutter_engine/widgets/engine.text.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/pages/post_list/widgets/comment_box.dart';
 import 'package:clientf/services/app.defines.dart';
-import 'package:clientf/services/app.i18n.dart';
+
 import 'package:clientf/services/app.keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -16,8 +17,6 @@ class AppService {
       AppService.navigatorKey.currentState.overlay.context;
 
   static init() async {
-    i18nTextKeyToLower();
-
     /// 앱이 실행 될 때마다 카운트를 한다.
     /// 첫 실행시 해야 할 것은 이 코드 이전에 해야 한다.
     increaseRun();

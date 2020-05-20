@@ -1,10 +1,10 @@
+import 'package:clientf/flutter_engine/engine.globals.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:clientf/services/app.i18n.dart';
 
 /// AppStore 에서는 사진을 찍어 올리고, 삭제 등 전반 적인 관리를 한다.
 ///

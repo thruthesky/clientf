@@ -1,12 +1,12 @@
+import 'package:clientf/flutter_engine/engine.globals.dart';
 import 'package:clientf/flutter_engine/widgets/engine.login.dart';
+import 'package:clientf/flutter_engine/widgets/engine.text.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.defines.dart';
-import 'package:clientf/services/app.i18n.dart';
-import 'package:clientf/services/app.router.dart';
+
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {

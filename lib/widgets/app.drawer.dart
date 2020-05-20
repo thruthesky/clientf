@@ -1,7 +1,9 @@
+import 'package:clientf/flutter_engine/engine.globals.dart';
+import 'package:clientf/flutter_engine/widgets/engine.text.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.defines.dart';
-import 'package:clientf/services/app.i18n.dart';
+
 import 'package:clientf/services/app.keys.dart';
 import 'package:clientf/services/app.router.dart';
 import 'package:clientf/services/app.space.dart';
@@ -79,7 +81,7 @@ class _AppDrawerState extends State<AppDrawer> {
               title: t('Logout'),
               icon: Icons.reply,
               onTap: () async {
-                await app.f.logout();
+                await ef.logout();
                 AppRouter.open(context, AppRoutes.home);
               },
             ),

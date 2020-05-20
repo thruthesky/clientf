@@ -16,6 +16,10 @@
 * PR 이 늘어나면, 소스 코드를 어느 정도 이해하고 있다고 판단하여 Git 프로젝트 멤버로 초대를 해 드리겠습니다.
 * 소스 코드를 파악하면서 주석으로 설명을 달아주셔도 좋고, 예제와 같은 문서 작업을 해 주셔도 좋습니다.
 
+## 참고
+
+* [한국 플러터 커뮤니티 소개](https://docs.google.com/document/d/e/2PACX-1vTapmKIF_w575Q6ooyfGYtdRg6c5hXoA4bFOCAwh4YZyhXinExvzmcBfuz_E3cHy-4SphUDDawp4Fr8/pub)
+
 ## 개발 련련 문서
 
 * [파이어베이스 백엔드](https://github.com/thruthesky/enginf) README 참고

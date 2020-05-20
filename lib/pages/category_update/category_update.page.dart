@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:clientf/flutter_engine/engine.globals.dart';
+import 'package:clientf/flutter_engine/widgets/engine.text.dart';
+
 import '../../flutter_engine/engine.category.model.dart';
 import 'package:clientf/globals.dart';
-import 'package:clientf/services/app.i18n.dart';
+
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
@@ -37,7 +40,7 @@ class _CategoryUpdatePageState extends State<CategoryUpdatePage> {
     super.initState();
     Timer(Duration(milliseconds: 10), () async {
       var arguments = routerArguments(context);
-      var _data = await app.f.categoryData(arguments['id']);
+      var _data = await ef.categoryData(arguments['id']);
       setState(() {
         data = _data;
         _titleController.text = data.title;
@@ -77,7 +80,7 @@ class _CategoryUpdatePageState extends State<CategoryUpdatePage> {
                 ///
                 print(getFormData());
                 try {
-                  final re = await app.f.categoryUpdate(getFormData());
+                  final re = await ef.categoryUpdate(getFormData());
                   print(re);
                 } catch (e) {
                   AppService.alert(null, t(e));

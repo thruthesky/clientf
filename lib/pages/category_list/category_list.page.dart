@@ -1,7 +1,10 @@
+import 'package:clientf/flutter_engine/engine.globals.dart';
+import 'package:clientf/flutter_engine/widgets/engine.text.dart';
+
 import '../../flutter_engine/engine.category_list.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.defines.dart';
-import 'package:clientf/services/app.i18n.dart';
+
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +26,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
 
   loadCategories() async {
     try {
-      var data = await app.f.categoryList();
+      var data = await ef.categoryList();
 
       // open(AppRoutes.categoryUpdate, arguments: {'id': 'banana'}); // TEST
       setState(() {

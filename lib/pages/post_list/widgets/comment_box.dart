@@ -1,10 +1,13 @@
 import 'dart:async';
 
+import 'package:clientf/flutter_engine/engine.globals.dart';
+import 'package:clientf/flutter_engine/widgets/engine.text.dart';
+
 import '../../../flutter_engine/engine.comment.model.dart';
 import '../../../flutter_engine/engine.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
-import 'package:clientf/services/app.i18n.dart';
+
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/widgets/engine/display_uploaded_images.dart';
 import 'package:clientf/widgets/engine/upload_icon.dart';
@@ -162,12 +165,12 @@ class _CommentBoxState extends State<CommentBox> {
                       try {
                         if (isCreate) {
                           /// create (reply)
-                          var re = await app.f.commentCreate(data);
+                          var re = await ef.commentCreate(data);
                           print('create: $data');
                           back(arguments: re);
                         } else {
                           /// update
-                          var re = await app.f.commentUpdate(getFormData());
+                          var re = await ef.commentUpdate(getFormData());
                           print('CommentBox:: Comment update. $re');
                           widget.currentComment.content = re.content;
                           back(arguments: re);

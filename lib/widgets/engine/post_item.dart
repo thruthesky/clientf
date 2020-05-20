@@ -1,3 +1,5 @@
+import 'package:clientf/flutter_engine/engine.globals.dart';
+
 import '../../flutter_engine/engine.comment.model.dart';
 import '../../flutter_engine/engine.forum.dart';
 import '../../flutter_engine/engine.post.model.dart';
@@ -5,7 +7,7 @@ import 'package:clientf/globals.dart';
 import 'package:clientf/pages/post_list/widgets/comment_box.dart';
 import 'package:clientf/pages/post_list/widgets/comment_list.dart';
 import 'package:clientf/services/app.defines.dart';
-import 'package:clientf/services/app.i18n.dart';
+
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/widgets/engine/display_uploaded_images.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +82,7 @@ class _PostItemState extends State<PostItem> {
                     content: 'do you want to delete?',
                     onYes: () async {
                       try {
-                        final re = await app.f.postDelete(post.id);
+                        final re = await ef.postDelete(post.id);
                         setState(() {
                           post.title = re.title;
                           post.content = re.content;

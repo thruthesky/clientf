@@ -1,9 +1,12 @@
+import 'package:clientf/flutter_engine/engine.globals.dart';
+import 'package:clientf/flutter_engine/widgets/engine.text.dart';
+
 import '../../../flutter_engine/engine.comment.model.dart';
 import '../../../flutter_engine/engine.forum.dart';
 import '../../../flutter_engine/engine.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
-import 'package:clientf/services/app.i18n.dart';
+
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/engine/display_uploaded_images.dart';
@@ -60,7 +63,7 @@ class _CommentItemState extends State<CommentItem> {
                 },
                 onDelete: () async {
                   /// Comment Delte
-                  var re = await app.f.commentDelete(widget.comment.id);
+                  var re = await ef.commentDelete(widget.comment.id);
                   setState(() {
                     /** 코멘트 삭제 반영 */
                     widget.comment.content = re['content'];
