@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:clientf/flutter_engine/engine.globals.dart';
+import 'package:clientf/flutter_engine/widgets/engine.app_bar.dart';
 import 'package:clientf/services/app.service.dart';
 
 import '../../flutter_engine/engine.forum.dart';
@@ -10,7 +11,6 @@ import 'package:clientf/pages/post_list/widgets/post_list.dart';
 import 'package:clientf/services/app.defines.dart';
 
 import 'package:clientf/widgets/app.drawer.dart';
-import 'package:clientf/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class PostListPage extends StatefulWidget {
@@ -52,7 +52,7 @@ class _PostListPageState extends State<PostListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: EngineAppBar(
         title: t(forum.id ?? ''),
         actions: GestureDetector(
           child: Icon(Icons.add),

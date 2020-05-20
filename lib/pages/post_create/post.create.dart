@@ -108,13 +108,18 @@ class _PostCreatePageState extends State<PostCreatePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                EngineUploadIcon(post, (p) {
-                  setState(() {
-                    progress = p;
-                  });
-                }, (String url) {
-                  setState(() {});
-                }),
+                EngineUploadIcon(
+                  post,
+                  onProgress: (p) {
+                    setState(() {
+                      progress = p;
+                    });
+                  },
+                  onUploadComplete: (String url) {
+                    setState(() {});
+                  },
+                  onError: (e) => AppService.alert(null, t(e)),
+                ),
                 RaisedButton(
                   onPressed: () async {
                     try {

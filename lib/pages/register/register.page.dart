@@ -1,4 +1,5 @@
 import 'package:clientf/flutter_engine/engine.globals.dart';
+import 'package:clientf/flutter_engine/widgets/engine.app_bar.dart';
 import 'package:clientf/flutter_engine/widgets/engine.register_form.dart';
 
 
@@ -8,7 +9,6 @@ import 'package:clientf/services/app.router.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
-import 'package:clientf/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -20,7 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: EngineAppBar(
         title: t('Register'),
       ),
       endDrawer: AppDrawer(),

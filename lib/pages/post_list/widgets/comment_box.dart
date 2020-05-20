@@ -134,13 +134,17 @@ class _CommentBoxState extends State<CommentBox> {
               ),
               Row(
                 children: <Widget>[
-                  EngineUploadIcon(widget.currentComment, (p) {
+                  EngineUploadIcon(widget.currentComment,
+                  onProgress: (p) {
                     setState(() {
                       progress = p;
                     });
-                  }, (String url) {
+                  },
+                  onUploadComplete: (String url) {
                     setState(() {});
-                  }),
+                  },
+                  onError: (e) => AppService.alert(null, t(e)),
+                  ),
                   Expanded(
                     child: TextField(
                       controller: _contentController,
