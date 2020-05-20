@@ -1,5 +1,5 @@
-import 'package:clientf/enginf_clientf_service/enginf.forum.dart';
-import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
+import '../../flutter_engine/enginf.forum.dart';
+import '../../flutter_engine/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.defines.dart';

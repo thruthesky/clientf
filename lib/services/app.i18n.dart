@@ -1,4 +1,4 @@
-import 'package:clientf/enginf_clientf_service/enginf.error.model.dart';
+import '../flutter_engine/enginf.error.model.dart';
 import 'package:clientf/models/app.localization.dart';
 import 'package:clientf/services/app.service.dart';
 import 'package:flutter/material.dart';

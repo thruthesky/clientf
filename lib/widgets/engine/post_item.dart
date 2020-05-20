@@ -1,6 +1,6 @@
-import 'package:clientf/enginf_clientf_service/enginf.comment.model.dart';
-import 'package:clientf/enginf_clientf_service/enginf.forum.dart';
-import 'package:clientf/enginf_clientf_service/enginf.post.model.dart';
+import '../../flutter_engine/enginf.comment.model.dart';
+import '../../flutter_engine/enginf.forum.dart';
+import '../../flutter_engine/enginf.post.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/pages/post_list/widgets/comment_box.dart';
 import 'package:clientf/pages/post_list/widgets/comment_list.dart';

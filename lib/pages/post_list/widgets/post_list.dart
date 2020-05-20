@@ -1,4 +1,4 @@
-import 'package:clientf/enginf_clientf_service/enginf.forum.dart';
+import '../../../flutter_engine/enginf.forum.dart';
 import 'package:clientf/widgets/engine/post_item.dart';
 import 'package:flutter/material.dart';
 

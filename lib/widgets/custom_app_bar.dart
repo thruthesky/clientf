@@ -1,9 +1,7 @@
 import 'dart:io';
-import 'package:clientf/enginf_clientf_service/enginf.model.dart';
+import '../flutter_engine/enginf.model.dart';
 import 'package:clientf/globals.dart';
-import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.defines.dart';
-import 'package:clientf/services/app.i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image/network.dart';
 import 'package:provider/provider.dart';

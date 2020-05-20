@@ -1,4 +1,4 @@
-import 'package:clientf/enginf_clientf_service/enginf.user.model.dart';
+import '../../flutter_engine/enginf.user.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.defines.dart';
