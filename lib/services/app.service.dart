@@ -125,14 +125,6 @@ class AppService {
     );
   }
 
-  static openCommentBox(post, parentComment, currentComment) {
-    return openDialog(EngineCommentBox(
-      post,
-      parentComment: parentComment,
-      currentComment: currentComment,
-    ));
-  }
-
   static openDialog(childWidget) {
     return showGeneralDialog(
       context: context,

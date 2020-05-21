@@ -5,7 +5,6 @@ import 'package:clientf/pages/category_update/category_update.page.dart';
 import 'package:clientf/pages/help/help.page.dart';
 import 'package:clientf/pages/home/home.page.dart';
 import 'package:clientf/pages/login/login.page.dart';
-import 'package:clientf/pages/post_create/post.create.dart';
 import 'package:clientf/pages/post_list/post_list.page.dart';
 import 'package:clientf/pages/post_view/post_view.page.dart';
 import 'package:clientf/pages/register/register.page.dart';
@@ -60,7 +59,7 @@ class AppRouter {
     else if (settings.name == AppRoutes.postList)
       route = _buildRoute(settings, PostListPage());
     else if (settings.name == AppRoutes.postCreate)
-      route = _buildRoute(settings, PostCreatePage());
+      route = _buildRoute(settings, PostEditPage());
     else if (settings.name == AppRoutes.postView)
       route = _buildRoute(settings, PostViewPage());
     return route;

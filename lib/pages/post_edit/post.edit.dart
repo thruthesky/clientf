@@ -14,12 +14,12 @@ import 'package:clientf/services/app.space.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
 
-class PostCreatePage extends StatefulWidget {
+class PostEditPage extends StatefulWidget {
   @override
-  _PostCreatePageState createState() => _PostCreatePageState();
+  _PostEditPageState createState() => _PostEditPageState();
 }
 
-class _PostCreatePageState extends State<PostCreatePage> {
+class _PostEditPageState extends State<PostEditPage> {
   EnginePost post = EnginePost();
   String postId;
   int progress = 0;

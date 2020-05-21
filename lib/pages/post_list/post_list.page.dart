@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:clientf/flutter_engine/engine.comment.model.dart';
 import 'package:clientf/flutter_engine/engine.globals.dart';
 import 'package:clientf/flutter_engine/widgets/engine.app_bar.dart';
+import 'package:clientf/flutter_engine/widgets/engine.comment_box.dart';
 import 'package:clientf/flutter_engine/widgets/engine.post_list.dart';
 import 'package:clientf/services/app.service.dart';
 
@@ -29,12 +31,12 @@ class _PostListPageState extends State<PostListPage> {
       var _arg = routerArguments(context);
 
       // forum.id = _arg['id'];
-      forum.initScrollListener();
+      // forum.initScrollListener();
       forum.loadPage(
         id: _arg['id'],
         onLoad: () {
-          print('post loaded');
-          print(forum.posts);
+          // print('post loaded');
+          // print(forum.posts);
           setState(() {
             /** posts loaded */
           });
@@ -74,12 +76,58 @@ class _PostListPageState extends State<PostListPage> {
       endDrawer: AppDrawer(),
       body: EnginePostList(
         forum,
-        onEdit: (post) async {
+        onUpdate: (EnginePost post) async {
+          /// 글 수정
           var updatedPost =
               await open(AppRoutes.postUpdate, arguments: {'post': post});
           forum.updatePost(post, updatedPost);
           setState(() {/** 수정된 글 Re-rendering */});
         },
+        onReply: (EnginePost post) async {
+          /// 글에서 Reply 버튼을 클릭한 경우
+          var reply = AppService.openDialog(EngineCommentBox(
+            post,
+            currentComment: EngineComment(),
+            onCommentReply: (EngineComment comment) {
+              forum.addComment(comment, post, null);
+              setState(() {/** 댓글 반영 */});
+              back(arguments: comment);
+            },
+            onCommentError: (e) => AppService.alert(null, t(e)),
+          ));
+        },
+        onDelete: () => AppService.alert(null, t('post deleted')),
+        onError: (e) => AppService.alert(null, t(e)),
+        onCommentReply: (EnginePost post, EngineComment parentComment) async {
+          /// 코멘트에서 Reply 버튼을 클릭한 경우,
+          var reply = AppService.openDialog(EngineCommentBox(
+            post,
+            currentComment: EngineComment(),
+            parentComment: parentComment,
+            onCommentReply: (EngineComment comment) {
+              forum.addComment(comment, post, parentComment.id);
+              setState(() {/** 댓글 반영 */});
+              back(arguments: comment);
+            },
+            onCommentError: (e) => AppService.alert(null, t(e)),
+          ));
+        },
+        onCommentUpdate: (EnginePost post, EngineComment comment) {
+          // print('==> commnetupdate: ');
+          // print(comment);
+          var reply = AppService.openDialog(EngineCommentBox(
+            post,
+            currentComment: comment,
+            onCommentUpdate: (EngineComment comment) {
+              forum.updateComment(comment, post);
+              setState(() {/** 댓글 반영 */});
+              back(arguments: comment);
+            },
+            onCommentError: (e) => AppService.alert(null, t(e)),
+          ));
+        },
+        onCommentDelete: () {},
+        onCommentError: (e) => AppService.alert(null, t(e)),
       ),
     );
   }
