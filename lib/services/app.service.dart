@@ -1,7 +1,7 @@
 import 'package:clientf/flutter_engine/engine.globals.dart';
+import 'package:clientf/flutter_engine/widgets/engine.comment_box.dart';
 import 'package:clientf/flutter_engine/widgets/engine.text.dart';
 import 'package:clientf/globals.dart';
-import 'package:clientf/pages/post_list/widgets/comment_box.dart';
 import 'package:clientf/services/app.defines.dart';
 
 import 'package:clientf/services/app.keys.dart';
@@ -126,7 +126,7 @@ class AppService {
   }
 
   static openCommentBox(post, parentComment, currentComment) {
-    return openDialog(CommentBox(
+    return openDialog(EngineCommentBox(
       post,
       parentComment: parentComment,
       currentComment: currentComment,

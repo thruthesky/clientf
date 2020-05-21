@@ -74,6 +74,45 @@
 
 * 에러코드. 서버 README 참고
 
+## State management 와 Callback
+
+### Ping/pong 콜백
+
+이 내용은 `flutter_engine` 으로 이동 할 것
+
+* 글을 보여주는 `범용 Engine 위젯` A 가 있는 경우,
+  * A 의 `[수정]` 버튼을 클릭하면,
+    * 새로운 Router `[글 수정 페이지 B]`가 열려야한다.
+    * 이 때, Router 를 이동하는 코드나 Route 를 관리하는 코드는 앱의 메인 코드에서 해야한다.
+    * 위젯 A 에서 하면, 그 위젯은 특정 앱에 종속적이게 되며 범용성을 잃게 된다.
+    * 이것은 `State management` 나 `Reactive` 코딩을 해도 마찬가지이다.
+      * 예를 들어 `범용 공유 위젯`이 MobX 를 쓴다면 앱에서도 MobX 를 써서 글과 관련된 상태를 업데이트해야한다.
+      * 그런데 만약, 개발자가 MobX 사용법을 모르거나 사용하기를 원하지 않는다면, 해당 `범용 위젯`은 더 이상 범용적이지 모하게 된다.
+  * 그래서 콜백을 사용하는데,
+    * B 페이지에서 위젯 A를 포함 할 때, 수정 버튼을 클릭하면 Callback 이 호출되게 한다.
+      * 즉, 수정 루틴은 B 페이지에서 처리를 하는 것이다.
+      * B 페이지가 처리가 끝나면 다시 위젯 A 의 Callback 으로 수정된 값 또는 결과 처리를 알려주는 것이다.
+
+* 이 처럼 서로 콜백을 동록하여 통신하는 것을 Ping/pong 콜백이라고 한다.
+* 또한 이러한 현상으로 Callback drilling 이 발생하고 Callback hell 이 나타날 조짐이 보인다.
+
+### Callback hell 방지를 위한 State 를 전달
+
+* Ping/pong Callback 이 필요한 이유는 `위젯 A`를 업데이트 해야하는데, 이는 `위젯 A`의 State 를 통해서 업데이트가 가능하다.
+* 따라서 `위젯 A state` 를 Callback 으로 전달 해 버리고, `페이지 B`에서 필요한 처리를 하고, `위젯 A state`를 통해서 `.setState()`를 바로 호출해서 rendering 해 버린다.
+* 이렇게 state 를 전달하는 방식에 대해서 확신이 없었는데, [공식 Youtube 강좌. Programatic State Management in Flutter](https://www.youtube.com/watch?v=d_m5csmrf7I) 에서 사용하고 있는 것을 확인 할 수 있었다.
+* 예를 들어 `페이지 B` 에서 글 목록을 ListView 로 표시하는데, 글 하나를 수정하면 수정 된 하나에 대해서만 `state.setState(()  => {})` 하여 해당 글 위젯만 re-build 하는 것이 맞다.
+
+
+* 하지만 Flutter 에서는 ListView 를 Rendering 할 때 모든 ListView 아이템을 Rendering 하는 것이 아니라, 화면에 보이는 Object tree 만 랜더링을 하므로 속도가 빠른 편이다.
+  * 그래서 글 하나가 수정 될 때, 그 글 위젯의 state 를 전달하지 않고, 그냥 `페이지 B`에서 setState() 를 해서 전체 페이지를 다시 그리는 것도 하나의 방법이다.
+
+
+
+
+
+
+
 ## 로그인
 
 * 설명은 AppModel::login() 참고

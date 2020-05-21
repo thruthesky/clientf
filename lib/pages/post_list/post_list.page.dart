@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:clientf/flutter_engine/engine.globals.dart';
 import 'package:clientf/flutter_engine/widgets/engine.app_bar.dart';
+import 'package:clientf/flutter_engine/widgets/engine.post_list.dart';
 import 'package:clientf/services/app.service.dart';
 
 import '../../flutter_engine/engine.forum.dart';
 import '../../flutter_engine/engine.post.model.dart';
 import 'package:clientf/globals.dart';
-import 'package:clientf/pages/post_list/widgets/post_list.dart';
 import 'package:clientf/services/app.defines.dart';
 
 import 'package:clientf/widgets/app.drawer.dart';
@@ -68,10 +68,19 @@ class _PostListPageState extends State<PostListPage> {
             }
           },
         ),
-        onTapUserPhoto: () => open(ef.loggedIn ? AppRoutes.register : AppRoutes.login),
+        onTapUserPhoto: () =>
+            open(ef.loggedIn ? AppRoutes.register : AppRoutes.login),
       ),
       endDrawer: AppDrawer(),
-      body: PostList(forum),
+      body: EnginePostList(
+        forum,
+        onEdit: (post) async {
+          var updatedPost =
+              await open(AppRoutes.postUpdate, arguments: {'post': post});
+          forum.updatePost(post, updatedPost);
+          setState(() {/** 수정된 글 Re-rendering */});
+        },
+      ),
     );
   }
 }

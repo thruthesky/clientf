@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:clientf/flutter_engine/engine.app.localization.dart';
 import 'package:clientf/flutter_engine/engine.globals.dart';
 import 'package:clientf/flutter_engine/engine.model.dart';
@@ -35,13 +37,13 @@ class _CommunityAppState extends State<CommunityApp> {
 
     ef = EngineModel(navigatorKey: AppService.navigatorKey);
 
-    // Timer(
-    //   Duration(milliseconds: 100),
-    //   () => open(
-    //     AppRoutes.postList,
-    //     arguments: {'id': 'discussion'},
-    //   ),
-    // );
+    Timer(
+      Duration(milliseconds: 100),
+      () => open(
+        AppRoutes.postList,
+        arguments: {'id': 'discussion'},
+      ),
+    );
 
   }
   @override

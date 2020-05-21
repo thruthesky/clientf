@@ -7,7 +7,7 @@ import 'package:clientf/pages/home/home.page.dart';
 import 'package:clientf/pages/login/login.page.dart';
 import 'package:clientf/pages/post_create/post.create.dart';
 import 'package:clientf/pages/post_list/post_list.page.dart';
-import 'package:clientf/pages/post_view/post_view.dart';
+import 'package:clientf/pages/post_view/post_view.page.dart';
 import 'package:clientf/pages/register/register.page.dart';
 import 'package:clientf/pages/settings/settings.page.dart';
 import 'package:clientf/services/app.defines.dart';

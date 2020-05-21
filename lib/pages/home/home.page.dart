@@ -1,14 +1,11 @@
 import 'package:clientf/flutter_engine/engine.globals.dart';
 import 'package:clientf/flutter_engine/widgets/engine.app_bar.dart';
 import 'package:clientf/flutter_engine/widgets/engine.latest_posts.dart';
-import 'package:clientf/flutter_engine/widgets/engine.post_title.dart';
 import 'package:clientf/flutter_engine/widgets/engine.text.dart';
 import 'package:clientf/services/app.service.dart';
 
 import '../../flutter_engine/engine.forum.dart';
-import '../../flutter_engine/engine.post.model.dart';
 import 'package:clientf/globals.dart';
-import 'package:clientf/services/app.color.dart';
 import 'package:clientf/services/app.defines.dart';
 
 import 'package:clientf/widgets/app.drawer.dart';
@@ -29,19 +26,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    loadPosts();
-
     super.initState();
-  }
-
-  loadPosts() {
-    forum.loadPage(
-      id: 'discussion',
-      limit: 12,
-      onLoad: () => setState(() => {}),
-      onError: (e) => AppService.alert(null, t(e)),
-      cacheKey: 'front-page',
-    );
   }
 
   @override
@@ -49,8 +34,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: EngineAppBar(
         title: t('appName'),
-        
-        onTapUserPhoto: () => open(ef.loggedIn ? AppRoutes.register : AppRoutes.login),
+        onTapUserPhoto: () =>
+            open(ef.loggedIn ? AppRoutes.register : AppRoutes.login),
       ),
       endDrawer: AppDrawer(),
       body: SingleChildScrollView(
@@ -59,7 +44,12 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             HomeTopMenus(),
-            EngineLatestPosts(forum.posts),
+            EngineLatestPosts(
+              'discussion',
+              onTap: (post) =>
+                  open(AppRoutes.postView, arguments: {'post': post}),
+              onError: (e) => AppService.alert(null, t(e)),
+            ),
           ],
         ),
       ),
