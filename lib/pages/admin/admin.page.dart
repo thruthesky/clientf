@@ -1,3 +1,4 @@
+import 'package:clientf/flutter_engine/engine.defines.dart';
 import 'package:clientf/flutter_engine/widgets/engine.text.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.defines.dart';
@@ -5,17 +6,17 @@ import 'package:clientf/services/app.defines.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
 
-class SettingsPage extends StatefulWidget {
+class AdminPage extends StatefulWidget {
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  _AdminPageState createState() => _AdminPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _AdminPageState extends State<AdminPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: T('setting'),
+        title: T(ADMIN_PAGE),
       ),
       endDrawer: AppDrawer(),
       body: Center(
@@ -26,9 +27,9 @@ class _SettingsPageState extends State<SettingsPage> {
               children: <Widget>[
                 RaisedButton(
                   onPressed: () {
-                    // open(Routes.categoryList);
+                    open(Routes.categoryList);
                   },
-                  child: T('Settings page'),
+                  child: T('Category List'),
                 ),
               ],
             ),

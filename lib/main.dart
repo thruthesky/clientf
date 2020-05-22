@@ -42,7 +42,7 @@ class _CommunityAppState extends State<CommunityApp> {
     // Timer(
     //   Duration(milliseconds: 100),
     //   () => open(
-    //     AppRoutes.postList,
+    //     Routes.postList,
     //     arguments: {'id': 'discussion'},
     //   ),
     // );
@@ -62,11 +62,11 @@ class _CommunityAppState extends State<CommunityApp> {
       ],
       child: MaterialApp(
         theme: appTheme,
-        initialRoute: AppRoutes.home,
-        // initialRoute: AppRoutes.login,
-        // initialRoute: AppRoutes.categoryList,
-        // initialRoute: AppRoutes.profile,
-        // initialRoute: AppRoutes.register,
+        initialRoute: Routes.home,
+        // initialRoute: Routes.login,
+        // initialRoute: Routes.categoryList,
+        // initialRoute: Routes.profile,
+        // initialRoute: Routes.register,
         onGenerateRoute: AppRouter.generate,
         navigatorKey: AppService.navigatorKey,
         localizationsDelegates: [

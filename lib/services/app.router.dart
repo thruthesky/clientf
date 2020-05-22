@@ -1,4 +1,5 @@
 import 'package:clientf/globals.dart';
+import 'package:clientf/pages/admin/admin.page.dart';
 import 'package:clientf/pages/category_create/category_create.page.dart';
 import 'package:clientf/pages/category_list/category_list.page.dart';
 import 'package:clientf/pages/category_update/category_update.page.dart';
@@ -41,28 +42,30 @@ class AppRouter {
 
   static Route<dynamic> generate(RouteSettings settings) {
     Route route;
-    if (settings.name == AppRoutes.home)
+    if (settings.name == Routes.home)
       route = _buildRoute(settings, HomePage());
-    else if (settings.name == AppRoutes.register)
+    else if (settings.name == Routes.register)
       route = _buildRoute(settings, RegisterPage());
-    else if (settings.name == AppRoutes.login)
+    else if (settings.name == Routes.login)
       route = _buildRoute(settings, LoginPage());
-    else if (settings.name == AppRoutes.help)
+    else if (settings.name == Routes.help)
       route = _buildRoute(settings, HelpPage());
-    else if (settings.name == AppRoutes.settings)
+    else if (settings.name == Routes.settings)
       route = _buildRoute(settings, SettingsPage());
-    else if (settings.name == AppRoutes.categoryCreate)
+    else if (settings.name == Routes.categoryCreate)
       route = _buildRoute(settings, CategoryCreatePage());
-    else if (settings.name == AppRoutes.categoryList)
+    else if (settings.name == Routes.categoryList)
       route = _buildRoute(settings, CategoryListPage());
-    else if (settings.name == AppRoutes.categoryUpdate)
+    else if (settings.name == Routes.categoryUpdate)
       route = _buildRoute(settings, CategoryUpdatePage());
-    else if (settings.name == AppRoutes.postList)
+    else if (settings.name == Routes.postList)
       route = _buildRoute(settings, PostListPage());
-    else if (settings.name == AppRoutes.postCreate)
+    else if (settings.name == Routes.postCreate)
       route = _buildRoute(settings, PostEditPage());
-    else if (settings.name == AppRoutes.postView)
+    else if (settings.name == Routes.postView)
       route = _buildRoute(settings, PostViewPage());
+    else if (settings.name == Routes.admin)
+      route = _buildRoute(settings, AdminPage());
     return route;
   }
 

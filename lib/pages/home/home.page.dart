@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       appBar: EngineAppBar(
         title: t('appName'),
         onTapUserPhoto: () =>
-            open(ef.loggedIn ? AppRoutes.register : AppRoutes.login),
+            open(ef.loggedIn ? Routes.register : Routes.login),
       ),
       endDrawer: AppDrawer(),
       body: SingleChildScrollView(
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
             EngineLatestPosts(
               'discussion',
               onTap: (post) =>
-                  open(AppRoutes.postView, arguments: {'post': post}),
+                  open(Routes.postView, arguments: {'post': post}),
               onError: (e) => AppService.alert(null, t(e)),
             ),
           ],
@@ -68,19 +68,19 @@ class HomeTopMenus extends StatelessWidget {
       children: <Widget>[
         RaisedButton(
           onPressed: () {
-            open(AppRoutes.postList, arguments: {'id': 'discussion'});
+            open(Routes.postList, arguments: {'id': 'discussion'});
           },
           child: T('Discussion'),
         ),
         RaisedButton(
           onPressed: () {
-            open(AppRoutes.postList, arguments: {'id': 'qna'});
+            open(Routes.postList, arguments: {'id': 'qna'});
           },
           child: T('QnA'),
         ),
         RaisedButton(
           onPressed: () {
-            open(AppRoutes.postList, arguments: {'id': 'qna'});
+            open(Routes.postList, arguments: {'id': 'qna'});
           },
           child: T('News'),
         ),

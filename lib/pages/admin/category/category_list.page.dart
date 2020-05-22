@@ -1,10 +1,10 @@
+
+import 'package:clientf/flutter_engine/engine.category.model.dart';
+import 'package:clientf/flutter_engine/engine.category_list.model.dart';
 import 'package:clientf/flutter_engine/engine.globals.dart';
 import 'package:clientf/flutter_engine/widgets/engine.text.dart';
-
-import '../../flutter_engine/engine.category_list.model.dart';
 import 'package:clientf/globals.dart';
 import 'package:clientf/services/app.defines.dart';
-
 import 'package:clientf/services/app.service.dart';
 import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,6 @@ class _CategoryListPageState extends State<CategoryListPage> {
         print(list);
       });
     } catch (e) {
-      /// mount check?
       AppService.alert(null, t(e));
     }
   }
@@ -52,7 +51,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
               children: <Widget>[
                 RaisedButton(
                   onPressed: () async {
-                    final re = await open(Routes.categoryCreate);
+                    final re = await open(Routes.categoryEdit);
                     if (re != null) {
                       /// TODO: update the list when it gets newly created category data.
                       /// This is only for admin & There shouldn't be much categories.
@@ -65,18 +64,20 @@ class _CategoryListPageState extends State<CategoryListPage> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: list.ids.length,
+                    itemCount: list.categories.length,
                     itemBuilder: (context, i) {
-                      var id = list.ids[i];
+                      EngineCategory cat = list.categories[i];
+
+                      // var id = list.ids[i];
                       return ListTile(
-                        title: Text(id),
+                        title: Text(cat.id),
                         subtitle: Text(
-                            '${list.data[id]['title']}\n${list.data[id]['description']}'),
+                            '${cat.title}\n${cat.description}'),
                         trailing: Icon(Icons.keyboard_arrow_right),
                         onTap: () {
                           open(
-                            Routes.categoryUpdate,
-                            arguments: {'id': list.ids[i]},
+                            Routes.categoryEdit,
+                            arguments: {'category': cat},
                           );
                         },
                       );

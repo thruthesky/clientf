@@ -60,7 +60,7 @@ class _PostListPageState extends State<PostListPage> {
 
         actions: PostCreateActionButton(forum.id, () async {
           final EnginePost post =
-              await open(AppRoutes.postCreate, arguments: {'id': forum.id});
+              await open(Routes.postCreate, arguments: {'id': forum.id});
           forum.addPost(post);
 
           /// TODO: 글 쓴 후, 최 상위로 스크롤 업 할 것. 목록 중간에 스크롤이 된 경우, 맨 위에 글을 바로 볼 수 없다.
@@ -71,7 +71,7 @@ class _PostListPageState extends State<PostListPage> {
         //   child: Icon(Icons.add),
         //   onTap: () async {
         //     final EnginePost post =
-        //         await open(AppRoutes.postCreate, arguments: {'id': forum.id});
+        //         await open(Routes.postCreate, arguments: {'id': forum.id});
 
         //     if (post != null) {
         //       setState(() {
@@ -83,7 +83,7 @@ class _PostListPageState extends State<PostListPage> {
         // ),
         
         onTapUserPhoto: () =>
-            open(ef.loggedIn ? AppRoutes.register : AppRoutes.login),
+            open(ef.loggedIn ? Routes.register : Routes.login),
       ),
       endDrawer: AppDrawer(),
       body: EnginePostList(
@@ -91,7 +91,7 @@ class _PostListPageState extends State<PostListPage> {
         onUpdate: (EnginePost post) async {
           /// 글 수정
           var updatedPost =
-              await open(AppRoutes.postUpdate, arguments: {'post': post});
+              await open(Routes.postUpdate, arguments: {'post': post});
           forum.updatePost(post, updatedPost);
           setState(() {/** 수정된 글 Re-rendering */});
         },

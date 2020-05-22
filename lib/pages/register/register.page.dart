@@ -23,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: EngineAppBar(
         title: t('Register'),
-        onTapUserPhoto: () => open(ef.loggedIn ? AppRoutes.register : AppRoutes.login),
+        onTapUserPhoto: () => open(ef.loggedIn ? Routes.register : Routes.login),
       ),
       endDrawer: AppDrawer(),
       body: SingleChildScrollView(
@@ -34,7 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
               null,
               t(e),
             ),
-            onRegisterSuccess: () => AppRouter.open(context, AppRoutes.home),
+            onRegisterSuccess: () => AppRouter.open(context, Routes.home),
             onUpdateSuccess: () => AppService.alert(
               null,
               t('profile updated'),

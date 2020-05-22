@@ -31,7 +31,7 @@ class _PostViewPageState extends State<PostViewPage> {
         child: EnginePostItem(
           args['post'],
           onUpdate: (post) async {
-            EnginePost updatedPost = await open(AppRoutes.postUpdate,
+            EnginePost updatedPost = await open(Routes.postUpdate,
                 arguments: {'post': args['post']});
             forum.updatePost(post, updatedPost);
             setState(() {});

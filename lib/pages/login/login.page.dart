@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
           child: EngineLoginForm(
             hintEmail: t('input email'),
             hintPassword:  t('input password'),
-            onLogin: (user) => open(AppRoutes.home),
+            onLogin: (user) => open(Routes.home),
             onError: (e) => AppService.alert(null, t(e)),
           ),
         ),

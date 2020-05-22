@@ -56,7 +56,7 @@ class _AppDrawerState extends State<AppDrawer> {
             title: t('home'),
             icon: Icons.home,
             onTap: () {
-              AppRouter.open(context, AppRoutes.home);
+              AppRouter.open(context, Routes.home);
             },
           ),
           DrawerDivider(title: t('Member')),
@@ -64,7 +64,7 @@ class _AppDrawerState extends State<AppDrawer> {
             title: t(app.loggedIn ? 'Profile' : 'Register'),
             icon: Icons.person_add,
             onTap: () {
-              AppRouter.open(context, AppRoutes.register);
+              AppRouter.open(context, Routes.register);
             },
           ),
           if (app.notLoggedIn)
@@ -72,7 +72,7 @@ class _AppDrawerState extends State<AppDrawer> {
               title: t('Login'),
               icon: Icons.arrow_forward,
               onTap: () {
-                AppRouter.open(context, AppRoutes.login);
+                AppRouter.open(context, Routes.login);
               },
             ),
 
@@ -82,7 +82,7 @@ class _AppDrawerState extends State<AppDrawer> {
               icon: Icons.reply,
               onTap: () async {
                 await ef.logout();
-                AppRouter.open(context, AppRoutes.home);
+                AppRouter.open(context, Routes.home);
               },
             ),
           DrawerDivider(title: t('Forum')),
@@ -90,28 +90,28 @@ class _AppDrawerState extends State<AppDrawer> {
             title: t('discussion'),
             icon: Icons.chat_bubble,
             onTap: () {
-              open(AppRoutes.postList, arguments: {'id': 'discussion'});
+              open(Routes.postList, arguments: {'id': 'discussion'});
             },
           ),
           MenuItem(
             title: t('qna'),
             icon: Icons.chat_bubble_outline,
             onTap: () {
-              open(AppRoutes.postList, arguments: {'id': 'qna'});
+              open(Routes.postList, arguments: {'id': 'qna'});
             },
           ),
           MenuItem(
             title: t('새소식'),
             icon: Icons.chat_bubble_outline,
             onTap: () {
-              open(AppRoutes.postList, arguments: {'id': 'news'});
+              open(Routes.postList, arguments: {'id': 'news'});
             },
           ),
           MenuItem(
             title: t('정보 공유'),
             icon: Icons.chat_bubble_outline,
             onTap: () {
-              open(AppRoutes.postList, arguments: {'id': 'share'});
+              open(Routes.postList, arguments: {'id': 'share'});
             },
           ),
           DrawerDivider(title: t('Etc')),
@@ -119,14 +119,21 @@ class _AppDrawerState extends State<AppDrawer> {
             title: t('help'),
             icon: Icons.help_outline,
             onTap: () {
-              AppRouter.open(context, AppRoutes.help);
+              AppRouter.open(context, Routes.help);
             },
           ),
           MenuItem(
             title: t('setting'),
             icon: Icons.settings,
             onTap: () {
-              AppRouter.open(context, AppRoutes.settings);
+              AppRouter.open(context, Routes.settings);
+            },
+          ),
+          if (ef.isAdmin) MenuItem(
+            title: t('Admin Dashboard'),
+            icon: Icons.settings,
+            onTap: () {
+              AppRouter.open(context, Routes.admin);
             },
           ),
         ],
