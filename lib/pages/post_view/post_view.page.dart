@@ -1,16 +1,15 @@
-import 'package:clientf/flutter_engine/engine.comment.model.dart';
-import 'package:clientf/flutter_engine/engine.forum.dart';
-import 'package:clientf/flutter_engine/engine.globals.dart';
-import 'package:clientf/flutter_engine/engine.post.model.dart';
-import 'package:clientf/flutter_engine/widgets/engine.comment_box.dart';
-import 'package:clientf/flutter_engine/widgets/engine.post_item.dart';
-import 'package:clientf/flutter_engine/widgets/engine.text.dart';
-import 'package:clientf/globals.dart';
-import 'package:clientf/services/app.defines.dart';
-import 'package:clientf/services/app.service.dart';
 
-import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
+import '../../services/app.defines.dart';
+import '../../flutter_engine/engine.comment.model.dart';
+import '../../flutter_engine/engine.forum.dart';
+import '../../flutter_engine/engine.globals.dart';
+import '../../flutter_engine/engine.post.model.dart';
+import '../../flutter_engine/widgets/engine.comment_box.dart';
+import '../../flutter_engine/widgets/engine.post_item.dart';
+import '../../flutter_engine/widgets/engine.text.dart';
+import '../../globals.dart';
+import '../../widgets/app.drawer.dart';
 
 class PostViewPage extends StatefulWidget {
   @override
@@ -38,7 +37,7 @@ class _PostViewPageState extends State<PostViewPage> {
           },
           onReply: (EnginePost post) async {
             /// 글에서 Reply 버튼을 클릭한 경우
-            var reply = AppService.openDialog(EngineCommentBox(
+            var reply = openDialog(EngineCommentBox(
               post,
               currentComment: EngineComment(),
               onCommentReply: (EngineComment comment) {
@@ -46,15 +45,15 @@ class _PostViewPageState extends State<PostViewPage> {
                 setState(() {/** 댓글 반영 */});
                 back(arguments: comment);
               },
-              onCommentError: (e) => AppService.alert(null, t(e)),
+              onCommentError: (e) => alert(t(e)),
             ));
           },
-          onDelete: () => AppService.alert(null, t('post deleted')),
-          onError: (e) => AppService.alert(null, t(e)),
+          onDelete: () => alert(t('post deleted')),
+          onError: (e) => alert(t(e)),
 
           onCommentReply: (EnginePost post, EngineComment parentComment) async {
             /// 코멘트에서 Reply 버튼을 클릭한 경우,
-            var reply = AppService.openDialog(EngineCommentBox(
+            var reply = openDialog(EngineCommentBox(
               post,
               currentComment: EngineComment(),
               parentComment: parentComment,
@@ -63,11 +62,11 @@ class _PostViewPageState extends State<PostViewPage> {
                 setState(() {/** 댓글 반영 */});
                 back(arguments: comment);
               },
-              onCommentError: (e) => AppService.alert(null, t(e)),
+              onCommentError: (e) => alert(t(e)),
             ));
           },
           onCommentUpdate: (EnginePost post, EngineComment comment) {
-            var reply = AppService.openDialog(EngineCommentBox(
+            var reply = openDialog(EngineCommentBox(
               post,
               currentComment: comment,
               onCommentUpdate: (EngineComment comment) {
@@ -75,11 +74,11 @@ class _PostViewPageState extends State<PostViewPage> {
                 setState(() {/** 댓글 반영 */});
                 back(arguments: comment);
               },
-              onCommentError: (e) => AppService.alert(null, t(e)),
+              onCommentError: (e) => alert(t(e)),
             ));
           },
           onCommentDelete: () {},
-          onCommentError: (e) => AppService.alert(null, t(e)),
+          onCommentError: (e) => alert(t(e)),
         ),
       ),
     );

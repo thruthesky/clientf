@@ -1,16 +1,11 @@
-import 'package:clientf/flutter_engine/engine.globals.dart';
-import 'package:clientf/flutter_engine/widgets/engine.app_bar.dart';
-import 'package:clientf/flutter_engine/widgets/engine.register_form.dart';
-import 'package:clientf/globals.dart';
-
-
-import 'package:clientf/services/app.defines.dart';
-
-import 'package:clientf/services/app.router.dart';
-import 'package:clientf/services/app.service.dart';
-import 'package:clientf/services/app.space.dart';
-import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
+import '../../services/app.defines.dart';
+import '../../flutter_engine/engine.globals.dart';
+import '../../flutter_engine/widgets/engine.app_bar.dart';
+import '../../flutter_engine/widgets/engine.register_form.dart';
+import '../../globals.dart';
+import '../../services/app.space.dart';
+import '../../widgets/app.drawer.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -23,22 +18,17 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: EngineAppBar(
         title: t('Register'),
-        onTapUserPhoto: () => open(ef.loggedIn ? Routes.register : Routes.login),
+        onTapUserPhoto: () =>
+            open(ef.loggedIn ? Routes.register : Routes.login),
       ),
       endDrawer: AppDrawer(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(AppSpace.space),
+          padding: AppSpace.page,
           child: EngineRegisterFrom(
-            onError: (e) => AppService.alert(
-              null,
-              t(e),
-            ),
-            onRegisterSuccess: () => AppRouter.open(context, Routes.home),
-            onUpdateSuccess: () => AppService.alert(
-              null,
-              t('profile updated'),
-            ),
+            onError: alert,
+            onRegisterSuccess: () => open(Routes.home),
+            onUpdateSuccess: () => alert(t('profile updated')),
           ),
         ),
       ),

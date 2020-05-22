@@ -1,20 +1,13 @@
-import 'package:clientf/flutter_engine/engine.globals.dart';
-import 'package:clientf/flutter_engine/widgets/engine.login_form.dart';
-import 'package:clientf/flutter_engine/widgets/engine.text.dart';
-import 'package:clientf/globals.dart';
-import 'package:clientf/services/app.defines.dart';
-
-import 'package:clientf/services/app.service.dart';
-import 'package:clientf/services/app.space.dart';
-import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
+import '../../services/app.defines.dart';
+import '../../flutter_engine/engine.globals.dart';
+import '../../flutter_engine/widgets/engine.login_form.dart';
+import '../../flutter_engine/widgets/engine.text.dart';
+import '../../globals.dart';
+import '../../services/app.space.dart';
+import '../../widgets/app.drawer.dart';
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +20,9 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.all(AppSpace.space),
           child: EngineLoginForm(
             hintEmail: t('input email'),
-            hintPassword:  t('input password'),
+            hintPassword: t('input password'),
             onLogin: (user) => open(Routes.home),
-            onError: (e) => AppService.alert(null, t(e)),
+            onError: (e) => alert(t(e)),
           ),
         ),
       ),

@@ -1,20 +1,19 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 
-import 'package:clientf/flutter_engine/engine.comment.model.dart';
-import 'package:clientf/flutter_engine/engine.globals.dart';
-import 'package:clientf/flutter_engine/widgets/engine.app_bar.dart';
-import 'package:clientf/flutter_engine/widgets/engine.comment_box.dart';
-import 'package:clientf/flutter_engine/widgets/engine.post_create_action_button.dart';
-import 'package:clientf/flutter_engine/widgets/engine.post_list.dart';
-import 'package:clientf/services/app.service.dart';
+import '../../flutter_engine/engine.comment.model.dart';
+import '../../flutter_engine/engine.globals.dart';
+import '../../flutter_engine/widgets/engine.app_bar.dart';
+import '../../flutter_engine/widgets/engine.comment_box.dart';
+import '../../flutter_engine/widgets/engine.post_create_action_button.dart';
+import '../../flutter_engine/widgets/engine.post_list.dart';
 
 import '../../flutter_engine/engine.forum.dart';
 import '../../flutter_engine/engine.post.model.dart';
-import 'package:clientf/globals.dart';
-import 'package:clientf/services/app.defines.dart';
+import '../../globals.dart';
+import '../../services/app.defines.dart';
 
-import 'package:clientf/widgets/app.drawer.dart';
-import 'package:flutter/material.dart';
+import '../../widgets/app.drawer.dart';
 
 class PostListPage extends StatefulWidget {
   @override
@@ -31,24 +30,14 @@ class _PostListPageState extends State<PostListPage> {
     Timer(Duration(milliseconds: 10), () async {
       var _arg = routerArguments(context);
 
-      // forum.id = _arg['id'];
-      // forum.initScrollListener();
       forum.loadPage(
         id: _arg['id'],
         onLoad: () {
-          // print('post loaded');
-          // print(forum.posts);
-          setState(() {
-            /** posts loaded */
-          });
+          setState(() {/** posts loaded */});
         },
-        onError: (e) => AppService.alert(null, t(e)),
+        onError: alert,
         cacheKey: 'forum-list-${_arg['id']}',
       );
-
-      // forum.init(id: _arg['id']);
-
-// forum.loadPage();
     });
   }
 
@@ -67,21 +56,6 @@ class _PostListPageState extends State<PostListPage> {
           setState(() {/** 새글 반영 */});
         }),
 
-        // actions: GestureDetector(
-        //   child: Icon(Icons.add),
-        //   onTap: () async {
-        //     final EnginePost post =
-        //         await open(Routes.postCreate, arguments: {'id': forum.id});
-
-        //     if (post != null) {
-        //       setState(() {
-        //         /// TODO: 스크롤 업. forum 클래스에서 post 를 처음에 추가하고 ScrollController 로 스크롤업 하면 좋겠다.
-        //         forum.posts.insert(0, post);
-        //       });
-        //     }
-        //   },
-        // ),
-        
         onTapUserPhoto: () =>
             open(ef.loggedIn ? Routes.register : Routes.login),
       ),
@@ -97,7 +71,7 @@ class _PostListPageState extends State<PostListPage> {
         },
         onReply: (EnginePost post) async {
           /// 글에서 Reply 버튼을 클릭한 경우
-          var reply = AppService.openDialog(EngineCommentBox(
+          var reply = openDialog(EngineCommentBox(
             post,
             currentComment: EngineComment(),
             onCommentReply: (EngineComment comment) {
@@ -105,14 +79,14 @@ class _PostListPageState extends State<PostListPage> {
               setState(() {/** 댓글 반영 */});
               back(arguments: comment);
             },
-            onCommentError: (e) => AppService.alert(null, t(e)),
+            onCommentError: alert,
           ));
         },
-        onDelete: () => AppService.alert(null, t('post deleted')),
-        onError: (e) => AppService.alert(null, t(e)),
+        onDelete: () => alert(t('post deleted')),
+        onError: alert,
         onCommentReply: (EnginePost post, EngineComment parentComment) async {
           /// 코멘트에서 Reply 버튼을 클릭한 경우,
-          var reply = AppService.openDialog(EngineCommentBox(
+          var reply = openDialog(EngineCommentBox(
             post,
             currentComment: EngineComment(),
             parentComment: parentComment,
@@ -121,13 +95,13 @@ class _PostListPageState extends State<PostListPage> {
               setState(() {/** 댓글 반영 */});
               back(arguments: comment);
             },
-            onCommentError: (e) => AppService.alert(null, t(e)),
+            onCommentError: alert,
           ));
         },
         onCommentUpdate: (EnginePost post, EngineComment comment) {
           // print('==> commnetupdate: ');
           // print(comment);
-          var reply = AppService.openDialog(EngineCommentBox(
+          var reply = openDialog(EngineCommentBox(
             post,
             currentComment: comment,
             onCommentUpdate: (EngineComment comment) {
@@ -135,11 +109,11 @@ class _PostListPageState extends State<PostListPage> {
               setState(() {/** 댓글 반영 */});
               back(arguments: comment);
             },
-            onCommentError: (e) => AppService.alert(null, t(e)),
+            onCommentError: alert,
           ));
         },
         onCommentDelete: () {},
-        onCommentError: (e) => AppService.alert(null, t(e)),
+        onCommentError: alert,
       ),
     );
   }

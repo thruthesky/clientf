@@ -1,13 +1,4 @@
-import 'dart:async';
 
-import 'package:clientf/flutter_engine/engine.app.localization.dart';
-import 'package:clientf/flutter_engine/engine.globals.dart';
-import 'package:clientf/flutter_engine/engine.model.dart';
-import 'package:clientf/globals.dart';
-import 'package:clientf/services/app.defines.dart';
-import 'package:clientf/services/app.router.dart';
-import 'package:clientf/services/app.service.dart';
-import 'package:clientf/services/app.theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,7 +6,18 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
+import './flutter_engine/engine.app.localization.dart';
+import './flutter_engine/engine.globals.dart';
+import './flutter_engine/engine.model.dart';
+import './globals.dart';
+import './services/app.defines.dart';
+import './services/app.router.dart';
+import './services/app.theme.dart';
+
 void main() async {
+  /// Hive 를 준비한다.
+  /// 
+  /// TODO: `Hive.initFlutter();` 코드는 반드시 여기에 위치해야 하는데, `Flutter Engine` 에서 assert 처리를 한다.
   await Hive.initFlutter();
   await Hive.openBox(HiveBox.settings);
   await Hive.openBox(HiveBox.cache);
@@ -29,15 +31,7 @@ class CommunityApp extends StatefulWidget {
 
 class _CommunityAppState extends State<CommunityApp> {
   _CommunityAppState() {
-    AppService.init();
-
-    /// 아래의 코드는 Backward compatibilities 를 위한 것으로 삭제되어야 한다.
-    app.init();
-
-    ef = EngineModel(
-      navigatorKey: AppService.navigatorKey,
-      onError: (e) => AppService.alert(null, t(e)),
-    );
+    ef = EngineModel(navigatorKey: app.navigatorKey, onError: alert);
 
     // Timer(
     //   Duration(milliseconds: 100),
@@ -68,7 +62,7 @@ class _CommunityAppState extends State<CommunityApp> {
         // initialRoute: Routes.profile,
         // initialRoute: Routes.register,
         onGenerateRoute: AppRouter.generate,
-        navigatorKey: AppService.navigatorKey,
+        navigatorKey: app.navigatorKey,
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

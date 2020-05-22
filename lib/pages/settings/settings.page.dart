@@ -1,8 +1,5 @@
-import 'package:clientf/flutter_engine/widgets/engine.text.dart';
-import 'package:clientf/globals.dart';
-import 'package:clientf/services/app.defines.dart';
-
-import 'package:clientf/widgets/app.drawer.dart';
+import '../../flutter_engine/widgets/engine.text.dart';
+import '../../widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {

@@ -1,6 +1,6 @@
 
-import 'package:clientf/services/app.color.dart';
-import 'package:clientf/services/app.space.dart';
+import '../services/app.color.dart';
+import '../services/app.space.dart';
 import 'package:flutter/material.dart';
 
 ThemeData appTheme = ThemeData(

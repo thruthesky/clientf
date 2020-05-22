@@ -53,77 +53,77 @@ class AppService {
 
   /// Show alert box
   /// @example AppService.alert(null, e.message);
-  static alert(String title, String content) {
-    showPlatformDialog(
-      context: context,
-      builder: (_) => PlatformAlertDialog(
-        title: title != null ? Text(title) : null,
-        content: Text(content),
-        actions: <Widget>[
-          PlatformDialogAction(
-            child: PlatformText(t('Ok')),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ],
-      ),
-    );
-  }
+  // static alert(String title, String content) {
+  //   showPlatformDialog(
+  //     context: context,
+  //     builder: (_) => PlatformAlertDialog(
+  //       title: title != null ? Text(title) : null,
+  //       content: Text(content),
+  //       actions: <Widget>[
+  //         PlatformDialogAction(
+  //           child: PlatformText(t('Ok')),
+  //           onPressed: () => Navigator.pop(context),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   /// Can it be synchronous by using async/await? So, it does not need to use callback functions.
-  static confirm(
-      {String title, String content, Function onNo, Function onYes}) {
-    return showPlatformDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: title != null ? Text(title) : null,
-          content: Text(content),
-          actions: <Widget>[
-            FlatButton(
-              child: T('no'),
-              onPressed: () {
-                onNo();
-                back();
-              },
-            ),
-            FlatButton(
-              child: T('yes'),
-              onPressed: () {
-                onYes();
-                back();
-              },
-            )
-          ],
-        );
-      },
-    );
-  }
+  // static confirm(
+  //     {String title, String content, Function onNo, Function onYes}) {
+  //   return showPlatformDialog<void>(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         title: title != null ? Text(title) : null,
+  //         content: Text(content),
+  //         actions: <Widget>[
+  //           FlatButton(
+  //             child: T('no'),
+  //             onPressed: () {
+  //               onNo();
+  //               back();
+  //             },
+  //           ),
+  //           FlatButton(
+  //             child: T('yes'),
+  //             onPressed: () {
+  //               onYes();
+  //               back();
+  //             },
+  //           )
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
-  static bottomSheet(List<Map<String, dynamic>> items) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return SafeArea(
-          child: Container(
-            child: new Wrap(
-              children: <Widget>[
-                for (var item in items)
-                  new ListTile(
-                    leading: new Icon(item['icon']),
-                    title: new Text(item['text']),
-                    onTap: item['onTap'],
-                    // new ListTile(
-                    //   leading: new Icon(Icons.videocam),
-                    //   title: new Text('Video'),
-                    //   onTap: () => {},
-                  ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // static bottomSheet(List<Map<String, dynamic>> items) {
+  //   showModalBottomSheet(
+  //     context: context,
+  //     builder: (BuildContext bc) {
+  //       return SafeArea(
+  //         child: Container(
+  //           child: new Wrap(
+  //             children: <Widget>[
+  //               for (var item in items)
+  //                 new ListTile(
+  //                   leading: new Icon(item['icon']),
+  //                   title: new Text(item['text']),
+  //                   onTap: item['onTap'],
+  //                   // new ListTile(
+  //                   //   leading: new Icon(Icons.videocam),
+  //                   //   title: new Text('Video'),
+  //                   //   onTap: () => {},
+  //                 ),
+  //             ],
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   static openDialog(childWidget) {
     return showGeneralDialog(

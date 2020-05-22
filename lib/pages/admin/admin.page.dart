@@ -1,10 +1,10 @@
-import 'package:clientf/flutter_engine/engine.defines.dart';
-import 'package:clientf/flutter_engine/widgets/engine.text.dart';
-import 'package:clientf/globals.dart';
-import 'package:clientf/services/app.defines.dart';
 
-import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
+import '../../services/app.defines.dart';
+import '../../flutter_engine/engine.defines.dart';
+import '../../flutter_engine/widgets/engine.text.dart';
+import '../../globals.dart';
+import '../../widgets/app.drawer.dart';
 
 class AdminPage extends StatefulWidget {
   @override

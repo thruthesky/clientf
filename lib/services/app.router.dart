@@ -1,17 +1,16 @@
-import 'package:clientf/globals.dart';
-import 'package:clientf/pages/admin/admin.page.dart';
-import 'package:clientf/pages/category_create/category_create.page.dart';
-import 'package:clientf/pages/category_list/category_list.page.dart';
-import 'package:clientf/pages/category_update/category_update.page.dart';
-import 'package:clientf/pages/help/help.page.dart';
-import 'package:clientf/pages/home/home.page.dart';
-import 'package:clientf/pages/login/login.page.dart';
-import 'package:clientf/pages/post_edit/post.edit.dart';
-import 'package:clientf/pages/post_list/post_list.page.dart';
-import 'package:clientf/pages/post_view/post_view.page.dart';
-import 'package:clientf/pages/register/register.page.dart';
-import 'package:clientf/pages/settings/settings.page.dart';
-import 'package:clientf/services/app.defines.dart';
+import '../globals.dart';
+import '../pages/admin/admin.page.dart';
+import '../pages/admin/category/category_edit.page.dart';
+import '../pages/admin/category/category_list.page.dart';
+import '../pages/help/help.page.dart';
+import '../pages/home/home.page.dart';
+import '../pages/login/login.page.dart';
+import '../pages/post_edit/post.edit.dart';
+import '../pages/post_list/post_list.page.dart';
+import '../pages/post_view/post_view.page.dart';
+import '../pages/register/register.page.dart';
+import '../pages/settings/settings.page.dart';
+import '../services/app.defines.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -52,12 +51,10 @@ class AppRouter {
       route = _buildRoute(settings, HelpPage());
     else if (settings.name == Routes.settings)
       route = _buildRoute(settings, SettingsPage());
-    else if (settings.name == Routes.categoryCreate)
-      route = _buildRoute(settings, CategoryCreatePage());
+    else if (settings.name == Routes.categoryEdit)
+      route = _buildRoute(settings, CategoryEditPage());
     else if (settings.name == Routes.categoryList)
       route = _buildRoute(settings, CategoryListPage());
-    else if (settings.name == Routes.categoryUpdate)
-      route = _buildRoute(settings, CategoryUpdatePage());
     else if (settings.name == Routes.postList)
       route = _buildRoute(settings, PostListPage());
     else if (settings.name == Routes.postCreate)

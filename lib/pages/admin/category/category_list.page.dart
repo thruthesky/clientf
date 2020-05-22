@@ -1,14 +1,14 @@
 
-import 'package:clientf/flutter_engine/engine.category.model.dart';
-import 'package:clientf/flutter_engine/engine.category_list.model.dart';
-import 'package:clientf/flutter_engine/engine.globals.dart';
-import 'package:clientf/flutter_engine/widgets/engine.text.dart';
-import 'package:clientf/globals.dart';
-import 'package:clientf/services/app.defines.dart';
-import 'package:clientf/services/app.service.dart';
-import 'package:clientf/widgets/app.drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+
+import '../../../services/app.defines.dart';
+import '../../../flutter_engine/engine.category.model.dart';
+import '../../../flutter_engine/engine.category_list.model.dart';
+import '../../../flutter_engine/engine.globals.dart';
+import '../../../flutter_engine/widgets/engine.text.dart';
+import '../../../globals.dart';
+import '../../../widgets/app.drawer.dart';
 
 class CategoryListPage extends StatefulWidget {
   @override
@@ -28,13 +28,14 @@ class _CategoryListPageState extends State<CategoryListPage> {
     try {
       var data = await ef.categoryList();
 
-      // open(Routes.categoryUpdate, arguments: {'id': 'banana'}); // TEST
+      // open(AppRoutes.categoryUpdate, arguments: {'id': 'banana'}); // TEST
       setState(() {
         list = data;
         print(list);
       });
     } catch (e) {
-      AppService.alert(null, t(e));
+      /// mount check?
+      alert(t(e));
     }
   }
 

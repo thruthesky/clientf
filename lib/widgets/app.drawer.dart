@@ -1,12 +1,12 @@
-import 'package:clientf/flutter_engine/engine.globals.dart';
-import 'package:clientf/flutter_engine/widgets/engine.text.dart';
-import 'package:clientf/globals.dart';
-import 'package:clientf/services/app.color.dart';
-import 'package:clientf/services/app.defines.dart';
+import '../flutter_engine/engine.globals.dart';
+import '../flutter_engine/widgets/engine.text.dart';
+import '../globals.dart';
+import '../services/app.color.dart';
+import '../services/app.defines.dart';
 
-import 'package:clientf/services/app.keys.dart';
-import 'package:clientf/services/app.router.dart';
-import 'package:clientf/services/app.space.dart';
+import '../services/app.keys.dart';
+import '../services/app.router.dart';
+import '../services/app.space.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -61,13 +61,13 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
           DrawerDivider(title: t('Member')),
           MenuItem(
-            title: t(app.loggedIn ? 'Profile' : 'Register'),
+            title: t(ef.loggedIn ? 'Profile' : 'Register'),
             icon: Icons.person_add,
             onTap: () {
               AppRouter.open(context, Routes.register);
             },
           ),
-          if (app.notLoggedIn)
+          if (ef.notLoggedIn)
             MenuItem(
               title: t('Login'),
               icon: Icons.arrow_forward,
@@ -76,7 +76,7 @@ class _AppDrawerState extends State<AppDrawer> {
               },
             ),
 
-          if (app.loggedIn)
+          if (ef.loggedIn)
             MenuItem(
               title: t('Logout'),
               icon: Icons.reply,

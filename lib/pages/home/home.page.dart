@@ -1,15 +1,16 @@
-import 'package:clientf/flutter_engine/engine.globals.dart';
-import 'package:clientf/flutter_engine/widgets/engine.app_bar.dart';
-import 'package:clientf/flutter_engine/widgets/engine.latest_posts.dart';
-import 'package:clientf/flutter_engine/widgets/engine.text.dart';
-import 'package:clientf/services/app.service.dart';
+
+import 'package:flutter/material.dart';
+
+import '../../flutter_engine/engine.globals.dart';
+import '../../flutter_engine/widgets/engine.app_bar.dart';
+import '../../flutter_engine/widgets/engine.latest_posts.dart';
+import '../../flutter_engine/widgets/engine.text.dart';
 
 import '../../flutter_engine/engine.forum.dart';
-import 'package:clientf/globals.dart';
-import 'package:clientf/services/app.defines.dart';
+import '../../globals.dart';
+import '../../services/app.defines.dart';
 
-import 'package:clientf/widgets/app.drawer.dart';
-import 'package:flutter/material.dart';
+import '../../widgets/app.drawer.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -46,9 +47,8 @@ class _HomePageState extends State<HomePage> {
             HomeTopMenus(),
             EngineLatestPosts(
               'discussion',
-              onTap: (post) =>
-                  open(Routes.postView, arguments: {'post': post}),
-              onError: (e) => AppService.alert(null, t(e)),
+              onTap: (post) => open(Routes.postView, arguments: {'post': post}),
+              onError: alert,
             ),
           ],
         ),
