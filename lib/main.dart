@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:clientf/flutter_engine/engine.app.localization.dart';
@@ -35,16 +34,18 @@ class _CommunityAppState extends State<CommunityApp> {
     /// 아래의 코드는 Backward compatibilities 를 위한 것으로 삭제되어야 한다.
     app.init();
 
-    ef = EngineModel(navigatorKey: AppService.navigatorKey);
-
-    Timer(
-      Duration(milliseconds: 100),
-      () => open(
-        AppRoutes.postList,
-        arguments: {'id': 'discussion'},
-      ),
+    ef = EngineModel(
+      navigatorKey: AppService.navigatorKey,
+      onError: (e) => AppService.alert(null, t(e)),
     );
 
+    // Timer(
+    //   Duration(milliseconds: 100),
+    //   () => open(
+    //     AppRoutes.postList,
+    //     arguments: {'id': 'discussion'},
+    //   ),
+    // );
   }
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,7 @@ class _CommunityAppState extends State<CommunityApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => app),
-        ChangeNotifierProvider(create: (context) => ef  ),
+        ChangeNotifierProvider(create: (context) => ef),
       ],
       child: MaterialApp(
         theme: appTheme,

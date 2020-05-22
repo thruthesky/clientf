@@ -4,6 +4,7 @@ import 'package:clientf/flutter_engine/engine.comment.model.dart';
 import 'package:clientf/flutter_engine/engine.globals.dart';
 import 'package:clientf/flutter_engine/widgets/engine.app_bar.dart';
 import 'package:clientf/flutter_engine/widgets/engine.comment_box.dart';
+import 'package:clientf/flutter_engine/widgets/engine.post_create_action_button.dart';
 import 'package:clientf/flutter_engine/widgets/engine.post_list.dart';
 import 'package:clientf/services/app.service.dart';
 
@@ -56,20 +57,31 @@ class _PostListPageState extends State<PostListPage> {
     return Scaffold(
       appBar: EngineAppBar(
         title: t(forum.id ?? ''),
-        actions: GestureDetector(
-          child: Icon(Icons.add),
-          onTap: () async {
-            final EnginePost post =
-                await open(AppRoutes.postCreate, arguments: {'id': forum.id});
 
-            if (post != null) {
-              setState(() {
-                /// TODO: 스크롤 업. forum 클래스에서 post 를 처음에 추가하고 ScrollController 로 스크롤업 하면 좋겠다.
-                forum.posts.insert(0, post);
-              });
-            }
-          },
-        ),
+        actions: PostCreateActionButton(forum.id, () async {
+          final EnginePost post =
+              await open(AppRoutes.postCreate, arguments: {'id': forum.id});
+          forum.addPost(post);
+
+          /// TODO: 글 쓴 후, 최 상위로 스크롤 업 할 것. 목록 중간에 스크롤이 된 경우, 맨 위에 글을 바로 볼 수 없다.
+          setState(() {/** 새글 반영 */});
+        }),
+
+        // actions: GestureDetector(
+        //   child: Icon(Icons.add),
+        //   onTap: () async {
+        //     final EnginePost post =
+        //         await open(AppRoutes.postCreate, arguments: {'id': forum.id});
+
+        //     if (post != null) {
+        //       setState(() {
+        //         /// TODO: 스크롤 업. forum 클래스에서 post 를 처음에 추가하고 ScrollController 로 스크롤업 하면 좋겠다.
+        //         forum.posts.insert(0, post);
+        //       });
+        //     }
+        //   },
+        // ),
+        
         onTapUserPhoto: () =>
             open(ef.loggedIn ? AppRoutes.register : AppRoutes.login),
       ),

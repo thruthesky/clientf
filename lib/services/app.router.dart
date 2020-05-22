@@ -5,6 +5,7 @@ import 'package:clientf/pages/category_update/category_update.page.dart';
 import 'package:clientf/pages/help/help.page.dart';
 import 'package:clientf/pages/home/home.page.dart';
 import 'package:clientf/pages/login/login.page.dart';
+import 'package:clientf/pages/post_edit/post.edit.dart';
 import 'package:clientf/pages/post_list/post_list.page.dart';
 import 'package:clientf/pages/post_view/post_view.page.dart';
 import 'package:clientf/pages/register/register.page.dart';
