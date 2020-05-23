@@ -171,7 +171,7 @@ packages:
       name: flutter_platform_widgets
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.50.0"
+    version: "0.32.5"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -425,6 +425,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.15"
+  time_formatter:
+    dependency: "direct main"
+    description:
+      name: time_formatter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0+5"
   typed_data:
     dependency: transitive
     description:
@@ -448,4 +455,4 @@ packages:
     version: "3.6.1"
 sdks:
   dart: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
+  flutter: ">=1.12.13+hotfix.5 <2.0.0"

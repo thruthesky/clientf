@@ -1,10 +1,10 @@
-
+import 'package:clientf/pages/home/widgets/home.top_menus.dart';
+import 'package:clientf/widgets/app.padding.dart';
 import 'package:flutter/material.dart';
 
 import '../../flutter_engine/engine.globals.dart';
 import '../../flutter_engine/widgets/engine.app_bar.dart';
 import '../../flutter_engine/widgets/engine.latest_posts.dart';
-import '../../flutter_engine/widgets/engine.text.dart';
 
 import '../../flutter_engine/engine.forum.dart';
 import '../../globals.dart';
@@ -39,52 +39,24 @@ class _HomePageState extends State<HomePage> {
             open(ef.loggedIn ? Routes.register : Routes.login),
       ),
       endDrawer: AppDrawer(),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            HomeTopMenus(),
-            EngineLatestPosts(
-              'discussion',
-              onTap: (post) => open(Routes.postView, arguments: {'post': post}),
-              onError: alert,
-            ),
-          ],
+      body: AppPadding(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              HomeTopMenus(),
+              EngineLatestPosts(
+                'discussion',
+                onTap: (post) =>
+                    open(Routes.postView, arguments: {'post': post}),
+                onError: alert,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class HomeTopMenus extends StatelessWidget {
-  const HomeTopMenus({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        RaisedButton(
-          onPressed: () {
-            open(Routes.postList, arguments: {'id': 'discussion'});
-          },
-          child: T('Discussion'),
-        ),
-        RaisedButton(
-          onPressed: () {
-            open(Routes.postList, arguments: {'id': 'qna'});
-          },
-          child: T('QnA'),
-        ),
-        RaisedButton(
-          onPressed: () {
-            open(Routes.postList, arguments: {'id': 'qna'});
-          },
-          child: T('News'),
-        ),
-      ],
-    );
-  }
-}

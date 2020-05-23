@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -33,13 +35,13 @@ class _CommunityAppState extends State<CommunityApp> {
   _CommunityAppState() {
     ef = EngineModel(navigatorKey: app.navigatorKey, onError: alert);
 
-    // Timer(
-    //   Duration(milliseconds: 100),
-    //   () => open(
-    //     Routes.postList,
-    //     arguments: {'id': 'discussion'},
-    //   ),
-    // );
+    Timer(
+      Duration(milliseconds: 100),
+      () => open(
+        Routes.postList,
+        arguments: {'id': 'discussion'},
+      ),
+    );
   }
   @override
   Widget build(BuildContext context) {
@@ -61,6 +63,7 @@ class _CommunityAppState extends State<CommunityApp> {
         // initialRoute: Routes.categoryList,
         // initialRoute: Routes.profile,
         // initialRoute: Routes.register,
+        // initialRoute: Routes.admin,
         onGenerateRoute: AppRouter.generate,
         navigatorKey: app.navigatorKey,
         localizationsDelegates: [

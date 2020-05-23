@@ -2,8 +2,6 @@ import 'dart:async';
 
 import '../../flutter_engine/engine.defines.dart';
 import '../../flutter_engine/widgets/engine.button.dart';
-import '../../flutter_engine/widgets/engine.space.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../flutter_engine/engine.globals.dart';
 import '../../flutter_engine/widgets/engine.display_uploaded_images.dart';
@@ -96,6 +94,8 @@ class _PostEditPageState extends State<PostEditPage> {
             AppSpace.halfBox,
             TextField(
               controller: _contentController,
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
               onSubmitted: (text) {},
               decoration: InputDecoration(
                 hintText: t('input content'),
@@ -145,35 +145,7 @@ class _PostEditPageState extends State<PostEditPage> {
                     }
                   },
                 ),
-                // RaisedButton(
-                //   /// 글 전송
-                //   onPressed: () async {
-                //     setState(() {
-                //       inSubmit = true;
-                //     });
-                //     try {
-                //       var re;
-                //       if (isCreate) {
-                //         re = await ef.postCreate(getFormData());
-                //       } else {
-                //         re = await ef.postUpdate(getFormData());
-                //       }
-                //       back(arguments: re);
-                //     } catch (e) {
-                //       print(e);
-                //       alert(t(e));
-                //     }
-                //   },
-                //   child: Row(
-                //     children: <Widget>[
-                //       if (inSubmit) ...[
-                //         PlatformCircularProgressIndicator(),
-                //         EngineSpace(),
-                //       ],
-                //       T(isCreate ? CREATE_POST : UPDATE_POST),
-                //     ],
-                //   ),
-                // ),
+                
               ],
             ),
           ],

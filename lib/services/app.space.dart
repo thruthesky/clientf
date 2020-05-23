@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class AppSpace {
   static double half = 8.0;
   static double space = 16.0;
-  // static double page = space;
   static double radius = 7.0;
 
   static final double lg = half;

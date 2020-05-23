@@ -19,22 +19,20 @@ class _AdminPageState extends State<AdminPage> {
         title: T(ADMIN_PAGE),
       ),
       endDrawer: AppDrawer(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                RaisedButton(
-                  onPressed: () {
-                    open(Routes.categoryList);
-                  },
-                  child: T('Category List'),
-                ),
-              ],
-            ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              RaisedButton(
+                onPressed: () {
+                  open(Routes.categoryList);
+                },
+                child: T('Category List'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

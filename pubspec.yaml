@@ -12,28 +12,74 @@ dependencies:
 
   cupertino_icons: ^0.1.2
 
-  provider: ^4.0.1
-  flutter_platform_widgets: ^0.50.0
 
-  cloud_functions: ^0.4.2+3
-  firebase_auth: ^0.16.0
-  google_sign_in: ^4.4.6
-
+  ## 게시판 목록 캐시에 필요
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
 
-  flutter_localizations:
-    sdk: flutter
+  ## Engine 과 통신하는데 필요
+  cloud_functions: ^0.4.2+3
 
+  ## 클라이언트에서 `Firebase Auth`로 로그인을 하는데 필요
+  firebase_auth: ^0.16.0
+  google_sign_in: ^4.4.6
+
+  ## `Firebase Firestore` 에 파일 업로드를 위한 패키지
   firebase_core: ^0.4.4+3
   firebase_storage: ^3.1.5
 
+
+  ## 컴포넌트를 Android 와 iOS 에 맞춰 다르게 보여주는 위젯.
+  flutter_platform_widgets: ^0.32.5
+
+
+  ## 언어화 위젯
+  flutter_localizations:
+    sdk: flutter
+
+
+  ## NetworkImageWithRetry. 사진 URL 이 없는 경우 에러 방지.
+  flutter_image: ^3.0.0
+
+  ## App State Management
+  provider: ^4.0.1
+
+  ## 사진을 찍거나 갤러리에서 가져온다.
   image_picker: ^0.6.6+1
-  permission_handler: ^5.0.0+hotfix.6
+
+  ## 사진을 찍거나 갤러리에서 가져와서 사진의 크기를 작게한다.
   flutter_image_compress: ^0.6.7
 
-  # NetworkImageWithRetry
-  flutter_image: ^3.0.0
+
+  ## iOS 에서 사진을 찍을 권한을 물어본다.
+  permission_handler: ^5.0.0+hotfix.6
+
+
+  ## Human readable time
+  time_formatter: ^1.0.0
+
+  # provider: ^4.0.1
+  # flutter_platform_widgets: ^0.50.0
+
+  # cloud_functions: ^0.4.2+3
+  # firebase_auth: ^0.16.0
+  # google_sign_in: ^4.4.6
+
+  # hive: ^1.4.1+1
+  # hive_flutter: ^0.3.0+2
+
+  # flutter_localizations:
+  #   sdk: flutter
+
+  # firebase_core: ^0.4.4+3
+  # firebase_storage: ^3.1.5
+
+  # image_picker: ^0.6.6+1
+  # permission_handler: ^5.0.0+hotfix.6
+  # flutter_image_compress: ^0.6.7
+
+  # # NetworkImageWithRetry
+  # flutter_image: ^3.0.0
 
 dev_dependencies:
   flutter_test:
