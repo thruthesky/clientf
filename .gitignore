@@ -1,3 +1,8 @@
+# App settings
+
+lib/settings.dart
+ios/Runner/GoogleService-Info.plist
+
 # Miscellaneous
 *.class
 *.log
