@@ -1,5 +1,10 @@
 import 'dart:async';
 
+import '../../flutter_engine/engine.defines.dart';
+import '../../flutter_engine/widgets/engine.button.dart';
+import '../../flutter_engine/widgets/engine.space.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+
 import '../../flutter_engine/engine.globals.dart';
 import '../../flutter_engine/widgets/engine.display_uploaded_images.dart';
 import '../../flutter_engine/widgets/engine.text.dart';
@@ -22,6 +27,7 @@ class _PostEditPageState extends State<PostEditPage> {
   EnginePost post = EnginePost();
   String postId;
   int progress = 0;
+  bool inSubmit = false;
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
@@ -119,8 +125,12 @@ class _PostEditPageState extends State<PostEditPage> {
                   },
                   onError: (e) => alert(t(e)),
                 ),
-                RaisedButton(
+                EngineButton(
+                  loader: inSubmit,
+                  text: isCreate ? CREATE_POST : UPDATE_POST,
                   onPressed: () async {
+                    if ( inSubmit ) return;
+                    setState(() => inSubmit = true);
                     try {
                       var re;
                       if (isCreate) {
@@ -128,15 +138,42 @@ class _PostEditPageState extends State<PostEditPage> {
                       } else {
                         re = await ef.postUpdate(getFormData());
                       }
-
                       back(arguments: re);
                     } catch (e) {
-                      print(e);
-                      alert(t(e));
+                      alert(e);
+                      setState(() => inSubmit = false);
                     }
                   },
-                  child: T(isCreate ? 'Create Post' : 'Update Post'),
                 ),
+                // RaisedButton(
+                //   /// 글 전송
+                //   onPressed: () async {
+                //     setState(() {
+                //       inSubmit = true;
+                //     });
+                //     try {
+                //       var re;
+                //       if (isCreate) {
+                //         re = await ef.postCreate(getFormData());
+                //       } else {
+                //         re = await ef.postUpdate(getFormData());
+                //       }
+                //       back(arguments: re);
+                //     } catch (e) {
+                //       print(e);
+                //       alert(t(e));
+                //     }
+                //   },
+                //   child: Row(
+                //     children: <Widget>[
+                //       if (inSubmit) ...[
+                //         PlatformCircularProgressIndicator(),
+                //         EngineSpace(),
+                //       ],
+                //       T(isCreate ? CREATE_POST : UPDATE_POST),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ],

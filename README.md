@@ -49,7 +49,8 @@
   * cd ios
   * pod install
 
-* `Firebase Stroage` 의 folder path 를 복사해서 `lib/settings.dart` 의 `storageLink` 에 집어 넣는다. 
+* `Firebase Stroage` 의 folder path 를 복사해서 `lib/settings.dart` 의 `storageLink` 에 집어 넣는다.
+  * `lib/settings.dart` 파일이 존재하지 않으면, `lib/settings.example.dart` 를 `lib/settings.dart`로 복사해서 수정하면 된다.
 * 앱을 실행한다.
 * 관리자 이메일로 로그인을 한다.
 * 카테고리에

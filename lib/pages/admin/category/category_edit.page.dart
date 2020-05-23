@@ -1,6 +1,10 @@
 import 'dart:async';
 
+import 'package:clientf/flutter_engine/engine.defines.dart';
+import 'package:clientf/flutter_engine/widgets/engine.button.dart';
+import 'package:clientf/flutter_engine/widgets/engine.space.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import '../../../flutter_engine/engine.category.model.dart';
 import '../../../flutter_engine/engine.globals.dart';
 import '../../../flutter_engine/widgets/engine.text.dart';
@@ -15,6 +19,7 @@ class CategoryEditPage extends StatefulWidget {
 
 class _CategoryEditPageState extends State<CategoryEditPage> {
   EngineCategory category;
+  bool inSubmit = false;
 
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
@@ -84,7 +89,8 @@ class _CategoryEditPageState extends State<CategoryEditPage> {
                 ),
               ),
             ],
-            if (isUpdate) Text(category.id),
+            if (isUpdate)
+              Text(category.id),
             AppSpace.halfBox,
             TextField(
               controller: _titleController,
@@ -101,10 +107,12 @@ class _CategoryEditPageState extends State<CategoryEditPage> {
                 hintText: t('input category description'),
               ),
             ),
-            RaisedButton(
+            EngineButton(
+              loader: inSubmit,
+              text: isCreate ? CREATE_CATEGORY : UPDATE_CATEGORY,
               onPressed: () async {
-                ///
-                print(getFormData());
+                if ( inSubmit ) return;
+                setState(() => inSubmit = true);
                 try {
                   var re;
                   if (isCreate)
@@ -113,12 +121,40 @@ class _CategoryEditPageState extends State<CategoryEditPage> {
                     re = await ef.categoryUpdate(getFormData());
                   back(arguments: re);
                 } catch (e) {
-                  alert(t(e));
-                  print(e);
+                  alert(e);
+                  setState(() => inSubmit = false);
                 }
               },
-              child: T('Category Submit'),
             ),
+            // RaisedButton(
+            //   onPressed: () async {
+            //     setState(() {
+            //       inSubmit = true;
+            //     });
+            //     ///
+            //     // print(getFormData());
+            //     try {
+            //       var re;
+            //       if (isCreate)
+            //         re = await ef.categoryCreate(getFormData());
+            //       else
+            //         re = await ef.categoryUpdate(getFormData());
+            //       back(arguments: re);
+            //     } catch (e) {
+            //       alert(t(e));
+            //       print(e);
+            //     }
+            //   },
+            //   child: Row(
+            //     children: <Widget>[
+            //       if (inSubmit) ...[
+            //         PlatformCircularProgressIndicator(),
+            //         EngineSpace(),
+            //       ],
+            //       T(isCreate ? CREATE_CATEGORY : UPDATE_CATEGORY),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
