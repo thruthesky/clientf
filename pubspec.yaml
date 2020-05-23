@@ -13,7 +13,7 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   provider: ^4.0.1
-  flutter_platform_widgets: ^0.32.5
+  flutter_platform_widgets: ^0.50.0
 
   cloud_functions: ^0.4.2+3
   firebase_auth: ^0.16.0

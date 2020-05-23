@@ -11,6 +11,7 @@ import '../../flutter_engine/widgets/engine.post_list.dart';
 import '../../flutter_engine/engine.forum.dart';
 import '../../flutter_engine/engine.post.model.dart';
 import '../../globals.dart';
+import '../../globals.dart';
 import '../../services/app.defines.dart';
 
 import '../../widgets/app.drawer.dart';
@@ -27,12 +28,20 @@ class _PostListPageState extends State<PostListPage> {
   void initState() {
     super.initState();
 
+    loadPage();
+  }
+
+  loadPage() {
     Timer(Duration(milliseconds: 10), () async {
       var _arg = routerArguments(context);
-
+      print('=> going to load ${_arg['id']}');
       forum.loadPage(
         id: _arg['id'],
         onLoad: () {
+          print('==> got post list ${_arg['id']}');
+          // back();
+          if (!mounted) return;
+          // loadPage();
           setState(() {/** posts loaded */});
         },
         onError: alert,
@@ -46,21 +55,21 @@ class _PostListPageState extends State<PostListPage> {
     return Scaffold(
       appBar: EngineAppBar(
         title: t(forum.id ?? ''),
-
         actions: PostCreateActionButton(forum.id, () async {
           final EnginePost post =
               await open(Routes.postCreate, arguments: {'id': forum.id});
           forum.addPost(post);
+          forum.scrollController.jumpTo(0);
 
           /// TODO: 글 쓴 후, 최 상위로 스크롤 업 할 것. 목록 중간에 스크롤이 된 경우, 맨 위에 글을 바로 볼 수 없다.
           setState(() {/** 새글 반영 */});
         }),
-
         onTapUserPhoto: () =>
             open(ef.loggedIn ? Routes.register : Routes.login),
       ),
       endDrawer: AppDrawer(),
       body: EnginePostList(
+        /// Forum Model 을 공유하기 위해서 자식으로 전달
         forum,
         onUpdate: (EnginePost post) async {
           /// 글 수정

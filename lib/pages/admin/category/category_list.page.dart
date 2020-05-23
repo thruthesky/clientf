@@ -1,3 +1,4 @@
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -29,6 +30,8 @@ class _CategoryListPageState extends State<CategoryListPage> {
       var data = await ef.categoryList();
 
       // open(AppRoutes.categoryUpdate, arguments: {'id': 'banana'}); // TEST
+
+      if (!mounted) return;
       setState(() {
         list = data;
         print(list);
@@ -72,8 +75,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
                       // var id = list.ids[i];
                       return ListTile(
                         title: Text(cat.id),
-                        subtitle: Text(
-                            '${cat.title}\n${cat.description}'),
+                        subtitle: Text('${cat.title}\n${cat.description}'),
                         trailing: Icon(Icons.keyboard_arrow_right),
                         onTap: () {
                           open(

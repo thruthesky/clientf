@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>767572519351-1jp52f51d30bb467af37rmnn45k6rtb8.apps.googleusercontent.com</string>
+	<string>562416492819-c68h40ms11818e8qkht1pg10qjocscbk.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.767572519351-1jp52f51d30bb467af37rmnn45k6rtb8</string>
+	<string>com.googleusercontent.apps.562416492819-c68h40ms11818e8qkht1pg10qjocscbk</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB97oFI4BDM08OFxjIGk8UCuN0ZEAe88l0</string>
+	<string>AIzaSyBpybxy_tgM955oerQxuj1DaRfRZLEXf80</string>
 	<key>GCM_SENDER_ID</key>
-	<string>767572519351</string>
+	<string>562416492819</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.flutterstudy.clientf</string>
+	<string>com.sonub.korean-flutter-community</string>
 	<key>PROJECT_ID</key>
-	<string>enginf-856e7</string>
+	<string>korean-flutter-community</string>
 	<key>STORAGE_BUCKET</key>
-	<string>enginf-856e7.appspot.com</string>
+	<string>korean-flutter-community.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,21 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:767572519351:ios:9b7b0264b2a88628132032</string>
+	<string>1:562416492819:ios:8be516f13a42a2bf31bae6</string>
 	<key>DATABASE_URL</key>
-	<string>https://enginf-856e7.firebaseio.com</string>
-<key>CFBundleURLTypes</key>
-<array>
-	<dict>
-		<key>CFBundleTypeRole</key>
-		<string>Editor</string>
-		<key>CFBundleURLSchemes</key>
-		<array>
-			<!-- TODO Replace this value: -->
-			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
-			<string>com.googleusercontent.apps.767572519351-1jp52f51d30bb467af37rmnn45k6rtb8</string>
-		</array>
-	</dict>
-</array>
+	<string>https://korean-flutter-community.firebaseio.com</string>
 </dict>
 </plist>

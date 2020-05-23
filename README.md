@@ -30,17 +30,45 @@
 
 ## 설치
 
+현재 Git repo 를 clone 또는 fork 해서 로컬 머신에서 테스트한다.
+
 * `git clone https://github.com/thruthesky/clientf`
 * `cd clientf`
 * `git submodule update --init`
+* `git submodule foreach git checkout master`
 
 ### iOS 설치 예제
 
-* ios/GoogleService-Info.plist 파일을 삭제한다.
+* ios/Runner/GoogleService-Info.plist 파일을 삭제한다.
 * Xcode 에서 Runner > Identity 에서 Bundle ID 를 기록한다.
 * 파이어프로젝트에서 iOS 앱을 추가하고, Bundle ID 를 동일하게 기록한다.
-* GoogleService-Info.plist 를 다운로드해서 Xcode 의 Runner > Runner 아래로 드래그해서 넣는다.
-* 끝! 앱을 실행하고, 회원가입 한 후, Auth 에 추가되는지 본다.
+* GoogleService-Info.plist 를 다운로드해서
+  * ios/Runner/ 폴더에 저장한 다음,
+  * Xcode 의 Runner > Runner 아래로 드래그해서 넣는다.
+* pod 설치를 한다.
+  * cd ios
+  * pod install
+
+* `Firebase Stroage` 의 folder path 를 복사해서 `lib/settings.dart` 의 `storageLink` 에 집어 넣는다. 
+* 앱을 실행한다.
+* 관리자 이메일로 로그인을 한다.
+* 카테고리에
+  * discussion 과 qna 두개를 만든다.
+  * 게시판 글 쓰기를 한다.
+  * 코멘트 글 쓰기를 한다.
+  * 사진 업로드를 한다.
+* 로그아웃을 하고,
+  * 회원 가입을 한다.
+  * 회원 정보 수정을 한다.
+  * 회원 사진 업로드를 한다.
+
+### Android 설치 예제
+
+* android/app/google-services.json 을 삭제한다.
+* Firebase console 에서 Android 앱을 추가하고, google-services.json 을 다운 받아
+  * android/app/google-services.json 에 복사한다.
+
+
 
 
 
