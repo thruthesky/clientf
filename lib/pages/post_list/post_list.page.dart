@@ -3,6 +3,7 @@ import 'package:clientf/flutter_engine/engine.forum_list.model.dart';
 import 'package:clientf/flutter_engine/widgets/forum/engine.post_view.dart';
 import 'package:clientf/widgets/app.padding.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../flutter_engine/engine.globals.dart';
@@ -68,6 +69,7 @@ class _PostListPageState extends State<PostListPage> {
           child: Consumer<EngineForumListModel>(
             builder: (context, model, child) {
               return ListView.builder(
+                shrinkWrap: true,
                 itemCount: model.posts.length,
                 controller: forum.scrollController,
                 itemBuilder: (context, i) {
