@@ -35,13 +35,13 @@ class _CommunityAppState extends State<CommunityApp> {
   _CommunityAppState() {
     ef = EngineModel(navigatorKey: app.navigatorKey, onError: alert);
 
-    Timer(
-      Duration(milliseconds: 100),
-      () => open(
-        Routes.postList,
-        arguments: {'id': 'discussion'},
-      ),
-    );
+    // Timer(
+    //   Duration(milliseconds: 100),
+    //   () => open(
+    //     Routes.postList,
+    //     arguments: {'id': 'discussion'},
+    //   ),
+    // );
   }
   @override
   Widget build(BuildContext context) {

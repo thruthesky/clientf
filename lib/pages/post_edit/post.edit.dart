@@ -1,10 +1,11 @@
 import 'dart:async';
 
+import 'package:clientf/flutter_engine/widgets/forum/engine.display_uploaded_images.dart';
+
 import '../../flutter_engine/engine.defines.dart';
 import '../../flutter_engine/widgets/engine.button.dart';
 
 import '../../flutter_engine/engine.globals.dart';
-import '../../flutter_engine/widgets/engine.display_uploaded_images.dart';
 import '../../flutter_engine/widgets/engine.text.dart';
 import '../../flutter_engine/widgets/engine.upload_icon.dart';
 import '../../flutter_engine/widgets/upload_progress_bar.dart';
@@ -138,6 +139,7 @@ class _PostEditPageState extends State<PostEditPage> {
                       } else {
                         re = await ef.postUpdate(getFormData());
                       }
+
                       back(arguments: re);
                     } catch (e) {
                       alert(e);

@@ -1,12 +1,11 @@
+import 'package:clientf/flutter_engine/widgets/latest_posts/engine.latest_posts.dart';
 import 'package:clientf/pages/home/widgets/home.top_menus.dart';
 import 'package:clientf/widgets/app.padding.dart';
 import 'package:flutter/material.dart';
 
 import '../../flutter_engine/engine.globals.dart';
 import '../../flutter_engine/widgets/engine.app_bar.dart';
-import '../../flutter_engine/widgets/engine.latest_posts.dart';
 
-import '../../flutter_engine/engine.forum.dart';
 import '../../globals.dart';
 import '../../services/app.defines.dart';
 
@@ -20,7 +19,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  EngineForum forum = EngineForum();
   _HomePageState() {
     //
   }
