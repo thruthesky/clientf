@@ -39,7 +39,10 @@ dependencies:
 
 
   ## NetworkImageWithRetry. 사진 URL 이 없는 경우 에러 방지.
-  flutter_image: ^3.0.0
+  # flutter_image: ^3.0.0
+
+  ## 이미지 캐시 및 URL 오류 방지
+  cached_network_image: ^2.2.0+1
 
   ## App State Management
   provider: ^4.0.1

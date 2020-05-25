@@ -11,6 +11,9 @@ import '../../flutter_engine/widgets/engine.app_bar.dart';
 import '../../flutter_engine/widgets/engine.post_create_action_button.dart';
 
 import '../../flutter_engine/engine.post.model.dart';
+import '../../flutter_engine/widgets/engine.space.dart';
+import '../../flutter_engine/widgets/engine.space.dart';
+import '../../flutter_engine/widgets/engine.text.dart';
 import '../../globals.dart';
 import '../../services/app.defines.dart';
 
@@ -66,17 +69,34 @@ class _PostListPageState extends State<PostListPage> {
         ),
         endDrawer: AppDrawer(),
         body: AppPadding(
-          child: Consumer<EngineForumListModel>(
-            builder: (context, model, child) {
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: model.posts.length,
-                controller: forum.scrollController,
-                itemBuilder: (context, i) {
-                  return EnginePostView(model.posts[i]);
-                },
-              );
-            },
+          child: SingleChildScrollView(
+            controller: forum.scrollController,
+            child: Consumer<EngineForumListModel>(
+              builder: (context, model, child) {
+                return Column(
+                  children: <Widget>[
+                    if (model.inLoading) PlatformCircularProgressIndicator(),
+                    ListView.builder(
+                      primary: false,
+                      shrinkWrap: true,
+                      // physics: NeverScrollableScrollPhysics(),
+                      itemCount: model.posts.length,
+                      itemBuilder: (context, i) {
+                        return EnginePostView(model.posts[i]);
+                      },
+                    ),
+                    if (model.inLoading) ...[
+                      PlatformCircularProgressIndicator(),
+                      EngineBigSpace()
+                    ],
+                    if (model.noMorePosts) ...[
+                      T('no more posts'),
+                      EngineBigSpace(),
+                    ],
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

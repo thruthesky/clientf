@@ -1,94 +1,84 @@
-import 'dart:async';
-
+import '../../../flutter_engine/engine.category_list.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:provider/provider.dart';
 
 import '../../../services/app.defines.dart';
-import '../../../flutter_engine/engine.category.model.dart';
-import '../../../flutter_engine/engine.category_list.model.dart';
+import '../../../flutter_engine/engine.category.helper.dart';
 import '../../../flutter_engine/engine.globals.dart';
 import '../../../flutter_engine/widgets/engine.text.dart';
 import '../../../globals.dart';
 import '../../../widgets/app.drawer.dart';
 
-class CategoryListPage extends StatefulWidget {
-  @override
-  _CategoryListPageState createState() => _CategoryListPageState();
-}
-
-class _CategoryListPageState extends State<CategoryListPage> {
-  EngineCategoryList list;
-
-  @override
-  void initState() {
-    loadCategories();
-    super.initState();
-  }
-
-  loadCategories() async {
-    try {
-      var data = await ef.categoryList();
-
-      // open(AppRoutes.categoryUpdate, arguments: {'id': 'banana'}); // TEST
-
-      if (!mounted) return;
-      setState(() {
-        list = data;
-        print(list);
-      });
-    } catch (e) {
-      /// mount check?
-      alert(t(e));
-    }
-  }
+class CategoryListPage extends StatelessWidget {
+  final EngineCategoryListModel categoryListModel = EngineCategoryListModel();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: T('category list'),
-      ),
-      endDrawer: AppDrawer(),
-      body: list == null
-          ? PlatformCircularProgressIndicator()
-          : Column(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => categoryListModel),
+      ],
+      child: Scaffold(
+        appBar: AppBar(
+          title: T('category list'),
+        ),
+        endDrawer: AppDrawer(),
+        body: Consumer<EngineCategoryListModel>(
+          builder: (context, model, child) {
+            if (model.inLoading)
+              return Center(
+                child: PlatformCircularProgressIndicator(),
+              );
+
+            return Column(
               children: <Widget>[
-                RaisedButton(
-                  onPressed: () async {
-                    final re = await open(Routes.categoryEdit);
-                    if (re != null) {
-                      /// TODO: update the list when it gets newly created category data.
-                      /// This is only for admin & There shouldn't be much categories.
-                      /// So, just reloading the whole category list will be fine.
-                      print('CategoryList::createCategory: $re');
-                      loadCategories();
-                    }
-                  },
-                  child: T('Create Category'),
-                ),
+                CreateCategoryButton(),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: list.categories.length,
+                    itemCount: model.list.categories.length,
                     itemBuilder: (context, i) {
-                      EngineCategory cat = list.categories[i];
-
-                      // var id = list.ids[i];
+                      EngineCategory cat = model.list.categories[i];
                       return ListTile(
                         title: Text(cat.id),
                         subtitle: Text('${cat.title}\n${cat.description}'),
                         trailing: Icon(Icons.keyboard_arrow_right),
-                        onTap: () {
-                          open(
-                            Routes.categoryEdit,
-                            arguments: {'category': cat},
-                          );
+                        onTap: () async {
+                          try {
+                            await open(
+                              Routes.categoryEdit,
+                              arguments: {'category': cat},
+                            );
+                            model.loadCategories();
+                          } catch (e) {
+                            alert(e);
+                          }
                         },
                       );
                     },
                   ),
                 ),
               ],
-            ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class CreateCategoryButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      onPressed: () async {
+        final re = await open(Routes.categoryEdit);
+        if (re != null) {
+          Provider.of<EngineCategoryListModel>(context, listen: false)
+              .loadCategories();
+        }
+      },
+      child: T('Create Category'),
     );
   }
 }

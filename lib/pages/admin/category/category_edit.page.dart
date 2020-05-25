@@ -2,10 +2,8 @@ import 'dart:async';
 
 import 'package:clientf/flutter_engine/engine.defines.dart';
 import 'package:clientf/flutter_engine/widgets/engine.button.dart';
-import 'package:clientf/flutter_engine/widgets/engine.space.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import '../../../flutter_engine/engine.category.model.dart';
+import '../../../flutter_engine/engine.category.helper.dart';
 import '../../../flutter_engine/engine.globals.dart';
 import '../../../flutter_engine/widgets/engine.text.dart';
 import '../../../globals.dart';
@@ -126,35 +124,6 @@ class _CategoryEditPageState extends State<CategoryEditPage> {
                 }
               },
             ),
-            // RaisedButton(
-            //   onPressed: () async {
-            //     setState(() {
-            //       inSubmit = true;
-            //     });
-            //     ///
-            //     // print(getFormData());
-            //     try {
-            //       var re;
-            //       if (isCreate)
-            //         re = await ef.categoryCreate(getFormData());
-            //       else
-            //         re = await ef.categoryUpdate(getFormData());
-            //       back(arguments: re);
-            //     } catch (e) {
-            //       alert(t(e));
-            //       print(e);
-            //     }
-            //   },
-            //   child: Row(
-            //     children: <Widget>[
-            //       if (inSubmit) ...[
-            //         PlatformCircularProgressIndicator(),
-            //         EngineSpace(),
-            //       ],
-            //       T(isCreate ? CREATE_CATEGORY : UPDATE_CATEGORY),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),

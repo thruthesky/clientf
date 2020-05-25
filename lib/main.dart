@@ -35,13 +35,13 @@ class _CommunityAppState extends State<CommunityApp> {
   _CommunityAppState() {
     ef = EngineModel(navigatorKey: app.navigatorKey, onError: alert);
 
-    Timer(
-      Duration(milliseconds: 100),
-      () => open(
-        Routes.postList,
-        arguments: {'id': 'discussion'},
-      ),
-    );
+    // Timer(
+    //   Duration(milliseconds: 100),
+    //   () => open(
+    //     Routes.postList,
+    //     arguments: {'id': 'discussion'},
+    //   ),
+    // );
   }
   @override
   Widget build(BuildContext context) {
@@ -58,10 +58,10 @@ class _CommunityAppState extends State<CommunityApp> {
       ],
       child: MaterialApp(
         theme: appTheme,
-        initialRoute: Routes.home,
+        // initialRoute: Routes.home,
         // initialRoute: Routes.login,
-        // initialRoute: Routes.categoryList,
-        // initialRoute: Routes.profile,
+        initialRoute: Routes.categoryList,
+        // initialRoute: Routes.register,
         // initialRoute: Routes.register,
         // initialRoute: Routes.admin,
         onGenerateRoute: AppRouter.generate,

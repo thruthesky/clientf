@@ -1,4 +1,3 @@
-
 import 'package:clientf/widgets/app.padding.dart';
 import 'package:flutter/material.dart';
 import '../../services/app.defines.dart';
@@ -27,7 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           AppPadding(
-                      child: EngineRegisterFrom(
+            child: EngineRegisterFrom(
               onError: alert,
               onRegisterSuccess: () => open(Routes.home),
               onUpdateSuccess: () => alert(t('profile updated')),

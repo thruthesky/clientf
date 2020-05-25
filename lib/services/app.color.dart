@@ -14,7 +14,5 @@ class AppColor {
   static final Color accentColor = Colors.grey[100];
   static final Color scaffoldBackgroundColor = Color(0xff88B8FF);
 
-
-
   static final Color divider = Colors.black38;
 }
