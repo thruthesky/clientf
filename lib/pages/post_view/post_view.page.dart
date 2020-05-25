@@ -1,5 +1,5 @@
-import 'package:clientf/flutter_engine/engine.forum_list.model.dart';
-import 'package:clientf/flutter_engine/widgets/forum/engine.post_view.dart';
+import '../../flutter_engine/engine.forum_list.model.dart';
+import '../../flutter_engine/widgets/forum/engine.post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../flutter_engine/widgets/engine.text.dart';

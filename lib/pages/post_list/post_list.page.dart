@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:clientf/flutter_engine/engine.forum_list.model.dart';
-import 'package:clientf/flutter_engine/widgets/forum/engine.post_view.dart';
-import 'package:clientf/widgets/app.padding.dart';
+import '../../flutter_engine/engine.forum_list.model.dart';
+import '../../flutter_engine/widgets/forum/engine.post_view.dart';
+import '../../widgets/app.padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +11,6 @@ import '../../flutter_engine/widgets/engine.app_bar.dart';
 import '../../flutter_engine/widgets/engine.post_create_action_button.dart';
 
 import '../../flutter_engine/engine.post.model.dart';
-import '../../flutter_engine/widgets/engine.space.dart';
 import '../../flutter_engine/widgets/engine.space.dart';
 import '../../flutter_engine/widgets/engine.text.dart';
 import '../../globals.dart';

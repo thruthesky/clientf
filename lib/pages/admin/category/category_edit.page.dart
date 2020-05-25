@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:clientf/flutter_engine/engine.defines.dart';
-import 'package:clientf/flutter_engine/widgets/engine.button.dart';
-import 'package:clientf/widgets/app.padding.dart';
+import '../../../flutter_engine/engine.defines.dart';
+import '../../../flutter_engine/widgets/engine.button.dart';
+import '../../../widgets/app.padding.dart';
 import 'package:flutter/material.dart';
 import '../../../flutter_engine/engine.category.helper.dart';
 import '../../../flutter_engine/engine.globals.dart';

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:clientf/flutter_engine/widgets/forum/engine.display_uploaded_images.dart';
+import '../../flutter_engine/widgets/forum/engine.display_uploaded_images.dart';
 
 import '../../flutter_engine/engine.defines.dart';
 import '../../flutter_engine/widgets/engine.button.dart';

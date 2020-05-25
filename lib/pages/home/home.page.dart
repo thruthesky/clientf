@@ -1,6 +1,6 @@
-import 'package:clientf/flutter_engine/widgets/latest_posts/engine.latest_posts.dart';
-import 'package:clientf/pages/home/widgets/home.top_menus.dart';
-import 'package:clientf/widgets/app.padding.dart';
+import '../../flutter_engine/widgets/latest_posts/engine.latest_posts.dart';
+import '../../pages/home/widgets/home.top_menus.dart';
+import '../../widgets/app.padding.dart';
 import 'package:flutter/material.dart';
 
 import '../../flutter_engine/engine.globals.dart';
