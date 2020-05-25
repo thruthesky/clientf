@@ -56,9 +56,9 @@ class _CommunityAppState extends State<CommunityApp> {
       ],
       child: MaterialApp(
         theme: appTheme,
-        // initialRoute: Routes.home,
+        initialRoute: Routes.home,
         // initialRoute: Routes.login,
-        initialRoute: Routes.categoryList,
+        // initialRoute: Routes.categoryList,
         // initialRoute: Routes.register,
         // initialRoute: Routes.register,
         // initialRoute: Routes.admin,

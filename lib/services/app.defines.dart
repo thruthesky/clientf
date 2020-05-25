@@ -8,8 +8,8 @@ class Routes {
   static String categoryEdit = 'categoryEdit';
   static String categoryList = 'categoryList';
   static String postList = 'postList';
-  static String postCreate = 'postCreate';
-  static String postUpdate = 'postCreate';
+  // static String postCreate = 'postCreate';
+  // static String postUpdate = 'postCreate';
   static String postView = 'postView';
   static String admin = 'admin';
 }

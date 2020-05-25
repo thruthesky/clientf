@@ -1,3 +1,5 @@
+// import '../pages/post_edit/post.edit.page.dart';
+
 import '../globals.dart';
 import '../pages/admin/admin.page.dart';
 import '../pages/admin/category/category_edit.page.dart';
@@ -5,7 +7,6 @@ import '../pages/admin/category/category_list.page.dart';
 import '../pages/help/help.page.dart';
 import '../pages/home/home.page.dart';
 import '../pages/login/login.page.dart';
-import '../pages/post_edit/post.edit.dart';
 import '../pages/post_list/post_list.page.dart';
 import '../pages/post_view/post_view.page.dart';
 import '../pages/register/register.page.dart';
@@ -57,8 +58,8 @@ class AppRouter {
       route = _buildRoute(settings, CategoryListPage());
     else if (settings.name == Routes.postList)
       route = _buildRoute(settings, PostListPage());
-    else if (settings.name == Routes.postCreate)
-      route = _buildRoute(settings, PostEditPage());
+    // else if (settings.name == Routes.postCreate)
+    //   route = _buildRoute(settings, PostEditPage());
     else if (settings.name == Routes.postView)
       route = _buildRoute(settings, PostViewPage());
     else if (settings.name == Routes.admin)

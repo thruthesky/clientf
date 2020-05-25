@@ -1,4 +1,6 @@
 import 'dart:async';
+import '../../flutter_engine/widgets/forum/engine.post_edit_form.dart';
+
 import '../../flutter_engine/engine.forum_list.model.dart';
 import '../../flutter_engine/widgets/forum/engine.post_view.dart';
 import '../../widgets/app.padding.dart';
@@ -56,13 +58,14 @@ class _PostListPageState extends State<PostListPage> {
       child: Scaffold(
         appBar: EngineAppBar(
           title: t(forum.id ?? ''),
-          actions: PostCreateActionButton(() async {
-            final EnginePost post = await open(
-              Routes.postCreate,
-              arguments: {'id': forum.id},
-            );
-            forum.addPost(post);
-          }),
+          actions: PostCreateActionButton(
+            () async {
+              EnginePost _post = await openDialog(
+                EnginePostEditForm(id: forum.id),
+              );
+              forum.addPost(_post);
+            },
+          ),
           onTapUserPhoto: () =>
               open(ef.loggedIn ? Routes.register : Routes.login),
         ),
