@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:clientf/flutter_engine/engine.defines.dart';
 import 'package:clientf/flutter_engine/widgets/engine.button.dart';
+import 'package:clientf/widgets/app.padding.dart';
 import 'package:flutter/material.dart';
 import '../../../flutter_engine/engine.category.helper.dart';
 import '../../../flutter_engine/engine.globals.dart';
@@ -18,6 +19,7 @@ class CategoryEditPage extends StatefulWidget {
 class _CategoryEditPageState extends State<CategoryEditPage> {
   EngineCategory category;
   bool inSubmit = false;
+  bool inDelete = false;
 
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
@@ -60,9 +62,6 @@ class _CategoryEditPageState extends State<CategoryEditPage> {
           _descriptionController.text = category.description;
         });
       }
-      // print(category);
-      // print(category.runtimeType);
-      // // var _data = await ef.categoryData(arguments['id']);
     });
   }
 
@@ -73,58 +72,89 @@ class _CategoryEditPageState extends State<CategoryEditPage> {
         title: T(isCreate ? category?.id ?? '' : 'category create'),
       ),
       endDrawer: AppDrawer(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            if (isCreate) ...[
+      body: AppPadding(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              if (isCreate) ...[
+                AppSpace.halfBox,
+                TextField(
+                  controller: _idController,
+                  onSubmitted: (text) {},
+                  decoration: InputDecoration(
+                    hintText: t('input category id'),
+                  ),
+                ),
+              ],
+              if (isUpdate) Text(category.id),
               AppSpace.halfBox,
               TextField(
-                controller: _idController,
+                controller: _titleController,
                 onSubmitted: (text) {},
                 decoration: InputDecoration(
-                  hintText: t('input category id'),
+                  hintText: t('input category title'),
                 ),
               ),
+              AppSpace.halfBox,
+              TextField(
+                controller: _descriptionController,
+                onSubmitted: (text) {},
+                decoration: InputDecoration(
+                  hintText: t('input category description'),
+                ),
+              ),
+              EngineButton(
+                loader: inSubmit,
+                text: isCreate ? CREATE_CATEGORY : UPDATE_CATEGORY,
+                onPressed: () async {
+                  if (inSubmit) return;
+                  setState(() => inSubmit = true);
+                  try {
+                    var re;
+                    if (isCreate)
+                      re = await ef.categoryCreate(getFormData());
+                    else
+                      re = await ef.categoryUpdate(getFormData());
+                    back(arguments: re);
+                  } catch (e) {
+                    alert(e);
+                    setState(() => inSubmit = false);
+                  }
+                },
+              ),
+              if (isUpdate)
+                EngineButton(
+                  loader: inDelete,
+                  text: DELETE_CATEGORY,
+                  onPressed: () async {
+                    if (inDelete) return;
+
+                    /// 코멘트 삭제
+                    confirm(
+                      title: t(CONFIRM_COMMENT_DELETE_TITLE),
+                      content: t(CONFIRM_COMMENT_DELETE_CONTENT),
+                      onYes: () async {
+                        setState(() => inDelete = true);
+                        try {
+                          var re =
+                              await ef.categoryDelete({'id': this.category.id});
+                          print('re: ');
+                          print(re);
+                          back(arguments: re);
+                        } catch (e) {
+                          alert(e);
+                          setState(() => inDelete = false);
+                        }
+                      },
+                      onNo: () {
+                        // print('no');
+                      },
+                    );
+                  },
+                ),
             ],
-            if (isUpdate)
-              Text(category.id),
-            AppSpace.halfBox,
-            TextField(
-              controller: _titleController,
-              onSubmitted: (text) {},
-              decoration: InputDecoration(
-                hintText: t('input category title'),
-              ),
-            ),
-            AppSpace.halfBox,
-            TextField(
-              controller: _descriptionController,
-              onSubmitted: (text) {},
-              decoration: InputDecoration(
-                hintText: t('input category description'),
-              ),
-            ),
-            EngineButton(
-              loader: inSubmit,
-              text: isCreate ? CREATE_CATEGORY : UPDATE_CATEGORY,
-              onPressed: () async {
-                if ( inSubmit ) return;
-                setState(() => inSubmit = true);
-                try {
-                  var re;
-                  if (isCreate)
-                    re = await ef.categoryCreate(getFormData());
-                  else
-                    re = await ef.categoryUpdate(getFormData());
-                  back(arguments: re);
-                } catch (e) {
-                  alert(e);
-                  setState(() => inSubmit = false);
-                }
-              },
-            ),
-          ],
+          ),
         ),
       ),
     );
