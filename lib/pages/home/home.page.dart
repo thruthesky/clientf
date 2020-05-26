@@ -1,4 +1,4 @@
-import 'package:clientf/flutter_engine/widgets/engine.post_create_action_button.dart';
+import '../../flutter_engine/widgets/engine.post_create_action_button.dart';
 
 import '../../flutter_engine/widgets/latest_posts/engine.latest_posts.dart';
 import '../../pages/home/widgets/home.top_menus.dart';
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               HomeTopMenus(),
               EngineLatestPosts(
-                'discussion',
+                ['discussion', 'qna'],
                 onTap: (post) =>
                     open(Routes.postView, arguments: {'post': post}),
                 onError: alert,

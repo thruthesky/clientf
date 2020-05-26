@@ -1,5 +1,6 @@
 import 'dart:async';
-import '../../flutter_engine/widgets/forum/engine.post_edit_form.dart';
+
+import '../../flutter_engine/engine.defines.dart';
 
 import '../../flutter_engine/engine.forum_list.model.dart';
 import '../../flutter_engine/widgets/forum/engine.post_view.dart';
@@ -12,7 +13,6 @@ import '../../flutter_engine/engine.globals.dart';
 import '../../flutter_engine/widgets/engine.app_bar.dart';
 import '../../flutter_engine/widgets/engine.post_create_action_button.dart';
 
-import '../../flutter_engine/engine.post.model.dart';
 import '../../flutter_engine/widgets/engine.space.dart';
 import '../../flutter_engine/widgets/engine.text.dart';
 import '../../globals.dart';
@@ -36,7 +36,7 @@ class _PostListPageState extends State<PostListPage> {
       var _args = routerArguments(context);
       forum.init(
         id: _args['id'],
-        cacheKey: _args['id'],
+        cacheKey: EngineCacheKey.forumList(_args['id']),
         limit: 5,
       );
     });
@@ -79,7 +79,8 @@ class _PostListPageState extends State<PostListPage> {
               builder: (context, model, child) {
                 return Column(
                   children: <Widget>[
-                    if (model.inLoading) PlatformCircularProgressIndicator(),
+                    if (model.inLoading && forum.pageNo == 1) /// 첫 페이지 로더는 맨 위에만
+                      PlatformCircularProgressIndicator(),
                     ListView.builder(
                       primary: false,
                       shrinkWrap: true,
@@ -89,7 +90,7 @@ class _PostListPageState extends State<PostListPage> {
                         return EnginePostView(model.posts[i]);
                       },
                     ),
-                    if (model.inLoading) ...[
+                    if (model.inLoading && forum.pageNo > 1) ...[ /// 두번 째 페이지 부터 로더는 맨 아래만 
                       PlatformCircularProgressIndicator(),
                       EngineBigSpace()
                     ],

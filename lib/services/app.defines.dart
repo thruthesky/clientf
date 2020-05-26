@@ -1,4 +1,6 @@
 
+import '../flutter_engine/engine.defines.dart';
+
 class Routes {
   static String home = 'home';
   static String register = 'register';
@@ -7,9 +9,7 @@ class Routes {
   static String help = 'help';
   static String categoryEdit = 'categoryEdit';
   static String categoryList = 'categoryList';
-  static String postList = 'postList';
-  // static String postCreate = 'postCreate';
-  // static String postUpdate = 'postCreate';
+  static String postList = EngineRoutes.postList;
   static String postView = 'postView';
   static String admin = 'admin';
 }

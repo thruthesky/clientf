@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -33,13 +35,18 @@ class _CommunityAppState extends State<CommunityApp> {
   _CommunityAppState() {
     ef = EngineModel(navigatorKey: app.navigatorKey, onError: alert);
 
-    // Timer(
-    //   Duration(milliseconds: 100),
-    //   () => open(
-    //     Routes.postList,
-    //     arguments: {'id': 'discussion'},
-    //   ),
-    // );
+
+    /// 테스트 용도
+    /// 
+    /// 앱이 부팅하자 마자 게시판 카테고리로 이동하게 한다.
+    /// 게시판 목록에서 작업을 할 때 편리.
+    Timer(
+      Duration(milliseconds: 100),
+      () => open(
+        Routes.postList,
+        arguments: {'id': 'discussion'},
+      ),
+    );
   }
   @override
   Widget build(BuildContext context) {
