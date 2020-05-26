@@ -18,6 +18,6 @@ void back({arguments}) {
   Navigator.pop(app.context, arguments);
 }
 
-dynamic routerArguments(context) {
+Map<dynamic, dynamic> routerArguments(context) {
   return ModalRoute.of(context).settings.arguments;
 }

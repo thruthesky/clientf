@@ -28,7 +28,7 @@ class HomeTopMenus extends StatelessWidget {
         ),
         RaisedButton(
           onPressed: () {
-            open(Routes.postList, arguments: {'id': 'qna'});
+            open(Routes.postList, arguments: {'id': 'news'});
           },
           child: T('News'),
         ),

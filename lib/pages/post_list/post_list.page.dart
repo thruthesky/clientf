@@ -43,6 +43,11 @@ class _PostListPageState extends State<PostListPage> {
     super.initState();
   }
 
+  String get title {
+    var _args = routerArguments(context);
+    return _args['id'];
+  }
+
   @override
   void dispose() {
     forum.disposed();
@@ -51,20 +56,17 @@ class _PostListPageState extends State<PostListPage> {
 
   @override
   Widget build(BuildContext context) {
+    var _args = routerArguments(context);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => forum),
       ],
       child: Scaffold(
         appBar: EngineAppBar(
-          title: t(forum.id ?? ''),
-          actions: PostCreateActionButton(
-            () async {
-              EnginePost _post = await openDialog(
-                EnginePostEditForm(id: forum.id),
-              );
-              forum.addPost(_post);
-            },
+          title: t(title),
+          actions: EnginePostCreateActionButton(
+            id: _args['id'],
+            forum: forum,
           ),
           onTapUserPhoto: () =>
               open(ef.loggedIn ? Routes.register : Routes.login),

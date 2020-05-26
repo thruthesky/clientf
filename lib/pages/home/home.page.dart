@@ -1,3 +1,5 @@
+import 'package:clientf/flutter_engine/widgets/engine.post_create_action_button.dart';
+
 import '../../flutter_engine/widgets/latest_posts/engine.latest_posts.dart';
 import '../../pages/home/widgets/home.top_menus.dart';
 import '../../widgets/app.padding.dart';
@@ -35,6 +37,7 @@ class _HomePageState extends State<HomePage> {
         title: t('appName'),
         onTapUserPhoto: () =>
             open(ef.loggedIn ? Routes.register : Routes.login),
+        actions: EnginePostCreateActionButton(),
       ),
       endDrawer: AppDrawer(),
       body: AppPadding(
@@ -57,4 +60,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
