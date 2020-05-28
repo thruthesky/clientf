@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import '../../flutter_engine/engine.defines.dart';
+import 'package:clientf/flutter_engine/engine.firestore_forum_list.model.dart';
 
-import '../../flutter_engine/engine.forum_list.model.dart';
 import '../../flutter_engine/widgets/forum/engine.post_view.dart';
 import '../../widgets/app.padding.dart';
 import 'package:flutter/material.dart';
@@ -28,18 +27,28 @@ class PostListPage extends StatefulWidget {
 class _PostListPageState extends State<PostListPage> {
   // EngineForum forum = EngineForum();
 
-  EngineForumListModel forum = EngineForumListModel();
+  // EngineForumListModel forum = EngineForumListModel();
 
+  EngineFirestoreForumModel forum = EngineFirestoreForumModel();
   @override
   void initState() {
-    Timer(Duration(milliseconds: 100), () {
-      var _args = routerArguments(context);
-      forum.init(
-        id: _args['id'],
-        cacheKey: EngineCacheKey.forumList(_args['id']),
-        limit: 20,
-      );
-    });
+    print('_PostListPageState::initState()');
+    Timer(
+      Duration(milliseconds: 100),
+      () {
+        var _args = routerArguments(context);
+
+        forum.init(
+          id: _args['id'],
+          cacheKey: 'forum-list-' + _args['id'],
+          limit: 10,
+          onLoad: (posts) {
+            print('loaded by firestore.');
+          },
+        );
+      },
+    );
+
     super.initState();
   }
 
@@ -50,7 +59,7 @@ class _PostListPageState extends State<PostListPage> {
 
   @override
   void dispose() {
-    forum.disposed();
+    forum.disposed = true;
     super.dispose();
   }
 
@@ -75,22 +84,25 @@ class _PostListPageState extends State<PostListPage> {
         body: AppPadding(
           child: SingleChildScrollView(
             controller: forum.scrollController,
-            child: Consumer<EngineForumListModel>(
+            child: Consumer<EngineFirestoreForumModel>(
               builder: (context, model, child) {
                 return Column(
                   children: <Widget>[
-                    if (model.inLoading && forum.pageNo == 1) /// 첫 페이지 로더는 맨 위에만
+                    if (model.inLoading && forum.pageNo == 1)
+
+                      /// 첫 페이지 로더는 맨 위에만
                       PlatformCircularProgressIndicator(),
                     ListView.builder(
                       primary: false,
                       shrinkWrap: true,
-                      // physics: NeverScrollableScrollPhysics(),
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: model.posts.length,
                       itemBuilder: (context, i) {
                         return EnginePostView(model.posts[i]);
                       },
                     ),
-                    if (model.inLoading && forum.pageNo > 1) ...[ /// 두번 째 페이지 부터 로더는 맨 아래만 
+                    if (model.inLoading && forum.pageNo > 1) ...[
+                      /// 두번 째 페이지 부터 로더는 맨 아래만
                       PlatformCircularProgressIndicator(),
                       EngineBigSpace()
                     ],
